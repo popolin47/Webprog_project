@@ -59,49 +59,76 @@ const SearchHome = () => {
   };
 
   return (
-    <div className="bg-[#F5F5F5]">
+    
+    <div >
+    <div className="bg-[#880501] text-white w-full py-4 text-center">
+        <h1 className=' text-3xl text-white'>Search</h1>
+      </div>
+
+    <div >
+      
       <form onSubmit={handleSearchSubmit} >
-        <div >
-          <label  htmlFor="searchName">
-            Product Name:
-          </label>
-          <input
-            
-            id="searchName"
-            type="text"
-            placeholder="Enter product name"
-            value={searchQuery}
-            onChange={handleSearchChange}
-          />
+        <div className="flex flex-col w-full h-1/2 justify-between">
+          {/* Name */}
+          <div className='text-xs section flex flex-row w-full gap-4  h-1/2 justify-between'>
+            <label className='text-[#D9D9D9] text-left' htmlFor="searchName">
+              Product Name:
+            </label>
+            <input
+              className='justify-items-end ml-4'
+              id="searchName"
+              type="text"
+              placeholder="Enter product name"
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+          </div>
+          {/* Brand */}
+          <div >
+            <label  htmlFor="searchName">
+              Product Name:
+            </label>
+            <input
+              
+              id="searchName"
+              type="text"
+              placeholder="Enter product name"
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+          </div>
+
+          {/* category choices */}
+          <div >
+            <label  htmlFor="category">
+              Category:
+            </label>
+            <select
+              
+              id="category"
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+            >
+              {catagory.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
-        <div >
-          <label  htmlFor="category">
-            Category:
-          </label>
-          <select
-            
-            id="category"
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-          >
-            {catagory.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
 
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500"
             type="submit"
           >
             Search
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 };
