@@ -7,6 +7,7 @@ import Home from './Home';
 import Navbarwithsearch from './Navbarwithsearch';
 import SearchHome from './SearchHome';
 import ProductDetail from './ProductDetail';
+import SearchResultPage from './result_product';
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -46,6 +47,10 @@ class App extends React.Component {
             
               <Route path="/ProductDetail">
                 <ProductDetail/>
+              </Route>
+
+              <Route path="/result_product">
+                <SearchResultPage/>
               </Route>
 
             </Switch>
