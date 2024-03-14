@@ -1,19 +1,34 @@
 import { Link } from 'react-router-dom';
-
+import logo from './asset/img/logo.png';
+import React, {useState} from 'react';
+import { GoSearch } from "react-icons/go";
 const Navbarwithsearch = () => {
     return ( 
-        <nav className="navbar">
-            <h1>Shoppingweb</h1>
-            <div className="links" style={{
-                    color: "black", backgroundColor: "green", 
-                }}>
-                <Link to="/">About us</Link>
-                <Link to="/create" style={{
-                    color: "white", backgroundColor: "pink",borderRadius: '15px 50px 30px 5px'
-                }}>blog</Link>
-                <a href="/create">cart</a>
+        <nav className="navbar"style={{
+            color: "black", backgroundColor: "black", 
+    }}>
+    <img style={{ width: 80, height: 80 }} src={logo} alt="logo"/>
+    
+    <div className= "whitebox">
+        <div className="box">
+            <div className="searchcicon">
+                <GoSearch />
             </div>
-        </nav>
+        </div>
+    </div>
+    <div className="links" >
+        <Link className="button" to="/" style={{
+            color: "white", backgroundColor: "red"
+        }}>About us</Link>
+        
+        <Link className="button" to="/" style={{
+            color: "white", backgroundColor: "red"
+        }}>Login</Link>
+       
+ </div>
+
+    
+</nav>
      );
 }
  
