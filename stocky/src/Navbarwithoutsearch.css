@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between; /* Align logo, search box, and links at the ends */
     align-items: center;
-    max-width: 900px;
+   
     margin: 0 auto;
     border-bottom: 1px solid #e66b4b;
   }
