@@ -1,17 +1,28 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 * {
     font-family: "Roboto",serif;
-  }
+  } 
+
+body{
+    background-image: url('ฺBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 .container {
     background-color: #ffffff; /* Change this color to your desired background color */
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-   
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .form-group {
@@ -26,11 +37,12 @@ label {
 }
 
 input {
-    width: 100%;
-    padding: 8px;
+    padding: 3%;
+    width: 85%;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: #ffffff;
+    margin-top: auto;
 }
 
 button {
@@ -58,6 +70,8 @@ button:hover {
 
 h2{
     background-color: #ffffff;
+    font-size: 40px;
+    margin-top: 50px;
 }
 
 #enter{
@@ -66,3 +80,4 @@ h2{
     border-radius: 20px;
     font-size: 16px;
 }
+

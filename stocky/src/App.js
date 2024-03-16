@@ -9,16 +9,16 @@ import SearchHome from './SearchHome';
 import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
-import Sidebar from './Sidebar';
-import Productmanage from './productManage';
+import Login from './Login';
+import Aboutus from './Aboutus';
+
+
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
     const like = 4;
     const person = {name: 'jin', age: 12};
     
-
-  
     
     return (
       <Router>

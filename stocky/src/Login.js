@@ -5,20 +5,19 @@ import './Login.css';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory();
 
     const handleLogin = () => {
         console.log("Username:", username);
         console.log("Password:", password);
 
-        history.push('/Home');
     };
 
     return (
+        
        <div className="container">
             <h2>Log In</h2>
             <div className="form-group">
-                <label htmlFor="username" id="user">Username:</label>
+                <label htmlFor="username" id="user"></label>
                 <input 
                     type="text" 
                     id="username" 
@@ -28,7 +27,7 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="password"id="pass">Password:</label>
+                <label htmlFor="password"id="pass"></label>
                 <input 
                     type="password" 
                     id="password" 
@@ -38,7 +37,9 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-                <button onClick={handleLogin} id="enter">Enter</button>
+                <Link to="/Searchhome" id="enter">
+                    Enter
+                </Link>
             </div>
         </div>
    
