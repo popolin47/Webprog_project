@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
 
     const handleLogin = () => {
         console.log("Username:", username);
         console.log("Password:", password);
-
+        history.push('/productdetail');
     };
-
+    const Forgot = () => {
+        history.push('/productdetail');
+    };
     return (
         
        <div className="container">
@@ -37,9 +40,8 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-                <Link to="/Searchhome" id="enter">
-                    Enter
-                </Link>
+            <Link to="/productdetail" id="forgot">Forgot password <br/></Link>
+             <button onClick={handleLogin} id="enter">Enter</button>
             </div>
         </div>
    
