@@ -27,11 +27,13 @@ body{
 
 .form-group {
     margin-bottom: 40px;
+    background-color: #ffffff;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
+    background-color: #ffffff;
 }
 
 input {
