@@ -78,17 +78,21 @@ const SearchHome = () => {
 
   return (
     <div>
-      <div className="bg-[#880501] text-white w-full py-4 text-center">
-        <h1 className=' text-3xl text-white'>Search</h1>
-      </div>
+      
 
       <div>
         <form onSubmit={handleSearchSubmit}>
-          <div className='mx-3'>
-            <div className="flex flex-col w-full h-1/2 justify-between">
+          <div className=' my-12 mx-36'>
+            <div className="flex flex-col w-full h-1/2 items-center justify-between ">
+
+            <div className="bg-[#880501] text-white w-full py-4 text-center ">
+              <h1 className=' text-3xl text-white'>Search</h1>
+            </div>
+
+            
               {/* Name */}
               <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
-                <label className='text-black text-xl text-left' htmlFor="searchName">
+                <label className='text-black text-xl text-left ml-12' htmlFor="searchName">
                   Name:
                 </label>
                 <input
@@ -102,8 +106,8 @@ const SearchHome = () => {
               </div>
 
               {/* Brand */}
-              <div className='text-lg section flex flex-row w-full gap-4 h-full justify-between my-4'>
-                <label htmlFor="searchBrand">
+              <div className='text-lg section  flex flex-row w-full gap-4 h-full justify-between my-4'>
+                <label className='ml-12' htmlFor="searchBrand">
                   Brand:
                 </label>
                 <input
@@ -117,7 +121,7 @@ const SearchHome = () => {
 
               {/* Available */}
               <div className='text-lg section flex flex-row w-full gap-4 h-full justify-between my-4'>
-                <label htmlFor="searchAvailable">
+                <label className='ml-12' htmlFor="searchAvailable">
                   Available:
                 </label>
                 <div className="flex mr-28">
@@ -133,7 +137,7 @@ const SearchHome = () => {
 
               {/* category choices */}
               <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
-                <label htmlFor="category">
+                <label className='ml-12' htmlFor="category">
                   Category:
                 </label>
                 <select
@@ -149,6 +153,7 @@ const SearchHome = () => {
                   ))}
                 </select>
               </div>
+              
             </div>
             <div className="flex justify-center mt-8 gap-5">
               <button
