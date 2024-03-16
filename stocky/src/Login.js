@@ -15,10 +15,10 @@ const Login = () => {
     };
 
     return (
-        <div className="container">
-            <h2>Login Form</h2>
+       <div className="container">
+            <h2>Log In</h2>
             <div className="form-group">
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username" id="user">Username:</label>
                 <input 
                     type="text" 
                     id="username" 
@@ -28,7 +28,7 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password"id="pass">Password:</label>
                 <input 
                     type="password" 
                     id="password" 
@@ -38,9 +38,10 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-                <button onClick={handleLogin}>Enter</button>
+                <button onClick={handleLogin} id="enter">Enter</button>
             </div>
         </div>
+   
     );
 };
 
