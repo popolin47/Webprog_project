@@ -9,7 +9,8 @@ import SearchHome from './SearchHome';
 
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
-import SearchResultPage from './result_product';
+import { Sidebar } from 'react-pro-sidebar';
+import Aboutus from './Aboutus';
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -56,9 +57,19 @@ class App extends React.Component {
               <Route path="/ProductDetail">
                 <ProductDetail/>
               </Route>
+
               <Route path="/aboutus">
                 <Aboutus/>
               </Route>
+
+              <Route path="/ProductMange">
+                <ProductMange/>
+              </Route>
+
+              <Route path="/AddProduct">
+                <AddProduct/>
+              </Route>
+
             </Switch>
           </div>
         </div>
