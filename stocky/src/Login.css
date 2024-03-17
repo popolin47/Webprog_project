@@ -12,27 +12,26 @@ body{
 }
 
 .container {
-    background-color: #ffffff; /* Change this color to your desired background color */
+    background-color: #ffffff;
     width: 600px;
     height: 600px;
-    padding: 20px;
+    padding: 5%;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center; /* Center the content horizontally */
 }
 
 .form-group {
     margin-bottom: 40px;
-    background-color: #ffffff;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
-    background-color: #ffffff;
 }
 
 input {
@@ -40,17 +39,18 @@ input {
     width: 85%;
     border: 1px solid #ccc;
     border-radius: 3px;
-    background-color: #ffffff;
     margin-top: auto;
 }
 
 #enter {
-    width: 100%;
+    width: 150px;
+    height: 70px;
+    border-radius: 20px;
+    font-size: 16px;
     padding: 8px;
     background-color: #851515;
     color: #fff;
     border: none;
-    border-radius: 3px;
     cursor: pointer;
 }
 
@@ -58,29 +58,27 @@ input {
     background-color: #000000;
 }
 
-#user{
+#user {
     text-align: left;
     margin-top: 30px;
 }
 
-#pass{
+#pass {
     text-align: left;
+    margin-bottom: 0%;
+    padding-bottom: 0%;
 }
 
-h2{
+h2 {
     background-color: #ffffff;
-    font-size: 40px;
+    font-size: px;
     margin-top: 50px;
 }
 
-#enter{
-    width: 150px;
-    height: 70px;
-    border-radius: 20px;
-    font-size: 16px;
+#forgot {
+    text-align: right; 
+    display: flex; 
+    justify-content: flex-end;
+    margin-top: 0%; 
+    padding-top: 0%; 
 }
-
-#forgot{
-    text-align: right;
-}
-

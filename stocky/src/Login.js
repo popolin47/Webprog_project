@@ -15,8 +15,7 @@ const Login = () => {
     const Forgot = () => {
         history.push('/productdetail');
     };
-    return (
-        
+    return ( 
        <div className="container">
             <h2>Log In</h2>
             <div className="form-group">

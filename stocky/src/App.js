@@ -10,7 +10,9 @@ import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Login from './Login';
-import Aboutus from './Aboutus';
+import productManage from './productManage';
+import AddProduct from './AddProduct';
+
 
 
 class App extends React.Component {
@@ -50,11 +52,6 @@ class App extends React.Component {
                 <Navbarwithoutsearch/>
                 <SearchHome />
               </Route>
-
-              <Route path="/result_product">
-                <Navbarwithoutsearch/>
-                <SearchResultPage/>
-              </Route>
             
               <Route path="/ProductDetail">
                 <ProductDetail/>
@@ -64,10 +61,20 @@ class App extends React.Component {
               <Navbarwithsearch/>
                 <Aboutus/>
               </Route>
-              <Route path="/productmanage">
-              <Sidebar/>
-                <Productmanage/>
+
+              <Route path="/productMange">
+                <productMange/>
               </Route>
+
+              <Route path="/AddProduct">
+                <AddProduct/>
+              </Route>
+
+              <Route path="/Login">
+                <Navbarwithsearch/>
+                <Login/>
+              </Route>
+
             </Switch>
           </div>
         </div>
