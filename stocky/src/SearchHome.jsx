@@ -8,6 +8,7 @@ const Product = [
     catagory: 'Man',
     brand: 'Adibas',
     avaliable: 3,
+    price: 233,
     size: 'UK35',
   },
   {
@@ -15,6 +16,7 @@ const Product = [
     pro_name: 'shoes2',
     catagory: 'Women',
     brand: 'Nike',
+    price: 233,
     avaliable: 0,
     size: 'UK36',
   },
@@ -23,6 +25,7 @@ const Product = [
     pro_name: 'shoes3',
     catagory: 'Kid',
     brand: 'Aria',
+    price: 233,
     avaliable: 1,
     size: 'UK35',
   },
@@ -63,17 +66,17 @@ const SearchHome = () => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-
-    const matchingProductIds = Product.filter((product) => {
+  
+    const matchingProducts = Product.filter((product) => {
       const nameMatches = !searchName || product.pro_name.toLowerCase().includes(searchName.toLowerCase());
       const brandMatches = !searchBrand || product.brand.toLowerCase().includes(searchBrand.toLowerCase());
       const categoryMatches = !selectedCategory || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
       const availabilityMatches = !isAvailable || product.avaliable >= 1;
-
+  
       return nameMatches && brandMatches && categoryMatches && availabilityMatches;
-    }).map((matchedProduct) => matchedProduct.productID);
-
-    history.push('/result_product', { matchingProductIds });
+    });
+  
+    history.push('/result_product', { matchingProducts });
   };
 
   return (

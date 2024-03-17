@@ -2,14 +2,14 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './App.css';
 import Blogdetails from './Blogdetails';
-import Create from './Create';
 import Home from './Home';
-import Navbarwithsearch from './Navbarwithsearch';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
+import Navbarwithsearch from './Navbarwithsearch';
 import SearchHome from './SearchHome';
-import ProductDetail from './ProductDetail';
-import { Sidebar } from 'react-pro-sidebar';
+
 import Aboutus from './Aboutus';
+import ProductDetail from './ProductDetail';
+import SearchResultPage from './result_product';
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -46,6 +46,11 @@ class App extends React.Component {
               <Route path="/Searchhome">
                 <Navbarwithoutsearch/>
                 <SearchHome />
+              </Route>
+
+              <Route path="/result_product">
+                <Navbarwithoutsearch/>
+                <SearchResultPage/>
               </Route>
             
               <Route path="/ProductDetail">
