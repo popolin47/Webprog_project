@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './App.css';
 import Blogdetails from './Blogdetails';
-import Create from './Create';
 import Home from './Home';
-import Navbarwithsearch from './Navbarwithsearch';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
+import Navbarwithsearch from './Navbarwithsearch';
 import SearchHome from './SearchHome';
+import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
 import Aboutus from './Aboutus';
@@ -48,10 +48,16 @@ class App extends React.Component {
                 <Navbarwithoutsearch/>
                 <SearchHome />
               </Route>
+
+              <Route path="/result_product">
+                <Navbarwithoutsearch/>
+                <SearchResultPage/>
+              </Route>
             
               <Route path="/ProductDetail">
                 <ProductDetail/>
               </Route>
+
               <Route path="/aboutus">
               <Navbarwithsearch/>
                 <Aboutus/>

@@ -3,6 +3,7 @@ import logo from './asset/img/logo.png';
 import React, {useState} from 'react';
 import { GoSearch } from "react-icons/go";
 import './Navbarwithoutsearch.css';
+
 const Navbarwithsearch = () => {
     return ( 
         <nav className="navbar"style={{
