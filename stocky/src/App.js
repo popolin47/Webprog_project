@@ -6,7 +6,6 @@ import Home from './Home';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import Navbarwithsearch from './Navbarwithsearch';
 import SearchHome from './SearchHome';
-
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import { Sidebar } from 'react-pro-sidebar';
