@@ -8,8 +8,9 @@ import Navbarwithsearch from './Navbarwithsearch';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import SearchHome from './SearchHome';
 import ProductDetail from './ProductDetail';
-import { Sidebar } from 'react-pro-sidebar';
+import Sidebar from './Sidebar';
 import Aboutus from './Aboutus';
+import Productmanage from './productManage';
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -25,7 +26,7 @@ class App extends React.Component {
           <div className="content">
             <Switch>
               <Route exact path="/">
-                <Navbarwithsearch/>
+              <Navbarwithsearch/>
                 <Home />
               </Route>
               <Route path="/productdetail">
@@ -52,7 +53,12 @@ class App extends React.Component {
                 <ProductDetail/>
               </Route>
               <Route path="/aboutus">
+              <Navbarwithsearch/>
                 <Aboutus/>
+              </Route>
+              <Route path="/productmanage">
+              <Sidebar/>
+                <Productmanage/>
               </Route>
             </Switch>
           </div>

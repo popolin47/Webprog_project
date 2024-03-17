@@ -7,8 +7,10 @@ const Navbarwithsearch = () => {
     return ( 
         <nav className="navbar"style={{
             color: "black", backgroundColor: "black", 
-    }}>
-    <img style={{ width: 80, height: 80 }} src={logo} alt="logo"/>
+    }}><Link to="/">
+        <img style={{ width: 80, height: 80 }} src={logo} alt="logo"/>
+    </Link>
+    
     
     <div className="links" >
         <Link className="button" to="/" style={{

@@ -5,8 +5,9 @@ import { GoSearch } from "react-icons/go";
 import './Navbarwithsearch.css';
 const Navbarwithsearch = () => {
     return ( 
-        <div className="navbar">
-    <img style={{ width: 80, height: 80 }} src={logo} alt="logo"/>
+        <div className="navbar"><Link to="/">
+        <img style={{ width: 80, height: 80 }} src={logo} alt="logo"/>
+    </Link>
     <Link to="/searchHome">
     <div className= "whitebox">
  
