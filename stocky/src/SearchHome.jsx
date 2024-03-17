@@ -154,6 +154,11 @@ const SearchHome = () => {
                 <h1 className='text-3xl text-white'>Search</h1>
               </div>
 
+            <div className="bg-[#000000] text-white w-full py-4 text-center ">
+              <h1 className=' text-3xl text-white'>Search</h1>
+            </div>
+
+            
               {/* Name */}
               <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
                 <label className='text-black text-xl text-left ml-12' htmlFor="searchName">
