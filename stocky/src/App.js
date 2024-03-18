@@ -12,6 +12,7 @@ import ProductDetail from './ProductDetail';
 import Login from './Login';
 import productManage from './productManage';
 import AddProduct from './AddProduct';
+import Sidebar from './Sidebar';
 
 
 
@@ -63,10 +64,12 @@ class App extends React.Component {
               </Route>
 
               <Route path="/productmange">
+                <Sidebar/>
                 <productMange/>
               </Route>
 
               <Route path="/AddProduct">
+                <Sidebar/>
                 <AddProduct/>
               </Route>
 
