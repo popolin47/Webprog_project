@@ -16,11 +16,12 @@ const Login = () => {
         history.push('/productdetail');
     };
     return ( 
-       <div className="container">
-            <h2>Log In</h2>
+       <div className="container max-w-sm bg-white border mr-9 mt-9 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <h2 className='text-3xl font-bold'>Log In</h2>
             <div className="form-group">
                 <label htmlFor="username" id="user"></label>
                 <input 
+                    className=' rounded-md '
                     type="text" 
                     id="username" 
                     placeholder="Enter username"
@@ -31,6 +32,7 @@ const Login = () => {
             <div className="form-group">
                 <label htmlFor="password"id="pass"></label>
                 <input 
+                    className=' rounded-md '
                     type="password" 
                     id="password" 
                     placeholder="Enter password"
@@ -39,8 +41,8 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-            <Link to="/productdetail" id="forgot">Forgot password <br/></Link>
-             <button onClick={handleLogin} id="enter">Enter</button>
+            <Link to="/productdetail"  id="forgot">Forgot password <br/></Link>
+             <button className='p-2' onClick={handleLogin} id="enter">Enter</button>
             </div>
         </div>
    
