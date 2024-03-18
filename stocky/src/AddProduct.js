@@ -1,5 +1,4 @@
 import React , { useState } from 'react';
-import './AddProduct.css';
 import { useHistory } from 'react-router-dom';
 
     const collection = ['None', 'Winter', 'Summer', 'Autuum'];
@@ -16,28 +15,28 @@ const AddProduct = () => {
 
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-        history.push('/ProductMange');
+        history.push('/productmanage');
       };
 
     return(
-        <div>
+        <div class="p-4 sm:ml-64">
             <div>
                 <h1 className='Title'>Add Product</h1>
             </div>
 
             <div className='infoadd'>
                 <p id='ProName'>Product name</p>
-                <input type="text"/>
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
 
                 <p id='Des'>Description</p>
-                <input type="text"/>  
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>  
 
                 <p id='PID'>Product ID</p>
-                <input type="text"/>
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
 
                 <p id='coll'>Collection</p>
                 <select
-                className='collectionDrop'
+                class='border-none rounded bg-gray-200'
                 >
                     {collection.map((ColOption) => (
                         <option key={ColOption} value={ColOption}>
@@ -47,13 +46,14 @@ const AddProduct = () => {
                 </select>
 
                 <p>Color</p>
-                <label className='cl'>
+                <label class='flex flex-nowrap'>
                     {color.map((color) => (
                         <img
                             className='Colorbox'
                             key={color.name}
                             src={color.url}
                             alt={color.name}
+                            class='w-12 h-12'
                             onClick={() => setSelectedColor(color)}
                         />
                     ))}
@@ -65,20 +65,21 @@ const AddProduct = () => {
                 <h3>Product Detail</h3>
 
                 <p id='style'>Style</p>
-                <input type="text"/>
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
 
                 <p id='Release Date'>Release Date</p>
-                <input type="text"/>  
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>  
+
             </div>
 
-            <div className='ConfBack'>
-{/* 
+            <div class='flex'>
+ 
                 <form onSubmit={handleSearchSubmit}>
-                    <button id='Back' type='submit'>Back</button>
+                    <button class='flex-1 m-2' type='submit'>Back</button>
                 </form>
-*/}                           
+                      
                 <form>
-                    <button id='Conf' type='submit'>Confirm</button>
+                    <button type='submit' class='flex-1 m-2'>Confirm</button>
                 </form>
             
             </div>
