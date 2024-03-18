@@ -1,6 +1,7 @@
 import React , { useState } from 'react';
 import './productManage.css'
 import { useHistory } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
 const collection = ['None', 'Winter', 'Summer', 'Autuum'];
 const size = ['None' ,11, 10.5, 10, 9.5, 9, 8, 8.5];
@@ -35,7 +36,7 @@ const ProductMange = () => {
 
   return (
 
-    <div>
+    <div class="p-4 sm:ml-64">
 
       <div>
         <h1 className='Title'>Product</h1>
@@ -45,6 +46,7 @@ const ProductMange = () => {
         <input id="searchName" 
           type="text" 
           placeholder="Enter product name"
+          class=''
           onChange={handleChange}
         />
         <button type='submit'>Search</button><br/>

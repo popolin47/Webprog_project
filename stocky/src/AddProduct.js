@@ -1,5 +1,5 @@
 import React , { useState } from 'react';
-import './AddProduct.css';
+import { useHistory } from 'react-router-dom';
 
     const collection = ['None', 'Winter', 'Summer', 'Autuum'];
     const color = [
@@ -11,26 +11,32 @@ import './AddProduct.css';
 const AddProduct = () => {
 
     const [selectedColor, setSelectedColor] = useState(color[0]);
+    const history = useHistory();
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        history.push('/productmanage');
+      };
 
     return(
-        <div>
+        <div class="p-4 sm:ml-64">
             <div>
                 <h1 className='Title'>Add Product</h1>
             </div>
 
             <div className='infoadd'>
                 <p id='ProName'>Product name</p>
-                <input type="text"/>
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
 
                 <p id='Des'>Description</p>
-                <input type="text"/>  
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>  
 
                 <p id='PID'>Product ID</p>
-                <input type="text"/>
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
 
                 <p id='coll'>Collection</p>
                 <select
-                className='collectionDrop'
+                class='border-none rounded bg-gray-200'
                 >
                     {collection.map((ColOption) => (
                         <option key={ColOption} value={ColOption}>
@@ -40,15 +46,18 @@ const AddProduct = () => {
                 </select>
 
                 <p>Color</p>
-                {color.map((color) => (
-                    <img
-                        className='Colorbox'
-                        key={color.name}
-                        src={color.url}
-                        alt={color.name}
-                        onClick={() => setSelectedColor(color)}
-                    />
-                ))}
+                <label class='flex flex-nowrap'>
+                    {color.map((color) => (
+                        <img
+                            className='Colorbox'
+                            key={color.name}
+                            src={color.url}
+                            alt={color.name}
+                            class='w-12 h-12'
+                            onClick={() => setSelectedColor(color)}
+                        />
+                    ))}
+                </label> 
             </div>
 
             <div className='ProDetail'>
@@ -56,12 +65,24 @@ const AddProduct = () => {
                 <h3>Product Detail</h3>
 
                 <p id='style'>Style</p>
-                <input type="text"/>
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
 
                 <p id='Release Date'>Release Date</p>
-                <input type="text"/>  
+                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>  
+
             </div>
 
+            <div class='flex'>
+ 
+                <form onSubmit={handleSearchSubmit}>
+                    <button class='flex-1 m-2' type='submit'>Back</button>
+                </form>
+                      
+                <form>
+                    <button type='submit' class='flex-1 m-2'>Confirm</button>
+                </form>
+            
+            </div>
         </div>
     )
 

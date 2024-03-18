@@ -1,40 +1,45 @@
 .searchBar {
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin-bottom: 20px;
+   display: flex; 
+   justify-content: space-between; 
+   width: 80%; 
+   margin-bottom: 20px; 
 }
 
-.searchBar input {
-  padding: 5px;
+.searchBar input { 
+  padding: 5px; 
   width: 80%;
-}
-
-.searchBar button {
-  padding: 5px 10px;
-  background-color: rgb(255, 0, 0);
-  color: whitesmoke;
-  border: none;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
   border-radius: 5px;
 }
 
+.searchBar button { 
+  padding: 5px 10px; 
+  background-color: rgb(255, 0, 0); 
+  color: whitesmoke; 
+  border: none; 
+  border-radius: 5px; 
+}
+
 .searchBar button:hover{
-    background-color: rgb(248, 79, 79);
+   background-color: rgb(248, 79, 79); 
 }
 
 .Tablebox {
   display: flex;
   flex-direction: column;
-  /*border: 5px solid;*/
   border-radius: 10px;
   padding: 20px;
-  /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.Tablebox table{
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
+.Tablebox table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
 .Tablebox thead th {
@@ -43,12 +48,9 @@
   border-bottom: 1px solid #ccc;
 }
 
-.Tablebox tbody td{
-    text-align: center;
-}
-
-.Tablebox tbody tr:last-child td {
-  border-bottom: none;
+.Tablebox tbody td {
+  padding: 10px;
+  text-align: center;
 }
 
 .Tablebox tbody td:first-child {
@@ -80,20 +82,44 @@
 }
 
 .AddButton {
-    display: flex;
-    justify-content: right;
-    margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.AddButton button {
+  padding: 10px 20px;
+  background-color: rgb(255, 0, 0);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor:pointer;
+}
+
+.AddButton button:hover {
+  background-color: rgb(248, 79, 79);
+}
+
+@media screen and (max-width: 768px) {
+  .Tablebox table {
+    width: 100%;
+    overflow-x: auto;
   }
-  
-  .AddButton button {
-    padding: 10px 20px;
-    background-color: rgb(255, 0, 0);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+
+  .Tablebox thead th{
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid #ccc;
   }
-  
-  .AddButton button:hover {
-    background-color: rgb(248, 79, 79);
+
+  .Tablebox tbody td {
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .Tablebox tbody td select {
+    width: 100%;
+  }
 }

@@ -9,11 +9,9 @@ import SearchHome from './SearchHome';
 import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
-import Login from './Login';
-import productManage from './productManage';
+import Sidebar from './Sidebar';
+import Productmanage from './productManage';
 import AddProduct from './AddProduct';
-
-
 
 class App extends React.Component {
   render() {
@@ -21,6 +19,8 @@ class App extends React.Component {
     const like = 4;
     const person = {name: 'jin', age: 12};
     
+
+  
     
     return (
       <Router>
@@ -52,33 +52,29 @@ class App extends React.Component {
                 <Navbarwithoutsearch/>
                 <SearchHome />
               </Route>
+
+              <Route path="/result_product">
+                <Navbarwithoutsearch/>
+                <SearchResultPage/>
+              </Route>
             
               <Route path="/ProductDetail">
                 <ProductDetail/>
               </Route>
 
               <Route path="/aboutus">
-              <Navbarwithsearch/>
+                <Navbarwithsearch/>
                 <Aboutus/>
               </Route>
 
-              <Route path="/productMange">
-                <productMange/>
+              <Route path="/productmanage">
+                <Sidebar/>
+                <Productmanage/>
               </Route>
 
-              <Route path="/AddProduct">
+              <Route path='/AddProduct'>
+                <Sidebar/>
                 <AddProduct/>
-              </Route>
-
-              <Route path="/Login">
-                <Navbarwithsearch/>
-                <Login/>
-              </Route>
-
-
-              < Route path="/result_product">
-                <Navbarwithoutsearch/>
-                <SearchResultPage/>
               </Route>
 
             </Switch>
