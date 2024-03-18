@@ -10,7 +10,9 @@ import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
-import ProductManage from './ProductManage';
+
+import Login from './Login';
+import ProductManage from './productManage';
 import AddProduct from './AddProduct';
 import Login from './Login';
 import Usermanage from './Usermanage';

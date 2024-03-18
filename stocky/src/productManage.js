@@ -11,7 +11,6 @@ const spaces = '      '.repeat(30)
 
 const ProductManage = () => {
   const history = useHistory();
-  // declare state to hold input value
   const [value, setValue] = useState('');
 
   //Defie function to handle change to input value
@@ -28,54 +27,57 @@ const ProductManage = () => {
 
     <div class="p-8 sm:ml-64 overflow-x-auto shadow-md">
 
+    <div>
+<Sidebar/>
       <div>
-        <h1 className='Title'>Product</h1>
+        <h1 className='text-3xl font-bold'>Product</h1>
       </div>
       
-      <div className='searchBar'>
-        <input id="searchName" 
+      <div className='flex justify-center items-center mt-4'>
+        <input 
+          id="searchName" 
           type="text" 
           placeholder="Enter product name"
-          class=''
+        
+          className="border border-gray-300 rounded-md px-3 py-2 mr-2"
           onChange={handleChange}
         />
-        <button type='submit'>Search</button><br/>
+        <button 
+          type='submit'
+          className="bg-red-600 text-white rounded-md px-4 py-2"
+          onClick={handleSearchSubmit}
+        >
+          Search
+        </button>
       </div>
 
-      <div className='Tablebox'>
-        <table>
+      <div className='mt-8'>
+        <table className='w-full'>
           <thead>
             <tr>
-              <th className='Pn'>{spaces}Product{spaces}</th>
-              <th className='Sz'>{spaces}Size{spaces}</th>
-              <th className='Cat'>{spaces}Collection{spaces}</th>
-              <th className='Inst'>{spaces}In Stock{spaces}</th>
-              <th className='Id'>{spaces}ID{spaces}</th>
-              <th className='Modi'></th>
-              <th className='Del'></th>
-            </tr>
-            <tr>
-              <td colSpan="6"></td>
+              <th className='p-4'>Product</th>
+              <th className='p-4'>Size</th>
+              <th className='p-4'>Collection</th>
+              <th className='p-4'>In Stock</th>
+              <th className='p-4'>ID</th>
+              <th className='p-4'></th>
+              <th className='p-4'></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Product 1</td>
-              <td>
-                <select
-                  className='Dsize'
-                >
+              <td className='p-4'>Product 1</td>
+              <td className='p-4'>
+                <select className='border border-gray-300 rounded-md p-2'>
                   {size.map((optionSize) => (
                     <option key={optionSize} value={optionSize}>
-                        {optionSize}
+                      {optionSize}
                     </option>
                   ))}
                 </select>
               </td>
-              <td>
-                <select 
-                  className='SelCat'
-                >
+              <td className='p-4'>
+                <select className='border border-gray-300 rounded-md p-2'>
                   {collection.map((optionCat) => (
                     <option key={optionCat} value={optionCat}>
                       {optionCat}
@@ -83,90 +85,20 @@ const ProductManage = () => {
                   ))}
                 </select>
               </td>
-              <td>999</td>
-              <td>001</td>
-              <td><img src={ModifyIcon} alt='Modify icon' class='w-8 h-auto'/></td>
-              <td><img src={RemoveIcon} alt='Remove icon' class='w-7 h-auto'/></td>
+              <td className='p-4'>999</td>
+              <td className='p-4'>001</td>
             </tr>
-            <tr>
-              <td colSpan="6"></td>
-            </tr>
-            <tr>
-              <td>Product 2</td>
-              <td>
-                <select
-                  className='Dsize'
-                >
-                  {size.map((optionSize) => (
-                    <option key={optionSize} value={optionSize}>
-                        {optionSize}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                <select 
-                  className='SelCat'
-                >
-                  {collection.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>999</td>
-              <td>002</td>
-              <td><img src={ModifyIcon} alt='Modify icon' class='w-8 h-auto'/></td>
-              <td><img src={RemoveIcon} alt='Remove icon' class='w-7 h-auto'/></td>
-            </tr>
-            <tr>
-              <td colSpan="6"></td>
-            </tr>
-            <tr>
-              <td>Product 3</td>
-              <td>
-                <select
-                  className='Dsize'
-                >
-                  {size.map((optionSize) => (
-                    <option key={optionSize} value={optionSize}>
-                        {optionSize}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                <select 
-                  className='SelCat'
-                >
-                  {collection.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>999</td>
-              <td>002</td>
-              <td><img src={ModifyIcon} alt='Modify icon' class='w-8 h-auto'/></td>
-              <td><img src={RemoveIcon} alt='Remove icon' class='w-7 h-auto'/></td>
-            </tr>
-            <tr>
-              <td colSpan="6"></td>
-            </tr>
+            {/* Additional rows go here */}
           </tbody>
         </table>
       </div>
 
-      <div className='AddButton'>
+      <div className='flex justify-center mt-8'>
         <form onSubmit={handleSearchSubmit}>
-          <button type='submit'>Add</button>
+          <button type='submit' className="bg-red-600 text-white rounded-md px-4 py-2">Add</button>
         </form>
       </div>   
-    
     </div>
-
   )
 };
 
