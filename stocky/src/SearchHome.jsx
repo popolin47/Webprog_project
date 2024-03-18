@@ -7,7 +7,7 @@ const Product = [
     pro_name: 'shoes1',
     catagory: 'Man',
     brand: 'Adibas',
-    avaliable: 3,
+    quantity: 3,
     price: 233,
     size: 'UK35',
   },
@@ -17,7 +17,7 @@ const Product = [
     catagory: 'Women',
     brand: 'Nike',
     price: 233,
-    avaliable: 0,
+    quantity: 0,
     size: 'UK36',
   },
   {
@@ -26,12 +26,21 @@ const Product = [
     catagory: 'Kid',
     brand: 'Aria',
     price: 233,
-    avaliable: 1,
+    quantity: 1,
+    size: 'UK35',
+  },
+  {
+    productID: 'P004',
+    pro_name: 'shoes4',
+    catagory: 'Kid',
+    brand: 'Nike',
+    price: 233,
+    quantity: 1,
     size: 'UK35',
   },
 ];
 
-const catagory = ['Man', 'Women', 'Kid'];
+const catagory = ['All','Man', 'Women', 'Kid'];
 const defaultOption = catagory[0];
 
 const SearchHome = () => {
@@ -50,11 +59,13 @@ const SearchHome = () => {
   };
 
   const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
+    const selectedValue = event.target.value;
+    setSelectedCategory(selectedValue === 'All' ? '' : selectedValue);
   };
 
   const handleAvailableChange = (event) => {
     setIsAvailable(event.target.checked);
+
   };
 
   const handleClear = () => {
@@ -70,8 +81,8 @@ const SearchHome = () => {
     const matchingProducts = Product.filter((product) => {
       const nameMatches = !searchName || product.pro_name.toLowerCase().includes(searchName.toLowerCase());
       const brandMatches = !searchBrand || product.brand.toLowerCase().includes(searchBrand.toLowerCase());
-      const categoryMatches = !selectedCategory || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
-      const availabilityMatches = !isAvailable || product.avaliable >= 1;
+      const categoryMatches = selectedCategory === 'All' || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
+      const availabilityMatches = isAvailable ? product.quantity >= 0 : product.quantity === 0;
   
       return nameMatches && brandMatches && categoryMatches && availabilityMatches;
     });

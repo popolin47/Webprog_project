@@ -29,10 +29,12 @@ class App extends React.Component {
               <Navbarwithsearch/>
                 <Home />
               </Route>
+              
               <Route path="/productdetail">
                 <Navbarwithsearch/>
                 <ProductDetail />
               </Route>
+
               <Route path="/blogs/:id">
                 <Blogdetails/>
               </Route>
