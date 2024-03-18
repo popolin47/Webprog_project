@@ -6,10 +6,10 @@ import Home from './Home';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import Navbarwithsearch from './Navbarwithsearch';
 import SearchHome from './SearchHome';
+import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
-import Aboutus from './Aboutus';
 import Productmanage from './productManage';
 class App extends React.Component {
   render() {
