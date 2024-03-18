@@ -47,7 +47,7 @@ const SearchHome = () => {
   const [searchName, setSearchName] = useState('');
   const [searchBrand, setSearchBrand] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(defaultOption);
-  const [isAvailable, setIsAvailable] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(true);
   const history = useHistory();
 
   const handleNameChange = (event) => {
@@ -82,7 +82,7 @@ const SearchHome = () => {
       const nameMatches = !searchName || product.pro_name.toLowerCase().includes(searchName.toLowerCase());
       const brandMatches = !searchBrand || product.brand.toLowerCase().includes(searchBrand.toLowerCase());
       const categoryMatches = selectedCategory === 'All' || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
-      const availabilityMatches = isAvailable ? product.quantity >= 0 : product.quantity === 0;
+      const availabilityMatches = isAvailable ? product.quantity > 0 : product.quantity === 0;
   
       return nameMatches && brandMatches && categoryMatches && availabilityMatches;
     });
