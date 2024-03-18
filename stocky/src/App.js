@@ -75,6 +75,12 @@ class App extends React.Component {
                 <Login/>
               </Route>
 
+
+              < Route path="/result_product">
+                <Navbarwithoutsearch/>
+                <SearchResultPage/>
+              </Route>
+
             </Switch>
           </div>
         </div>
