@@ -15,6 +15,7 @@ import AddProduct from './AddProduct';
 import Login from './Login';
 import Usermanage from './Usermanage';
 import ModifyProduct from './ModifyProduct';
+import ForgotPassword from './ForgotPassword';
 
 class App extends React.Component {
   render() {
@@ -89,6 +90,14 @@ class App extends React.Component {
 
               <Route path='/ModifyProduct'>
                 <ModifyProduct/>
+              </Route>
+              
+              <Route path="/result_product">
+                <SearchResultPage/>
+              </Route>
+
+              <Route path="/ForgotPassword">
+                <ForgotPassword/>
               </Route>
 
             </Switch>

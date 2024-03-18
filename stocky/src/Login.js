@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-
+//import backgroundImage from './asset/img/Background.jpg';
+import backgroundImage from './asset/img/Mingtar.jpg';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -13,12 +14,13 @@ const Login = () => {
     };
 
     return (
-        <div className="container max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-5 mx-auto my-32">
-            <h2 className='text-5xl font-bold mb-8'>Log In</h2>
+        <div className="bg-cover bg-center min-h-screen font-roboto" style={{ backgroundImage: `url(${backgroundImage})` }}>
+            <div className="container max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-5 mx-auto my-32">
+            <h2 className='text-5xl font-bold mb-8 text-center'>Log In</h2>
             <div className="form-group">
-                <label htmlFor="username" className="block mb-1">Username</label>
+                
                 <input 
-                    className='rounded-md p-2 w-full border border-gray-300'
+                    className='rounded-md p-2 w-full border border-gray-300 block mb-10'
                     type="text" 
                     id="username" 
                     placeholder="Enter username"
@@ -27,7 +29,7 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="password" className="block mb-1">Password</label>
+                
                 <input 
                     className='rounded-md p-2 w-full border border-gray-300'
                     type="password" 
@@ -37,11 +39,13 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <div className="form-group flex flex-col items-center">
-                <Link to="/forgotpassword" className="text-gray-500 text-sm mb-4">Forgot password</Link>
-                <button className='p-3 bg-red-500 text-white rounded-md hover:bg-black'>Enter</button>
+            <div className="form-group flex flex-col ">
+                <Link to="/ForgotPassword" className="text-gray-500 text-sm mb-4 underline items-right text-right block mb-5">Forgot password</Link>
+                <button className='p-3 bg-red-500 text-white rounded-md hover:bg-black items-center' onClick={handleLogin}>Enter</button>
             </div>
         </div>
+        </div>
+        
     );
 };
 
