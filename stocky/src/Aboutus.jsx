@@ -6,7 +6,7 @@ import jin from './asset/img/jin_webpro.jpg';
 const Aboutus = () =>{
     return ( 
         <div>
-            <div class=" items-center justify-center text-5xl pt-6">About us</div>
+            <div class=" items-center text-center justify-center text-5xl pt-6">About us</div>
        <div class="flex flex-row self-auto pt-6 items-center justify-center max-w-full max-h-full ">
         <div class="flex flex-col ">
             <img src={mingtar} alt="" loading="lazy" class="max-w-96 max-h-96  pr-4" />

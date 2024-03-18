@@ -6,10 +6,10 @@ import Home from './Home';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import Navbarwithsearch from './Navbarwithsearch';
 import SearchHome from './SearchHome';
+import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
-import Aboutus from './Aboutus';
 import Productmanage from './productManage';
 class App extends React.Component {
   render() {
@@ -29,10 +29,12 @@ class App extends React.Component {
               <Navbarwithsearch/>
                 <Home />
               </Route>
+              
               <Route path="/productdetail">
                 <Navbarwithsearch/>
                 <ProductDetail />
               </Route>
+
               <Route path="/blogs/:id">
                 <Blogdetails/>
               </Route>

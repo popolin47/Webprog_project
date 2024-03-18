@@ -35,7 +35,7 @@ const SearchResultPage = () => {
           <h1 className='text-3xl'>Browse {matchingProducts.length} results</h1>
         </div>
 
-        <div className='flex flex-wrap justify-center mt-12 mx-9 font-bold'>
+        <div className='flex flex-wrap justify-center mt-12 mx-9 mb-4 font-bold'>
           {matchingProducts.map((product) => (
             <div key={product.productID} className="max-w-sm bg-white border mr-9 mt-9 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <img className="rounded-t-lg" src={shoepic} alt="shoe" />
