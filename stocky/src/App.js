@@ -9,19 +9,16 @@ import SearchHome from './SearchHome';
 import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
-import Login from './Login';
-import productManage from './productManage';
-import AddProduct from './AddProduct';
 import Sidebar from './Sidebar';
-
-
-
+import Productmanage from './productManage';
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
     const like = 4;
     const person = {name: 'jin', age: 12};
     
+
+  
     
     return (
       <Router>
@@ -53,6 +50,11 @@ class App extends React.Component {
                 <Navbarwithoutsearch/>
                 <SearchHome />
               </Route>
+
+              <Route path="/result_product">
+                <Navbarwithoutsearch/>
+                <SearchResultPage/>
+              </Route>
             
               <Route path="/ProductDetail">
                 <ProductDetail/>
@@ -63,27 +65,10 @@ class App extends React.Component {
                 <Aboutus/>
               </Route>
 
-              <Route path="/productmange">
+              <Route path="/productmanage">
                 <Sidebar/>
-                <productMange/>
+                <Productmanage/>
               </Route>
-
-              <Route path="/AddProduct">
-                <Sidebar/>
-                <AddProduct/>
-              </Route>
-
-              <Route path="/Login">
-                <Navbarwithsearch/>
-                <Login/>
-              </Route>
-
-
-              < Route path="/result_product">
-                <Navbarwithoutsearch/>
-                <SearchResultPage/>
-              </Route>
-
             </Switch>
           </div>
         </div>
