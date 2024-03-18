@@ -7,7 +7,12 @@
 
 .searchBar input { 
   padding: 5px; 
-  width: 80%; 
+  width: 80%;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-radius: 5px;
 }
 
 .searchBar button { 
@@ -101,11 +106,16 @@
     overflow-x: auto;
   }
 
-  .Tablebox thead th,
+  .Tablebox thead th{
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid #ccc;
+  }
+
   .Tablebox tbody td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ccc;
     white-space: nowrap;
   }
 

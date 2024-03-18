@@ -46,6 +46,7 @@ const ProductMange = () => {
         <input id="searchName" 
           type="text" 
           placeholder="Enter product name"
+          class=''
           onChange={handleChange}
         />
         <button type='submit'>Search</button><br/>
