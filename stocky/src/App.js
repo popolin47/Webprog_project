@@ -75,10 +75,6 @@ class App extends React.Component {
                 <Login/>
               </Route>
 
-              <Route path="/Login">
-                <Login/>
-              </Route>
-
             </Switch>
           </div>
         </div>

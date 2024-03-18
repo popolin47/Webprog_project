@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import './Login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -12,16 +11,14 @@ const Login = () => {
         console.log("Password:", password);
         history.push('/productdetail');
     };
-    const Forgot = () => {
-        history.push('/productdetail');
-    };
-    return ( 
-       <div className="container max-w-sm bg-white border mr-9 mt-9 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <h2 className='text-3xl font-bold'>Log In</h2>
+
+    return (
+        <div className="container max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-5 mx-auto my-32">
+            <h2 className='text-5xl font-bold mb-8'>Log In</h2>
             <div className="form-group">
-                <label htmlFor="username" id="user"></label>
+                <label htmlFor="username" className="block mb-1">Username</label>
                 <input 
-                    className=' rounded-md '
+                    className='rounded-md p-2 w-full border border-gray-300'
                     type="text" 
                     id="username" 
                     placeholder="Enter username"
@@ -30,9 +27,9 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="password"id="pass"></label>
+                <label htmlFor="password" className="block mb-1">Password</label>
                 <input 
-                    className=' rounded-md '
+                    className='rounded-md p-2 w-full border border-gray-300'
                     type="password" 
                     id="password" 
                     placeholder="Enter password"
@@ -40,15 +37,12 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <div className="form-group">
-            <Link to="/productdetail"  id="forgot">Forgot password <br/></Link>
-             <button className='p-2' onClick={handleLogin} id="enter">Enter</button>
+            <div className="form-group flex flex-col items-center">
+                <Link to="/forgotpassword" className="text-gray-500 text-sm mb-4">Forgot password</Link>
+                <button className='p-3 bg-red-500 text-white rounded-md hover:bg-black'>Enter</button>
             </div>
         </div>
-   
     );
 };
-
-
 
 export default Login;
