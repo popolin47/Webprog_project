@@ -58,11 +58,11 @@ class App extends React.Component {
               </Route>
 
               <Route path="/aboutus">
-              <Navbarwithsearch/>
+                <Navbarwithsearch/>
                 <Aboutus/>
               </Route>
 
-              <Route path="/productMange">
+              <Route path="/productmange">
                 <productMange/>
               </Route>
 

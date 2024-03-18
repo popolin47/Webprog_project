@@ -1,5 +1,6 @@
 import React , { useState } from 'react';
 import './AddProduct.css';
+import { useHistory } from 'react-router-dom';
 
     const collection = ['None', 'Winter', 'Summer', 'Autuum'];
     const color = [
@@ -11,6 +12,12 @@ import './AddProduct.css';
 const AddProduct = () => {
 
     const [selectedColor, setSelectedColor] = useState(color[0]);
+    const history = useHistory();
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        history.push('/ProductMange');
+      };
 
     return(
         <div>
@@ -40,15 +47,17 @@ const AddProduct = () => {
                 </select>
 
                 <p>Color</p>
-                {color.map((color) => (
-                    <img
-                        className='Colorbox'
-                        key={color.name}
-                        src={color.url}
-                        alt={color.name}
-                        onClick={() => setSelectedColor(color)}
-                    />
-                ))}
+                <label className='cl'>
+                    {color.map((color) => (
+                        <img
+                            className='Colorbox'
+                            key={color.name}
+                            src={color.url}
+                            alt={color.name}
+                            onClick={() => setSelectedColor(color)}
+                        />
+                    ))}
+                </label> 
             </div>
 
             <div className='ProDetail'>
@@ -62,6 +71,17 @@ const AddProduct = () => {
                 <input type="text"/>  
             </div>
 
+            <div className='ConfBack'>
+{/* 
+                <form onSubmit={handleSearchSubmit}>
+                    <button id='Back' type='submit'>Back</button>
+                </form>
+*/}                           
+                <form>
+                    <button id='Conf' type='submit'>Confirm</button>
+                </form>
+            
+            </div>
         </div>
     )
 
