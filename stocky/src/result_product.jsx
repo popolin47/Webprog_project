@@ -7,7 +7,7 @@ const SearchResultPage = () => {
   const matchingProducts = location.state?.matchingProducts || []; // Access the filtered products passed from SearchHome
 
   return (
-    <div>
+    <div className='bg-black'>
       <div className="flex justify-center bg-[#880501] w-full py-4 gap-16">
         <h1 className='text-3xl text-white'>Latest Release</h1>
         <h1 className='text-3xl text-white'>Man</h1>
@@ -21,7 +21,7 @@ const SearchResultPage = () => {
       <div>
 
           <div className='my-6 mx-14 font-extrabold text-left'>
-            <h1 className='text-3xl'>Browse {matchingProducts.length} results</h1>
+            <h1 className='text-3xl text-white'>Browse 0 result</h1>
           </div>
           
           <div className="flex justify-center items-center mt-9">
@@ -31,8 +31,8 @@ const SearchResultPage = () => {
         </div>
       ) : (
         <>
-        <div className='my-6 mx-14 font-extrabold text-left'>
-          <h1 className='text-3xl'>Browse {matchingProducts.length} results</h1>
+        <div className='my-6 mx-14 font-extrabold text-left text-white'>
+          <h1 className='text-3xl text-white'>Browse {matchingProducts.length} results</h1>
         </div>
 
         <div className='flex flex-wrap justify-center mt-12 mx-9 mb-4 font-bold'>
