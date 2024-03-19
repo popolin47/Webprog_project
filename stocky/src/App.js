@@ -12,7 +12,8 @@ import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
 import Productmanage from './productManage';
 import AddProduct from './AddProduct';
-
+import Login from './Login';
+import Usermanage from './Usermanage';
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -31,7 +32,10 @@ class App extends React.Component {
               <Navbarwithsearch/>
                 <Home />
               </Route>
-              
+              <Route path="/usermanage">
+              <Sidebar/>
+                <Usermanage/>
+              </Route>
               <Route path="/productdetail">
                 <Navbarwithsearch/>
                 <ProductDetail />
@@ -66,12 +70,16 @@ class App extends React.Component {
                 <Navbarwithsearch/>
                 <Aboutus/>
               </Route>
-
+              
               <Route path="/productmanage">
                 <Sidebar/>
                 <Productmanage/>
               </Route>
-
+              <Route path="/login">
+              <Navbarwithoutsearch/>
+                <Login/>
+              
+              </Route>
               <Route path='/AddProduct'>
                 <Sidebar/>
                 <AddProduct/>

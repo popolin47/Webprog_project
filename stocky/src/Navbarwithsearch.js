@@ -22,7 +22,7 @@ const Navbarwithsearch = () => {
             color: "white", backgroundColor: "red"
         }}>About us</Link>
         
-        <Link className="button" to="/" style={{
+        <Link className="button" to="/login" style={{
             color: "white", backgroundColor: "red"
         }}>Login</Link>
        
