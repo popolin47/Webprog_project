@@ -9,7 +9,7 @@ const SearchResultPage = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="bg-[#880501] py-4">
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-3">
           <h1 className="text-3xl text-white">Latest Release</h1>
           <h1 className="text-3xl text-white ml-6">Man</h1>
           <h1 className="text-3xl text-white ml-6">Woman</h1>

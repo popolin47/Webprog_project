@@ -175,7 +175,7 @@ const SearchHome = () => {
                   Category:
                 </label>
                 <select
-                  className='w-56'
+                  className='w-1/4'
                   id="category"
                   value={selectedCategory}
                   onChange={handleCategoryChange}
@@ -208,7 +208,7 @@ const SearchHome = () => {
                   Size:
                 </label>
                 <select
-                  className='w-56'
+                  className='w-1/4'
                   id="size"
                   value={selectedSize}
                   onChange={handleSizeChange}
