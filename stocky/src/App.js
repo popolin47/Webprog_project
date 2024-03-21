@@ -116,6 +116,11 @@ class App extends React.Component {
                 <ForgotPassword/>
               </Route>
 
+              <Route path="/ProductList">
+                <Navbarwithsearch/>
+                <ProductList/>
+              </Route>
+
             </Switch>
           </div>
         </div>
