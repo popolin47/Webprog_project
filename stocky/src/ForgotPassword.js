@@ -27,22 +27,22 @@ const ForgotPassword = () => {
             <p className="mb-4 text-center">associated with your Stock-Y account.</p>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                <input
-                    className='rounded-md p-2 w-full border border-gray-300 block mb-5'
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                  <input
+                      className='rounded-md p-2 w-full border border-gray-300 block mb-5'
+                      type="email"
+                      id="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 {error && <div className="text-red-500 mb-5">{error}</div>}
                 {successMessage && <div className="text-green-500 mb-5">{successMessage}</div>}
                 <div className="form-group flex flex-col ">
-                <button className='p-3 bg-black text-white rounded-md hover:bg-red-500 items-center'>Reset Password</button>
+                  <button className='p-3 bg-black text-white rounded-md hover:bg-red-500 items-center'>Reset Password</button>
                 </div>
             </form>
-            </div>
+        </div>
 
     </div>
     
