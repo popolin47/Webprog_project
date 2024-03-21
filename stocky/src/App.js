@@ -16,6 +16,7 @@ import Login from './Login';
 import Usermanage from './Usermanage';
 import ModifyProduct from './ModifyProduct';
 import ForgotPassword from './ForgotPassword';
+import ProductList from './ProductList';
 
 class App extends React.Component {
   render() {
@@ -99,6 +100,11 @@ class App extends React.Component {
               <Route path="/ForgotPassword">
                 <Navbarwithsearch/>
                 <ForgotPassword/>
+              </Route>
+
+              <Route path="/ProductList">
+                <Navbarwithsearch/>
+                <ProductList/>
               </Route>
 
             </Switch>
