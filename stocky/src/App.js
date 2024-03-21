@@ -112,6 +112,7 @@ class App extends React.Component {
               </Route>
 
               <Route path="/ForgotPassword">
+                <Navbarwithsearch/>
                 <ForgotPassword/>
               </Route>
 
