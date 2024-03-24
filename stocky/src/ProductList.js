@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, Link , useLocation } from 'react-router-dom';
-import shoepic from './asset/img/ฺBG.jpg';
+import shoepic from './asset/img/ShoeTest.png';
+import yyy from './asset/img/ฺBG.jpg';
 // Replace the following with the actual path to your background image
 const backgroundImage = require('./asset/img/Mingtar.jpg');
 
@@ -20,7 +21,7 @@ const ProductList = () => {
         <h1 className='text-3xl text-white'>Kid</h1>
       </div>
 
-      <img src= {shoepic}className="flex justify-center bg-[#880501] w-full h-80 gap-16 object-cover"/>
+      <img src= {yyy}className="flex justify-center bg-[#880501] w-full h-80 gap-16 object-cover"/>
       
 
       <div className="container max-w-6xl mx-auto">
