@@ -21,7 +21,7 @@ const ForgotPassword = () => {
 
   return (
     <div>
-        <h2 className='my-auto text-4xl text-black text-center'>Forgot Password</h2>
+        <h2 className='pt-20 text-4xl text-black text-center'>Forgot Password</h2>
         <div className="container max-w-sm bg-white border border-black bg-gray-800 dark:border-gray-700 p-5 mx-auto my-32 ">
             <p className="mb-0 text-center">Please enter the email address that is </p>
             <p className="mb-4 text-center">associated with your Stock-Y account.</p>
