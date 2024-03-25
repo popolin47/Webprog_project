@@ -40,10 +40,17 @@ const ProductList = () => {
   };
 
   // Function to get three random products
+  const getRandomProducts = () => {
+    const randomProducts = [];
+    const shuffledProducts = Product.sort(() => 0.5 - Math.random());
+    for (let i = 0; i < 3; i++) {
+      randomProducts.push(shuffledProducts[i]);
+    }
+    return randomProducts;
+  };
 
   // Get three random products
-  console.log(recommendedProducts)
-  
+  const recommendedProducts = getRandomProducts();
 
   return (
     <div className="bg-slate-50 bg-cover bg-center min-h-screen font-roboto">
