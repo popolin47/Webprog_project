@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+
 //import backgroundImage from './asset/img/Background.jpg';
 import shoepic from './asset/img/ฺBG.jpg';
 //import './Login.css';
@@ -14,7 +15,7 @@ const Login = () => {
     const handleLogin = () => {
         console.log("Username:", username);
         console.log("Password:", password);
-        history.push('/productdetail');
+        history.push('./ProductManage');
     };
 
     return (
