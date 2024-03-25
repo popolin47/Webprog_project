@@ -50,7 +50,7 @@ const ProductList = () => {
   };
 
   // Get three random products
-  const recommendedProducts = getRandomProducts();
+  // const recommendedProducts = getRandomProducts();
 
   return (
     <div className="bg-slate-50 bg-cover bg-center min-h-screen font-roboto">
