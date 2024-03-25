@@ -10,11 +10,13 @@ import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
-import Productmanage from './productManage';
+import ProductManage from './ProductManage';
 import AddProduct from './AddProduct';
 import Login from './Login';
 import Usermanage from './Usermanage';
 import ModifyProduct from './ModifyProduct';
+import ForgotPassword from './ForgotPassword';
+import ProductList from './ProductList';
 
 class App extends React.Component {
   render() {
@@ -73,9 +75,9 @@ class App extends React.Component {
                 <Aboutus/>
               </Route>
               
-              <Route path="/productmanage">
+              <Route path="/ProductManage">
                 <Sidebar/>
-                <Productmanage/>
+                <ProductManage/>
               </Route>
               <Route path="/login">
               <Navbarwithoutsearch/>
@@ -89,6 +91,34 @@ class App extends React.Component {
 
               <Route path='/ModifyProduct'>
                 <ModifyProduct/>
+              </Route>
+              
+              <Route path="/result_product">
+                <SearchResultPage/>
+              </Route>
+
+              <Route path="/ForgotPassword">
+                <Navbarwithsearch/>
+                <ForgotPassword/>
+              </Route>
+
+              <Route path="/ProductList">
+                <Navbarwithsearch/>
+                <ProductList/>
+              </Route>
+
+              <Route path="/result_product">
+                <SearchResultPage/>
+              </Route>
+
+              <Route path="/ForgotPassword">
+                <Navbarwithsearch/>
+                <ForgotPassword/>
+              </Route>
+
+              <Route path="/ProductList">
+                <Navbarwithsearch/>
+                <ProductList/>
               </Route>
 
             </Switch>

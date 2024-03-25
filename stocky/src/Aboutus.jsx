@@ -3,6 +3,7 @@ import mingtar from './asset/img/Mingtar.jpg';
 import praewa from './asset/img/Praewa.jpg';
 import Tee from './asset/img/Tee.jpg';
 import jin from './asset/img/jin_webpro.jpg';
+
 const Aboutus = () =>{
     return ( 
         <div>
