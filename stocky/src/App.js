@@ -81,11 +81,12 @@ class App extends React.Component {
                 <Sidebar/>
                 <ProductManage/>
               </Route>
+
               <Route path="/login">
-              <Navbarwithoutsearch/>
+                <Navbarwithoutsearch/>
                 <Login/>
-              
               </Route>
+
               <Route path='/AddProduct'>
                 <Sidebar/>
                 <AddProduct/>
