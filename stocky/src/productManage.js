@@ -9,7 +9,7 @@ const collection = ['None', 'Winter', 'Summer', 'Autuum'];
 const size = ['None' ,11, 10.5, 10, 9.5, 9, 8, 8.5];
 const spaces = '      '.repeat(30)
 
-const ProductMange = () => {
+const productManage = () => {
 
   const history = useHistory();
   // declare state to hold input value
@@ -171,4 +171,4 @@ const ProductMange = () => {
   )
 };
 
-export default ProductMange;
+export default productManage;
