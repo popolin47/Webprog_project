@@ -130,7 +130,7 @@ const SearchHome = () => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-  //  s
+
     const matchingProducts = Product.filter((product) => {
       const nameMatches = !searchName || product.pro_name.toLowerCase().includes(searchName.toLowerCase());
       const brandMatches = !searchBrand || product.brand.toLowerCase().includes(searchBrand.toLowerCase());

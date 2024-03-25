@@ -10,7 +10,6 @@ import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
-
 import Login from './Login';
 import ProductManage from './productManage';
 import AddProduct from './AddProduct';
@@ -19,6 +18,7 @@ import Usermanage from './Usermanage';
 import ModifyProduct from './ModifyProduct';
 import ForgotPassword from './ForgotPassword';
 import ProductList from './ProductList';
+
 
 class App extends React.Component {
   render() {
