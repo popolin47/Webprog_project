@@ -21,7 +21,7 @@ const AddProduct = () => {
     return(
         <div class="p-4 sm:ml-64">
             <div>
-                <h1 className='Title'>Add Product</h1>
+                <h1 class='text-3xl'>Add Product</h1>
             </div>
 
             <div className='infoadd'>
@@ -62,7 +62,7 @@ const AddProduct = () => {
 
             <div className='ProDetail'>
 
-                <h3>Product Detail</h3>
+                <h3 class='text-xl'>Product Detail</h3>
 
                 <p id='style'>Style</p>
                 <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>
@@ -74,11 +74,11 @@ const AddProduct = () => {
 
             <div class='flex ml-100 w-4/5 justify-end'>
  
-                <form onSubmit={handleSearchSubmit}>
+                <a href='/productmanage'>
                     <button class='flex-1 m-2 border-none rounded bg-black text-white' type='submit'>Back</button>
-                </form>
+                </a>
                       
-                <form>
+                <form onSubmit={handleSearchSubmit}>
                     <button type='submit' class='flex-1 m-2 border-none rounded bg-red-600 text-white'>Confirm</button>
                 </form>
             
