@@ -1,16 +1,15 @@
 import React , { useState } from 'react';
-import './productManage.css'
 import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import ModifyIcon from './modify_icon_Ngb.png'
 import RemoveIcon from './remove_icon-Nbg.png'
+import './productManage.css'
 
 const collection = ['None', 'Winter', 'Summer', 'Autuum'];
 const size = ['None' ,11, 10.5, 10, 9.5, 9, 8, 8.5];
 const spaces = '      '.repeat(30)
 
-const productManage = () => {
-
+const ProductManage = () => {
   const history = useHistory();
   // declare state to hold input value
   const [value, setValue] = useState('');
@@ -171,4 +170,4 @@ const productManage = () => {
   )
 };
 
-export default productManage;
+export default ProductManage;
