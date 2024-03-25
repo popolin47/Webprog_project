@@ -2,6 +2,8 @@ import React , { useState } from 'react';
 import './productManage.css'
 import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import ModifyIcon from './modify_icon_Ngb.png'
+import RemoveIcon from './remove_icon-Nbg.png'
 
 const collection = ['None', 'Winter', 'Summer', 'Autuum'];
 const size = ['None' ,11, 10.5, 10, 9.5, 9, 8, 8.5];
@@ -13,21 +15,10 @@ const ProductMange = () => {
   // declare state to hold input value
   const [value, setValue] = useState('');
 
-  /*const [selectedCollection, setSelectedCollection] = useState(catagory[0]);
-  const [selectedSize, setselectedSize] = useState(size[0])*/
-
   //Defie function to handle change to input value
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-
-  /*const handleCollectionChange = (event) => {
-    setSelectedCollection(event.target.value);
-  };
-
-  const handleSizeChange = (event) => {
-    setselectedSize(event.target.value)
-  };*/
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
@@ -95,6 +86,8 @@ const ProductMange = () => {
               </td>
               <td>999</td>
               <td>001</td>
+              <td><img src={ModifyIcon} alt='Modify icon' class='w-8 h-auto'/></td>
+              <td><img src={RemoveIcon} alt='Remove icon' class='w-7 h-auto'/></td>
             </tr>
             <tr>
               <td colSpan="6"></td>
@@ -125,6 +118,8 @@ const ProductMange = () => {
               </td>
               <td>999</td>
               <td>002</td>
+              <td><img src={ModifyIcon} alt='Modify icon' class='w-8 h-auto'/></td>
+              <td><img src={RemoveIcon} alt='Remove icon' class='w-7 h-auto'/></td>
             </tr>
             <tr>
               <td colSpan="6"></td>
@@ -155,6 +150,8 @@ const ProductMange = () => {
               </td>
               <td>999</td>
               <td>002</td>
+              <td><img src={ModifyIcon} alt='Modify icon' class='w-8 h-auto'/></td>
+              <td><img src={RemoveIcon} alt='Remove icon' class='w-7 h-auto'/></td>
             </tr>
             <tr>
               <td colSpan="6"></td>
