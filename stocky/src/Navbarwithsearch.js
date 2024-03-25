@@ -10,7 +10,6 @@ const Navbarwithsearch = () => {
     </Link>
     <Link to="/searchHome">
     <div className= "whitebox">
- 
         <div className="box">
             <div className="searchcicon">
                 <GoSearch />
@@ -18,7 +17,7 @@ const Navbarwithsearch = () => {
         </div>
     </div></Link>
     <div className="links" >
-        <Link className="button" to="/aboutus" style={{
+        <Link className="button bg-pink" to="/aboutus" style={{
             color: "white", backgroundColor: "red"
         }}>About us</Link>
         

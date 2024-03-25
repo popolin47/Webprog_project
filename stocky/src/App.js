@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import './App.css';
+
 import Blogdetails from './Blogdetails';
 import Home from './Home';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
@@ -10,6 +10,7 @@ import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
+import Login from './Login';
 import ProductManage from './productManage';
 import AddProduct from './AddProduct';
 import Login from './Login';
@@ -94,34 +95,6 @@ class App extends React.Component {
                 <ModifyProduct/>
               </Route>
               
-              <Route path="/result_product">
-                <SearchResultPage/>
-              </Route>
-
-              <Route path="/ForgotPassword">
-                <Navbarwithsearch/>
-                <ForgotPassword/>
-              </Route>
-
-              <Route path="/ProductList">
-                <Navbarwithsearch/>
-                <ProductList/>
-              </Route>
-
-              <Route path="/result_product">
-                <SearchResultPage/>
-              </Route>
-
-              <Route path="/ForgotPassword">
-                <Navbarwithsearch/>
-                <ForgotPassword/>
-              </Route>
-
-              <Route path="/ProductList">
-                <Navbarwithsearch/>
-                <ProductList/>
-              </Route>
-
             </Switch>
           </div>
         </div>
