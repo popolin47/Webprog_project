@@ -26,13 +26,13 @@ const AddProduct = () => {
 
             <div className='infoadd'>
                 <p id='ProName'>Product name</p>
-                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
+                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='Des'>Description</p>
-                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>  
+                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>  
 
                 <p id='PID'>Product ID</p>
-                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
+                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='coll'>Collection</p>
                 <select
@@ -46,7 +46,7 @@ const AddProduct = () => {
                 </select>
 
                 <p>Color</p>
-                <label class='flex flex-nowrap'>
+                <label class='flex flex-nowrap gap-0.5'>
                     {color.map((color) => (
                         <img
                             className='Colorbox'
@@ -65,21 +65,21 @@ const AddProduct = () => {
                 <h3>Product Detail</h3>
 
                 <p id='style'>Style</p>
-                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>
+                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='Release Date'>Release Date</p>
-                <input type="text" class='w-7/10 bg-gray-200 border-none rounded'/>  
+                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>  
 
             </div>
 
-            <div class='flex'>
+            <div class='flex ml-100 w-4/5 justify-end'>
  
                 <form onSubmit={handleSearchSubmit}>
-                    <button class='flex-1 m-2' type='submit'>Back</button>
+                    <button class='flex-1 m-2 border-none rounded bg-black text-white' type='submit'>Back</button>
                 </form>
                       
                 <form>
-                    <button type='submit' class='flex-1 m-2'>Confirm</button>
+                    <button type='submit' class='flex-1 m-2 border-none rounded bg-red-600 text-white'>Confirm</button>
                 </form>
             
             </div>

@@ -14,6 +14,8 @@ import Productmanage from './productManage';
 import AddProduct from './AddProduct';
 import Login from './Login';
 import Usermanage from './Usermanage';
+import ModifyProduct from './ModifyProduct';
+
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -83,6 +85,10 @@ class App extends React.Component {
               <Route path='/AddProduct'>
                 <Sidebar/>
                 <AddProduct/>
+              </Route>
+
+              <Route path='/ModifyProduct'>
+                <ModifyProduct/>
               </Route>
 
             </Switch>
