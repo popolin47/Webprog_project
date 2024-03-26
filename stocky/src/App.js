@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import './App.css';
 
-import Blogdetails from './Blogdetails';
 import Home from './Home';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import Navbarwithsearch from './Navbarwithsearch';
@@ -13,7 +13,7 @@ import Sidebar from './Sidebar';
 import Login from './Login';
 import ProductManage from './productManage';
 import AddProduct from './AddProduct';
-import Login from './Login';
+
 import Usermanage from './Usermanage';
 import ModifyProduct from './ModifyProduct';
 import ForgotPassword from './ForgotPassword';
@@ -45,17 +45,6 @@ class App extends React.Component {
               <Route path="/productdetail">
                 <Navbarwithsearch/>
                 <ProductDetail />
-              </Route>
-
-              <Route path="/blogs/:id">
-                <Blogdetails/>
-              </Route>
-              <Route path="/blogs/:id">
-                <Blogdetails/>
-              </Route>
-
-              <Route path="/blogs/:id">
-                <Blogdetails/>
               </Route>
 
               <Route path="/Searchhome">
