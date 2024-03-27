@@ -99,7 +99,7 @@ insert into `Product` (`P_name`, `Description`,`quantity`, `Price`, `Pic`, `Size
 
 
 CREATE TABLE IF NOT EXISTS `ModifyProduct` (
-  `PID` int NOT NULL,
+  `PID` varchar(20) NOT NULL,
   `AID` int NOT NULL,
   `T_product` datetime NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
