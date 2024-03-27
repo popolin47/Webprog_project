@@ -123,6 +123,11 @@ class App extends React.Component {
                 <ProductSearchAdmin/>
               </Route>
 
+              <Route path="/ProductSearchAdmin">
+                {/* <Sidebar/> */}
+                <ProductSearchAdmin/>
+              </Route>
+
             </Switch>
           </div>
         </div>
