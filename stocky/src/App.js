@@ -20,6 +20,8 @@ import ForgotPassword from './ForgotPassword';
 import ProductList from './ProductList';
 import Adduser from './Adduser';
 import Modifyuser from './Modifyadmin';
+import ProductSearchAdmin from './ProductSearchAdmin';
+
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -96,6 +98,27 @@ class App extends React.Component {
                 <ModifyProduct/>
               </Route>
               
+              <Route path="/result_product">
+                <SearchResultPage/>
+              </Route>
+
+              <Route path="/ForgotPassword">
+                <Navbarwithsearch/>
+                <ForgotPassword/>
+              </Route>
+
+              <Route path="/ProductList">
+                <Navbarwithsearch/>
+                <ProductList/>
+              </Route>
+
+             
+
+              <Route path="/ProductSearchAdmin">
+                {/* <Sidebar/> */}
+                <ProductSearchAdmin/>
+              </Route>
+
             </Switch>
           </div>
         </div>
