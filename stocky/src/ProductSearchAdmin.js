@@ -235,39 +235,14 @@ const ProductSearchAdmin = () => {
                     onChange={handleNameChange}
                   />
                 </div>
-
-                {/* Price */}
-                <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
-                    <label className='flex justify-center items-center w-40 h-12 text-black text-center text-xl text-left ml-0 bg-gray-100' htmlFor="searchName">
-                      Price:
-                    </label>
-                    <input
-                      className='w-1/5 justify-items-end ml-4'
-                      id="searchName"
-                      type="text"
-                      placeholder="| Enter Min Price"
-                      value={minPrice}
-                      onChange={handleMinPriceChange}
-                    />
-                    <div className="h-0.5 bg-black flex-grow my-4"></div>
-                    <input
-                      className='w-1/5 justify-items-end ml-4'
-                      id="searchName"
-                      type="text"
-                      placeholder="| Enter Max Price"
-                      value={maxPrice}
-                       onChange={handleMaxPriceChange}
-                    />
-                </div>
-
-
+  
                 {/* category choices */}
                 <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
-                  <label className='flex justify-center items-center w-40 text-xl h-12 bg-gray-100 ml-0' htmlFor="category">
+                  <label className='flex justify-center items-center w-40 h-12 bg-gray-100 ml-0' htmlFor="category">
                     Category:
                   </label>
                   <select
-                    className='w-full justify-items-end ml-4'
+                    className='w-1/4'
                     id="category"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
@@ -280,14 +255,27 @@ const ProductSearchAdmin = () => {
                   </select>
                 </div>
   
+                {/* Brand */}
+                <div className='text-lg section  flex flex-row w-full gap-4 h-full justify-between my-4'>
+                  <label className='flex justify-center items-center w-40 h-12 bg-gray-100 ml-0' htmlFor="searchBrand">
+                    Brand:
+                  </label>
+                  <input
+                    id="searchBrand"
+                    type="text"
+                    placeholder="| Enter Brand name"
+                    value={searchBrand}
+                    onChange={handleBrandChange}
+                  />
+                </div>
   
                 {/* Size */}
                 <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
-                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="size">
+                  <label className='flex justify-center items-center w-40 h-12 bg-gray-100 ml-0' htmlFor="size">
                     Size:
                   </label>
                   <select
-                    className='w-full justify-items-end ml-4'
+                    className='w-1/4'
                     id="size"
                     value={selectedSize}
                     onChange={handleSizeChange}
@@ -299,40 +287,22 @@ const ProductSearchAdmin = () => {
                     ))}
                   </select>
                 </div>
-                
-
-                {/* DATE*/}
-                <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
-                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="size">
-                  Release Date:
+  
+                {/* Available */}
+                <div className='text-lg section flex flex-row w-full gap-4 h-full justify-between my-4'>
+                  <label className='flex justify-center items-center w-40 h-12 bg-gray-100 ml-0' htmlFor="searchAvailable">
+                    Available:
                   </label>
-                    <select className='justify-items-end ml-4' value={startMonth} onChange={handleStartMonthChange}>
-                      <option value="">-- Select start month --</option>
-                      {months.map(month => (
-                        <option key={month.value} value={month.value}>{month.label}</option>
-                      ))}
-                    </select>
-                    <select className='justify-items-end ml-4' value={startYear} onChange={handleStartYearChange}>
-                      <option value="">-- Select start year --</option>
-                      {years.map(year => (
-                        <option key={year.value} value={year.value}>{year.label}</option>
-                      ))}
-                    </select>
-                    <div className="h-0.5 bg-black flex-grow my-4"></div>
-                    <select className='justify-items-end ml-4' value={endMonth} onChange={handleEndMonthChange}>
-                      <option value="">-- Select end month --</option>
-                      {months.map(month => (
-                        <option key={month.value} value={month.value}>{month.label}</option>
-                      ))}
-                    </select>
-                    <select className='justify-items-end ml-4' value={endYear} onChange={handleEndYearChange}>
-                      <option value="">-- Select end year --</option>
-                      {years.map(year => (
-                        <option key={year.value} value={year.value}>{year.label}</option>
-                      ))}
-                    </select>
+                  <div className="flex mr-28">
+                    <input
+                      className='mr-2 size-5'
+                      type="checkbox"
+                      id="searchAvailable"
+                      checked={isAvailable}
+                      onChange={handleAvailableChange}
+                    />
+                  </div>
                 </div>
-
   
                 
               </div>
