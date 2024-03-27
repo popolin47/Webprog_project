@@ -99,6 +99,27 @@ class App extends React.Component {
                 <ModifyProduct/>
               </Route>
               
+              <Route path="/result_product">
+                <SearchResultPage/>
+              </Route>
+
+              <Route path="/ForgotPassword">
+                <Navbarwithsearch/>
+                <ForgotPassword/>
+              </Route>
+
+              <Route path="/ProductList">
+                <Navbarwithsearch/>
+                <ProductList/>
+              </Route>
+
+             
+
+              <Route path="/ProductSearchAdmin">
+                {/* <Sidebar/> */}
+                <ProductSearchAdmin/>
+              </Route>
+
             </Switch>
           </div>
         </div>
