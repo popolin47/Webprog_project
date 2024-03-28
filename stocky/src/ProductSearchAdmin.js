@@ -253,7 +253,6 @@ const ProductSearchAdmin = () => {
                     placeholder="| Enter product ID"
                     value={searchID}
                     onChange={handleIDChange}
-
                   />
                 </div>
 
