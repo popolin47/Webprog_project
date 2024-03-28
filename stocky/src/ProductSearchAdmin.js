@@ -242,7 +242,7 @@ const ProductSearchAdmin = () => {
                     Category:
                   </label>
                   <select
-                    className='w-1/4'
+                    className='w-full justify-items-end ml-4'
                     id="category"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
@@ -261,6 +261,7 @@ const ProductSearchAdmin = () => {
                     Brand:
                   </label>
                   <input
+                    className='w-full justify-items-end ml-4'
                     id="searchBrand"
                     type="text"
                     placeholder="| Enter Brand name"
@@ -275,7 +276,7 @@ const ProductSearchAdmin = () => {
                     Size:
                   </label>
                   <select
-                    className='w-1/4'
+                    className='w-full justify-items-end ml-4'
                     id="size"
                     value={selectedSize}
                     onChange={handleSizeChange}
