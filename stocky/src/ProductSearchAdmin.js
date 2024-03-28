@@ -153,7 +153,25 @@ const ProductSearchAdmin = () => {
                 <div className="bg-[#880501] text-white w-full py-4 text-center ">
                   <h1 className='text-3xl text-white'>Search</h1>
                 </div>
-  
+
+                
+                {/* product ID */}
+                <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
+                  <label className='flex justify-center items-center w-40 h-12 text-black text-center text-xl text-left ml-0 bg-gray-100' htmlFor="searchName">
+                  Product ID
+                  </label>
+                  <input
+                    className='w-full justify-items-end ml-4'
+                    id="searchName"
+                    type="text"
+                    placeholder="| Enter product ID"
+                    value={searchName}
+                    onChange={handleNameChange}
+                  />
+                </div>
+
+
+
                 {/* Name */}
                 <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
                   <label className='flex justify-center items-center w-40 h-12 text-black text-center text-xl text-left ml-0 bg-gray-100' htmlFor="searchName">
@@ -175,7 +193,7 @@ const ProductSearchAdmin = () => {
                     Category:
                   </label>
                   <select
-                    className='w-1/4'
+                    className='w-full justify-items-end ml-4'
                     id="category"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
@@ -194,6 +212,7 @@ const ProductSearchAdmin = () => {
                     Brand:
                   </label>
                   <input
+                    className='w-full justify-items-end ml-4'
                     id="searchBrand"
                     type="text"
                     placeholder="| Enter Brand name"
@@ -208,7 +227,7 @@ const ProductSearchAdmin = () => {
                     Size:
                   </label>
                   <select
-                    className='w-1/4'
+                    className='w-full justify-items-end ml-4'
                     id="size"
                     value={selectedSize}
                     onChange={handleSizeChange}
