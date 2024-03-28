@@ -250,9 +250,8 @@ const ProductSearchAdmin = () => {
                     id="searchName"
                     type="text"
                     placeholder="| Enter product ID"
-                    value={searchID}
-                    onChange={handleIDChange}
-
+                    value={searchName}
+                    onChange={handleNameChange}
                   />
                 </div>
 
