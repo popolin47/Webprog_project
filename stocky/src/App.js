@@ -129,7 +129,7 @@ class App extends React.Component {
                 <Sidebar/>
                 <ProductResultAdmin/>
               <Route path="/ProductSearchAdmin">
-                {/* <Sidebar/> */}
+                <Sidebar/>
                 <ProductSearchAdmin/>
               </Route>
 
