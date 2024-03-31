@@ -145,7 +145,7 @@ const ProductSearchAdmin = () => {
     };
   
     return (
-      <div>
+      <div className='p-8 sm:ml-64 overflow-x-auto shadow-md'>
         <div>
           <form onSubmit={handleSearchSubmit}>
             <div className='my-12 mx-36'>
