@@ -124,6 +124,8 @@ class App extends React.Component {
               </Route>
 
               <Route path="/ProductResultAdmin">
+           
+              <Route path="/ProductSearchAdmin">
                 <Sidebar/>
                 <ProductResultAdmin/>
               </Route>
