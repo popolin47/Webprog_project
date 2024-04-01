@@ -281,7 +281,7 @@ const ProductSearchAdmin = () => {
                       className='w-1/5 justify-items-end ml-4'
                       id="searchName"
                       type="text"
-                      placeholder="| Enter Max Price"
+                      placeholder="| Enter Min Price"
                       value={minPrice}
                       onChange={handleMinPriceChange}
                     />
@@ -290,7 +290,7 @@ const ProductSearchAdmin = () => {
                       className='w-1/5 justify-items-end ml-4'
                       id="searchName"
                       type="text"
-                      placeholder="| Enter Min Price"
+                      placeholder="| Enter Max Price"
                       value={maxPrice}
                        onChange={handleMaxPriceChange}
                     />
@@ -381,7 +381,7 @@ const ProductSearchAdmin = () => {
                         <option key={year.value} value={year.value}>{year.label}</option>
                       ))}
                     </select>
-                  </div>
+                </div>
 
 
                 {/* Available */}
