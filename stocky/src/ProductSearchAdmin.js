@@ -213,7 +213,6 @@ const ProductSearchAdmin = () => {
         const categoryMatches = selectedCategory === 'All' || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
         const availabilityMatches = isAvailable ? product.quantity > 0 : product.quantity === 0;
         const sizeMatches = selectedCategory === 'All'  || product.size === selectedSize;
-        // const sizeMatches = selectedCategory === 'All' || product.catagory === selectedCategory && product.size === selectedSize;
         const minPriceMatches = !minPrice || (product.price >= parseFloat(minPrice));
         const maxPriceMatches = !maxPrice || (product.price <= parseFloat(maxPrice));
         const startDate = new Date(`${startYear}-${startMonth}-01`);
@@ -250,8 +249,9 @@ const ProductSearchAdmin = () => {
                     id="searchName"
                     type="text"
                     placeholder="| Enter product ID"
-                    value={searchName}
-                    onChange={handleNameChange}
+                    value={searchID}
+                    onChange={handleIDChange}
+
                   />
                 </div>
 
@@ -281,7 +281,7 @@ const ProductSearchAdmin = () => {
                       className='w-1/5 justify-items-end ml-4'
                       id="searchName"
                       type="text"
-                      placeholder="| Enter Min Price"
+                      placeholder="| Enter Max Price"
                       value={minPrice}
                       onChange={handleMinPriceChange}
                     />
@@ -290,7 +290,7 @@ const ProductSearchAdmin = () => {
                       className='w-1/5 justify-items-end ml-4'
                       id="searchName"
                       type="text"
-                      placeholder="| Enter Max Price"
+                      placeholder="| Enter Min Price"
                       value={maxPrice}
                        onChange={handleMaxPriceChange}
                     />
@@ -381,7 +381,7 @@ const ProductSearchAdmin = () => {
                         <option key={year.value} value={year.value}>{year.label}</option>
                       ))}
                     </select>
-                </div>
+                  </div>
 
 
                 {/* Available */}
