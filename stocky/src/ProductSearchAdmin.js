@@ -1,7 +1,7 @@
 import React , { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const Product = [
+  const Product = [
     {
       productID: 'P001',
       pro_name: 'shoes1',
@@ -10,6 +10,7 @@ const Product = [
       quantity: 3,
       price: 233,
       size: 'US M 4',
+      releaseDate: new Date('2022-01-01'),
     },
     {
       productID: 'P002',
@@ -19,6 +20,7 @@ const Product = [
       price: 233,
       quantity: 0,
       size: 'US M 5',
+      releaseDate: new Date('2022-02-01'),
     },
     {
       productID: 'P003',
@@ -28,6 +30,7 @@ const Product = [
       price: 233,
       quantity: 1,
       size: 'US M 5',
+      releaseDate: new Date('2022-03-01'),
     },
     {
       productID: 'P004',
@@ -37,6 +40,7 @@ const Product = [
       price: 233,
       quantity: 1,
       size: 'US M 6',
+      releaseDate: new Date('2022-04-01'),
     },
     {
       productID: 'P005',
@@ -46,6 +50,7 @@ const Product = [
       price: 233,
       quantity: 1,
       size: 'US M 4.5',
+      releaseDate: new Date('2022-05-01'),
     },
     {
       productID: 'P006',
@@ -55,6 +60,7 @@ const Product = [
       price: 233,
       quantity: 1,
       size: 'US M 5.5',
+      releaseDate: new Date('2022-06-01'),
     },
     {
       productID: 'P007',
@@ -64,6 +70,7 @@ const Product = [
       price: 233,
       quantity: 1,
       size: 'US M 5.5',
+      releaseDate: new Date('2022-07-01'),
     },
     {
       productID: 'P008',
@@ -73,6 +80,7 @@ const Product = [
       price: 233,
       quantity: 1,
       size: 'US M 4.5',
+      releaseDate: new Date('2022-08-01'),
     },
     {
       productID: 'P009',
@@ -82,6 +90,7 @@ const Product = [
       price: 233,
       quantity: 1,
       size: 'US M 4',
+      releaseDate: new Date('2022-09-01'),
     },
   ];
   
@@ -91,12 +100,41 @@ const Product = [
   const size = ['All','US M 4','US M 4.5','US M 5','US M 5.5','US M 6'];
   const defaultsize2 = size[0];
 
+  const months = [
+    { value: '01', label: 'January' },
+    { value: '02', label: 'February' },
+    { value: '03', label: 'March' },
+    { value: '04', label: 'April' },
+    { value: '05', label: 'May' },
+    { value: '06', label: 'June' },
+    { value: '07', label: 'July' },
+    { value: '08', label: 'August' },
+    { value: '09', label: 'September' },
+    { value: '10', label: 'October' },
+    { value: '11', label: 'November' },
+    { value: '12', label: 'December' }
+  ];
+
+  const years = [
+    { value: '2022', label: '2022' },
+    { value: '2023', label: '2023' },
+    { value: '2024', label: '2024' },
+    { value: '2025', label: '2025' }
+  ];
+
 const ProductSearchAdmin = () => {
     const [searchName, setSearchName] = useState('');
     const [searchBrand, setSearchBrand] = useState('');
+    const [searchID, setSearchID] = useState('');
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
     const [selectedCategory, setSelectedCategory] = useState(defaultOption);
     const [isAvailable, setIsAvailable] = useState(true);
     const [selectedSize, setSelectedSize] = useState(defaultsize2);
+    const [startMonth, setStartMonth] = useState('');
+    const [startYear, setStartYear] = useState('');
+    const [endMonth, setEndMonth] = useState('');
+    const [endYear, setEndYear] = useState('');
     const history = useHistory();
   
     const handleNameChange = (event) => {
@@ -121,24 +159,70 @@ const ProductSearchAdmin = () => {
       setSearchBrand('');
       setSelectedCategory(defaultOption);
       setIsAvailable(false);
+      setStartMonth('');
+      setStartYear('');
+      setEndMonth('');
+      setEndYear('');
+      setSelectedSize(defaultsize2);
+      setMinPrice('');
+      setMaxPrice('');
+      setSearchID('');
+    };
+
+    const handleStartMonthChange = (event) => {
+      setStartMonth(event.target.value);
+    };
+  
+    const handleStartYearChange = (event) => {
+      setStartYear(event.target.value);
+    };
+  
+    const handleEndMonthChange = (event) => {
+      setEndMonth(event.target.value);
+    };
+  
+    const handleEndYearChange = (event) => {
+      setEndYear(event.target.value);
     };
   
     const handleSizeChange = (event) => {
       const selectedValue = event.target.value;
       setSelectedSize(selectedValue === 'All' ? '' : selectedValue);
     };
+
+    const handleIDChange = (event) => {
+      setSearchID(event.target.value);
+    };
+
+    const handleMinPriceChange = (event) => {
+      setMinPrice(event.target.value);
+    };
+    
+    const handleMaxPriceChange = (event) => {
+      setMaxPrice(event.target.value);
+    };
+
+    
   
     const handleSearchSubmit = (event) => {
       event.preventDefault();
-    //  s
       const matchingProducts = Product.filter((product) => {
+        const idMatches = !searchID || product.productID.toLowerCase().includes(searchID.toLowerCase());
         const nameMatches = !searchName || product.pro_name.toLowerCase().includes(searchName.toLowerCase());
         const brandMatches = !searchBrand || product.brand.toLowerCase().includes(searchBrand.toLowerCase());
         const categoryMatches = selectedCategory === 'All' || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
         const availabilityMatches = isAvailable ? product.quantity > 0 : product.quantity === 0;
         const sizeMatches = selectedCategory === 'All'  || product.size === selectedSize;
-    
-        return nameMatches && brandMatches && categoryMatches && availabilityMatches && sizeMatches;
+        const minPriceMatches = !minPrice || (product.price >= parseFloat(minPrice));
+        const maxPriceMatches = !maxPrice || (product.price <= parseFloat(maxPrice));
+        const startDate = new Date(`${startYear}-${startMonth}-01`);
+        const endDate = new Date(`${endYear}-${endMonth}-01`);
+        const releaseDateMatches = (!startYear || !startMonth || !endYear || !endMonth) ||
+          (product.releaseDate >= startDate && product.releaseDate <= endDate);
+  
+        return idMatches && nameMatches && brandMatches && categoryMatches &&
+               availabilityMatches && sizeMatches && minPriceMatches &&
+               maxPriceMatches && releaseDateMatches;
       });
     
       history.push('/result_product', { matchingProducts });
@@ -165,8 +249,9 @@ const ProductSearchAdmin = () => {
                     id="searchName"
                     type="text"
                     placeholder="| Enter product ID"
-                    value={searchName}
-                    onChange={handleNameChange}
+                    value={searchID}
+                    onChange={handleIDChange}
+
                   />
                 </div>
 
@@ -186,10 +271,35 @@ const ProductSearchAdmin = () => {
                     onChange={handleNameChange}
                   />
                 </div>
-  
+
+                {/* Price */}
+                <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
+                    <label className='flex justify-center items-center w-40 h-12 text-black text-center text-xl text-left ml-0 bg-gray-100' htmlFor="searchName">
+                      Price:
+                    </label>
+                    <input
+                      className='w-1/5 justify-items-end ml-4'
+                      id="searchName"
+                      type="text"
+                      placeholder="| Enter Max Price"
+                      value={minPrice}
+                      onChange={handleMinPriceChange}
+                    />
+                    <div className="h-0.5 bg-black flex-grow my-4"></div>
+                    <input
+                      className='w-1/5 justify-items-end ml-4'
+                      id="searchName"
+                      type="text"
+                      placeholder="| Enter Min Price"
+                      value={maxPrice}
+                       onChange={handleMaxPriceChange}
+                    />
+                </div>
+
+
                 {/* category choices */}
                 <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
-                  <label className='flex justify-center items-center w-40 h-12 bg-gray-100 ml-0' htmlFor="category">
+                  <label className='flex justify-center items-center w-40 text-xl h-12 bg-gray-100 ml-0' htmlFor="category">
                     Category:
                   </label>
                   <select
@@ -208,7 +318,7 @@ const ProductSearchAdmin = () => {
   
                 {/* Brand */}
                 <div className='text-lg section  flex flex-row w-full gap-4 h-full justify-between my-4'>
-                  <label className='flex justify-center items-center w-40 h-12 bg-gray-100 ml-0' htmlFor="searchBrand">
+                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="searchBrand">
                     Brand:
                   </label>
                   <input
@@ -223,7 +333,7 @@ const ProductSearchAdmin = () => {
   
                 {/* Size */}
                 <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
-                  <label className='flex justify-center items-center w-40 h-12 bg-gray-100 ml-0' htmlFor="size">
+                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="size">
                     Size:
                   </label>
                   <select
@@ -239,10 +349,44 @@ const ProductSearchAdmin = () => {
                     ))}
                   </select>
                 </div>
-  
+                
+
+                {/* DATE*/}
+                <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
+                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="size">
+                  Release Date:
+                  </label>
+                    <select className='justify-items-end ml-4' value={startMonth} onChange={handleStartMonthChange}>
+                      <option value="">-- Select start month --</option>
+                      {months.map(month => (
+                        <option key={month.value} value={month.value}>{month.label}</option>
+                      ))}
+                    </select>
+                    <select className='justify-items-end ml-4' value={startYear} onChange={handleStartYearChange}>
+                      <option value="">-- Select start year --</option>
+                      {years.map(year => (
+                        <option key={year.value} value={year.value}>{year.label}</option>
+                      ))}
+                    </select>
+                    <div className="h-0.5 bg-black flex-grow my-4"></div>
+                    <select className='justify-items-end ml-4' value={endMonth} onChange={handleEndMonthChange}>
+                      <option value="">-- Select end month --</option>
+                      {months.map(month => (
+                        <option key={month.value} value={month.value}>{month.label}</option>
+                      ))}
+                    </select>
+                    <select className='justify-items-end ml-4' value={endYear} onChange={handleEndYearChange}>
+                      <option value="">-- Select end year --</option>
+                      {years.map(year => (
+                        <option key={year.value} value={year.value}>{year.label}</option>
+                      ))}
+                    </select>
+                  </div>
+
+
                 {/* Available */}
                 <div className='text-lg section flex flex-row w-full gap-4 h-full justify-between my-4'>
-                  <label className='flex justify-center items-center w-40 h-12 bg-gray-100 ml-0' htmlFor="searchAvailable">
+                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="searchAvailable">
                     Available:
                   </label>
                   <div className="flex mr-28">
