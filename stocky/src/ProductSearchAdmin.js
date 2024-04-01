@@ -213,6 +213,7 @@ const ProductSearchAdmin = () => {
         const categoryMatches = selectedCategory === 'All' || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
         const availabilityMatches = isAvailable ? product.quantity > 0 : product.quantity === 0;
         const sizeMatches = selectedCategory === 'All'  || product.size === selectedSize;
+        // const sizeMatches = selectedCategory === 'All' || product.catagory === selectedCategory && product.size === selectedSize;
         const minPriceMatches = !minPrice || (product.price >= parseFloat(minPrice));
         const maxPriceMatches = !maxPrice || (product.price <= parseFloat(maxPrice));
         const startDate = new Date(`${startYear}-${startMonth}-01`);
