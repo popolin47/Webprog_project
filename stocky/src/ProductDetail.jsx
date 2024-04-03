@@ -34,18 +34,23 @@ const ProductDetail = () => {
       </div>
 
       <div className='items-center'>
-      <div className="flex gap-3 m-12 items-center p-12 max-w-fit rounded-lg overflow-hidden shadow-md">
+      <div className="flex gap-3 m-12 items-center p-12 max-w-fit overflow-hidden">
         <div>
           <img className="w-full my-3 object-cover object-center" src={shoepic} alt="shoe" />
         </div>
 
-        <div className="px-6 py-4 text-3xl">
+        <div className="px-6 py-4 text-2xl">
           <h1 className="font-bold ">Product Details</h1>
-          <h1 >Release Date: {product.Date}</h1>
-          <h1>Category: {product.category}</h1>
-          <h1>Price: {product.price}</h1>
-          <h1>Available in stock: {product.quantity}</h1>
+          <h1 className=' text-lg'>Release Date: {product.Date}</h1>
+          <h1 className=' text-lg'>Category: {product.category}</h1>
+          <h1 className=' text-lg'>Price: {product.price}</h1>
+          <h1 className=' text-lg'>Available in stock: {product.quantity}</h1>
         </div>
+      </div>
+
+      <div className='text-wrap w-1/2 ml-12 mb-24'>
+        <h1 className='font-bold text-2xl mb-4 '>Description</h1>
+        <p>The Air Jordan 4 Retro Military Blue 2024 stands as a beacon of Jordan Brand's innovation and style. It features an off-white leather base contrasted with the striking military blue splashed on the eyelet wings, heel, and parts of the midsole, creating a look of disciplined yet daring design. The neutral grey touches on the forefoot and outsole balance the aesthetic, highlighting the sneaker's clean lines and geometric shapes.</p>
       </div>
       </div>
     </div>
