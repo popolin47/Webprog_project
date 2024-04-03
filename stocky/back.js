@@ -1,14 +1,15 @@
 const mysql = require('mysql');
-const connection = require('./db'); // Importing the database connection
+const connection = require('./src/db'); // Importing the database connection
 
 const express = require("express");
 const app = express();
 const router = express.Router();
-app.use(router)
+
 
 
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
+app.use(router)
 router.get('/',(req,res)=>{
     console.log(`Request at ${req.path}`);
     //console.log("Retrieve a search page");
@@ -29,12 +30,24 @@ router.get("/usermanage", (req, res) => {
         res.send(results);
     });
 });
+router.get("/searchresults", (req, res) => {
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM admin`; // Assuming 'admin' is the name of your table
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching users:", error);
+            return res.status(500).send("Error fetching users");
+        }
+        console.log(`${results.length} rows returned`);
+        res.send(results);
+    });
+});
 router.post("/adduser", (req, res) => {
     console.log("start back");
-    const { fname, lname, phone, email, username, pass } = req.body;
-    console.log(fname);
+    //let { firstname, lastname, phone, email, username, pass } = req.body;
+    //console.log(firstname);
     const sql = `INSERT INTO Admin (AID, Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    connection.query(sql, ["null0", username, email, pass, fname, lname, phone], (err, result) => {
+    connection.query(sql, ["AID06", req.body.username,req.body.email, req.body.pass, req.body.firstname, req.body.lastname, req.body.phone], (err, result) => {
         if (err) {
             console.error('Error adding data to database:', err);
             res.status(500).send('Error adding data to database');

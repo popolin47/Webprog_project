@@ -13,18 +13,13 @@ import Sidebar from './Sidebar';
 import Login from './Login';
 import ProductManage from './productManage';
 import AddProduct from './AddProduct';
-
+import Searchuser from './Searchuser';
 import Usermanage from './Usermanage';
 import ModifyProduct from './ModifyProduct';
 import ForgotPassword from './ForgotPassword';
 import ProductList from './ProductList';
-<<<<<<< Updated upstream
-
-
-=======
 import Adduser from './Adduser';
 import Modifyuser from './Modifyadmin';
->>>>>>> Stashed changes
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -51,8 +46,6 @@ class App extends React.Component {
                 <Navbarwithsearch/>
                 <ProductDetail />
               </Route>
-<<<<<<< Updated upstream
-=======
               <Route path="/modifyuser">
                 <Sidebar/>
                 <Modifyuser/>
@@ -61,8 +54,10 @@ class App extends React.Component {
                 <Sidebar/>
                 <Adduser/>
               </Route>
->>>>>>> Stashed changes
-
+              <Route path="/searchuser">
+                <Sidebar/>
+                <Searchuser/>
+              </Route>
               <Route path="/Searchhome">
                 <Navbarwithoutsearch/>
                 <SearchHome />

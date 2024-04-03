@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { Link } from 'react-router-dom';
-import Trash from './asset/img/Trash.svg';
+//import Trash from './asset/img/Trash.svg';
 import { TbEdit } from "react-icons/tb";
 import { FaTrash } from "react-icons/fa";
 import { LiaEdit } from "react-icons/lia";
@@ -39,16 +39,17 @@ const Usermanage = () => {
       <div className="sm:ml-64 shadow-md">
         <div className="px-8">
           <h1 className="text-lg pb-5">User</h1>
-          <div className="searchBar">
-            <input
-              id="searchName"
-              type="text"
-              placeholder="Enter User name"
-              onChange={handleChange}
-            />
-            <button type="submit" onClick={handleSearchSubmit}>
+          <div className="flex-row">
+          <input type="password" name="pass" id="pass" onChange={handleChange}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+       focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+        dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Username' required />
+            <button type="submit" onClick={handleSearchSubmit} className= "pr-5 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">
               Search
             </button>
+            <Link to="/searchuser">
+            <button className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">
+              Advanced Search
+            </button></Link>
             <br />
           </div>
         </div>

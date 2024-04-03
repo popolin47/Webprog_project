@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
-import Trash from './asset/img/Trash.svg';
+
 import { TbEdit } from "react-icons/tb";
 import { FaTrash } from "react-icons/fa";
 import { LiaEdit } from "react-icons/lia";
