@@ -10,11 +10,11 @@ const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
 app.use(router)
-router.get('/',(req,res)=>{
-    console.log(`Request at ${req.path}`);
-    //console.log("Retrieve a search page");
-    res.sendFile(path.join(`${__dirname}/L11/search.html`))
-})
+// router.get('/',(req,res)=>{
+//     console.log(`Request at ${req.path}`);
+//     //console.log("Retrieve a search page");
+//     res.sendFile(path.join(`${__dirname}/L11/search.html`))
+// })
 router.get('/', (req, res) => {
     res.send('hey');
 });
@@ -57,6 +57,8 @@ router.post("/adduser", (req, res) => {
         res.status(200).send('Data added to database successfully');
     });
 });
+
+
 
 
 const PORT = 8000;

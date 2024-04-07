@@ -92,6 +92,7 @@ class App extends React.Component {
               </Route>
 
               <Route path='/ModifyProduct'>
+                <Sidebar/>
                 <ModifyProduct/>
               </Route>
               
