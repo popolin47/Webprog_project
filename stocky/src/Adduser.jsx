@@ -59,7 +59,7 @@ const Adduser = () => {
     <form className="p-72 sm:ml-64 pt-12 items-center" onSubmit={handleSubmit} > 
    
         <label for="first_name" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">First name</label>
-      <input type="text" name="firstname" id="first_name" onChange={(newData)=>setUser({...user,firstname: newData.target.value})} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+      <input type="text" name="firstname" id="first_name" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500"  required />
         <label for="last_name" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Last name</label>

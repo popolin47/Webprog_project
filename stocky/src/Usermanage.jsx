@@ -10,6 +10,14 @@ import { LiaEdit } from "react-icons/lia";
 const Usermanage = () => {
   const history = useHistory();
   const [value, setValue] = useState('');
+  
+  //const [name, setName]= useState('');
+  const [selectedUserId, setSelectedUserId] = useState('');
+  let [valuefordel, setvaluefordel]= useState({
+    firstname: '',
+    lastname: '',
+    phone: '',
+    email:'',username:'', pass:''  });
   useEffect(()=>{
     fetch('/usermanage')
     .then((res)=> res.json())
@@ -25,12 +33,48 @@ const Usermanage = () => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-  
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    // Navigate to the search page with the search query
-    history.push(`/search?query=${value}`);
+  const handleChange2 = (userID) => {
+    console.log(userID);
+    setvaluefordel(userID); // Assuming userID is the unique identifier for the user
   };
+  const handleDelete = (event) => {
+    console.log("deleting start front"); 
+    console.log(valuefordel);
+    fetch(`/delete/${valuefordel}`, {
+      method: 'DELETE'
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Failed to delete data');
+          }
+          return response.text();
+      })
+      .then(data => {
+        console.log("datasent")
+          console.log(valuefordel); 
+      })
+      .catch(error => {
+          console.error('Error:', error); 
+      });
+  };
+  const handleSearchSubmit = (event) => {
+    fetch('/searchadmin')
+    .then((res)=> res.json())
+    .then((data)=>{
+    if (Array.isArray(data)) {
+      setValue(data);
+      console.log("match");
+    } else {
+      console.error("Data received from server is not an array:", data);
+    }})
+    .catch((err) => console.log(err));
+    
+  };
+  const handlemodify  = (userId) =>{
+    setSelectedUserId(userId);
+    history.push('/modifyuser');
+  };
+ 
   
   
 
@@ -65,18 +109,21 @@ const Usermanage = () => {
             </thead>
             <tbody>
               {value && value.map((user) => (
-                <tr key={user.Username}>
+                <tr key={user.AID}>
                   <td>{user.AFname}</td>
                   <td>{user.Aemail}</td>
                   <td>{user.Password}</td>
                   <td>{user.AID}</td>
                   <td className="flex">
                   <div className="pl-5" >
-                    <Link to="/modifyuser"><TbEdit size={"22"}/></Link>
+                    <Link to="/modifyuser"><TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/></Link>
                     
                   </div>
                   <div className="pl-5" >
-                    <FaTrash size={"18"}/>
+                    <form onSubmit={handleDelete} > 
+                      <button  onClick={() => handleChange2(user.AID)}>
+                    <FaTrash  size={"18"}/></button>
+                     </form> 
                   </div>
                 </td>
                 </tr>
