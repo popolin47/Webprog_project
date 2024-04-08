@@ -1,5 +1,11 @@
+
 import React, { useState } from 'react';
 import Datepicker from 'flowbite-datepicker/Datepicker';
+
+
+import React , { useState } from 'react';
+
+
 const ModifyProduct = () => {
     const catagory = ['All','Man', 'Women', 'Kid'];
     const defaultOption = catagory[0];
@@ -20,7 +26,7 @@ const ModifyProduct = () => {
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase dark:text-gray-400 my-4">
             <h1>Product's ID: 10004 </h1>
-            
+
         </thead>
         <tbody>
 
@@ -139,6 +145,6 @@ const ModifyProduct = () => {
       </div>
     </div>
   )
-}
+};
 
 export default ModifyProduct;

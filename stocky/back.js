@@ -74,6 +74,7 @@ router.put("/modifyuser/:userId", (req, res) => {
     console.log("start back");
     //let { firstname, lastname, phone, email, username, pass } = req.body;
     //console.log(firstname);
+
     const sql = `INSERT INTO Admin (AID, Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES (?, ?, ?, ?, ?, ?, ?)`;
     let id = `select AID from admin`
     connection.query(sql, ["AID06", req.body.username,req.body.email, req.body.pass, req.body.firstname, req.body.lastname, req.body.phone], (err, result) => {
@@ -93,6 +94,7 @@ router.post("/adduser", (req, res) => {
     const sql = `INSERT INTO Admin ( Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES ( ?, ?, ?, ?, ?, ?)`;
     let id = `select AID from admin`
     connection.query(sql, [req.body.username,req.body.email, req.body.pass, req.body.firstname, req.body.lastname, req.body.phone], (err, result) => {
+
         if (err) {
             console.error('Error adding data to database:', err);
             res.status(500).send('Error adding data to database');
