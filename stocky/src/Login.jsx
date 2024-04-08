@@ -14,7 +14,7 @@ const Login = () => {
     const handleLogin = () => {
         console.log("Username:", username);
         console.log("Password:", password);
-        history.push('./ProductManage');
+        history.push('/usermanage');
     };
 
     return (

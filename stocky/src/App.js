@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './App.css';
-import Blogdetails from './Blogdetails';
+
 import Home from './Home';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import Navbarwithsearch from './Navbarwithsearch';
@@ -10,13 +10,16 @@ import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
-import ProductManage from './ProductManage';
-import AddProduct from './AddProduct';
 import Login from './Login';
+import ProductManage from './productManage';
+import AddProduct from './AddProduct';
+import Searchuser from './Searchuser';
 import Usermanage from './Usermanage';
 import ModifyProduct from './ModifyProduct';
 import ForgotPassword from './ForgotPassword';
 import ProductList from './ProductList';
+import Adduser from './Adduser';
+import Modifyuser from './Modifyadmin';
 import ProductSearchAdmin from './ProductSearchAdmin';
 
 class App extends React.Component {
@@ -45,18 +48,18 @@ class App extends React.Component {
                 <Navbarwithsearch/>
                 <ProductDetail />
               </Route>
-
-              <Route path="/blogs/:id">
-                <Blogdetails/>
+              <Route path="/modifyuser">
+                <Sidebar/>
+                <Modifyuser/>
               </Route>
-              <Route path="/blogs/:id">
-                <Blogdetails/>
+              <Route path="/adduser">
+                <Sidebar/>
+                <Adduser/>
               </Route>
-
-              <Route path="/blogs/:id">
-                <Blogdetails/>
+              <Route path="/searchuser">
+                <Sidebar/>
+                <Searchuser/>
               </Route>
-
               <Route path="/Searchhome">
                 <Navbarwithoutsearch/>
                 <SearchHome />
@@ -109,18 +112,11 @@ class App extends React.Component {
                 <ProductList/>
               </Route>
 
-              <Route path="/result_product">
-                <SearchResultPage/>
-              </Route>
+             
 
-              <Route path="/ForgotPassword">
-                <Navbarwithsearch/>
-                <ForgotPassword/>
-              </Route>
-
-              <Route path="/ProductList">
-                <Navbarwithsearch/>
-                <ProductList/>
+              <Route path="/ProductSearchAdmin">
+                <Sidebar/>
+                <ProductSearchAdmin/>
               </Route>
 
               <Route path="/ProductSearchAdmin">

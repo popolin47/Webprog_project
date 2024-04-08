@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 //use to keep value
 // it can change the value by do  not use any mre variable
-import Bloglist from "./Bloglist";
+// import Bloglist from "./Bloglist";
 import useFetch from "./useFetch";
 const Home = () => {
     //var name= 'Jin';
@@ -28,10 +28,10 @@ const Home = () => {
      //run every time we change something. //name cahnge it will run the function
     return ( 
         <div className="HOME">
-            { Error &&  <div>{ Error }</div>}
+            {/* { Error &&  <div>{ Error }</div>}
             { isPending && <div>Loading...</div>}
            {blogs && <Bloglist blogs={blogs} title="All blog" ></Bloglist>}
-        
+         */}
         </div>);
 }
  

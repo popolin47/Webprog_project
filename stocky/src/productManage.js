@@ -1,8 +1,8 @@
 import React , { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import ModifyIcon from './modify_icon_Ngb.png'
-import RemoveIcon from './remove_icon-Nbg.png'
+import ModifyIcon from './asset/img/modify_icon_Ngb.png'
+import RemoveIcon from './asset/img/remove_icon-Nbg.png'
 import './productManage.css'
 
 const collection = ['None', 'Winter', 'Summer', 'Autuum'];
