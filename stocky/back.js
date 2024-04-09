@@ -32,22 +32,22 @@ router.get("/usermanage", (req, res) => {
 });
 
 router.get("/searchadmin", (req, res) => {
-    console.log("Searching users...");
-    
-    let sql = `SELECT * FROM admin`; // Assuming 'admin' is the name of your table
-    connection.query(sql, (error, results) => {
-        if (error) {
-            console.error("Error fetching users:", error);
-            return res.status(500).send("Error search users");
-        }
-        console.log(`${results.length} rows returned`);
-        res.send(results);
-    });
+    const query = req.query.query;
+  const sql = `SELECT * from admin WHERE CONCAT(Afname,Alname) LIKE "%${query}%"`;
+
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error searching in MySQL:', err);
+      res.status(500).json({ error: 'An error occurred' });
+      return;
+    }
+    res.json(results);
+  });
 });
 
 router.delete("/delete/:userID", async (req, res) => {
     console.log("Deleting user...");
-    const userID = req.params.userID; // Access userID from URL parameters
+    const userID = req.params.userID; 
     console.log("UserID:", userID);
     let sql = `DELETE FROM admin WHERE AID = ?`; 
     let sql2 = `DELETE FROM Modifyadmin WHERE AID = ?`;
