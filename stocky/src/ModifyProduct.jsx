@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Datepicker from 'flowbite-datepicker/Datepicker';
+//import Datepicker from 'flowbite-datepicker/Datepicker';
 const ModifyProduct = () => {
     const catagory = ['All','Man', 'Women', 'Kid'];
     const defaultOption = catagory[0];
