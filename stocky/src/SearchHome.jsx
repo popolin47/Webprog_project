@@ -128,26 +128,12 @@ const SearchHome = () => {
     setSelectedSize(selectedValue === 'All' ? '' : selectedValue);
   };
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-
-    const matchingProducts = Product.filter((product) => {
-      const nameMatches = !searchName || product.pro_name.toLowerCase().includes(searchName.toLowerCase());
-      const brandMatches = !searchBrand || product.brand.toLowerCase().includes(searchBrand.toLowerCase());
-      const categoryMatches = selectedCategory === 'All' || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
-      const availabilityMatches = isAvailable ? product.quantity > 0 : product.quantity === 0;
-      const sizeMatches = selectedCategory === 'All'  || product.size === selectedSize;
   
-      return nameMatches && brandMatches && categoryMatches && availabilityMatches && sizeMatches;
-    });
-  
-    history.push('/result_product', { matchingProducts });
-  };
 
   return (
     <div>
       <div>
-        <form onSubmit={handleSearchSubmit}>
+        <form action="" method="">
           <div className='my-12 mx-36'>
             <div className="flex flex-col w-full h-1/2 items-center justify-between ">
               <div className="bg-[#880501] text-white w-full py-4 text-center ">
