@@ -101,8 +101,8 @@ const ProductMange = () => {
               <th className='Del'></th>
             </tr>
           </thead>
-          <tbody>
-            {value && value.map((product) => (
+          <tbody> 
+            {value & value.map((product) => (
               <tr key={product.PID}>
                 <td>{product.P_name}</td>
                 <td>{product.Size}</td>
