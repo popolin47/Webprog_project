@@ -13,7 +13,7 @@
     "flowbite-datepicker": "^1.2.6",
     "init": "^0.1.2",
     "mysql": "^2.18.1",
-    "mysql2": "^3.9.3",
+    "mysql2": "^3.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",

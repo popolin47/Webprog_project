@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useEffect,useState } from 'react';
 import './productManage.css'
 import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -157,12 +157,12 @@ const ProductMange = () => {
             </tr>
           </thead>
           <tbody>
-            {value & value.map((product) => (
+            {value && value.map((product) => (
               <tr key={product.PID}>
                 <td>{product.P_name}</td>
                 <td>{product.Size}</td>
                 <td>{product.Catagory}</td>
-                <td>{product.quantity}</td>
+                <td>quantity</td>
                 <td>{product.PID}</td>
                 <td>
                   <a href='/ModifyProduct'>
