@@ -108,6 +108,19 @@ router.get("/ProductManage", (req, res) => {
     });
 });
 
+router.get("/ProductManage", (req, res) => {
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM Product`; // Assuming 'admin' is the name of your table
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching users:", error);
+            return res.status(500).send("Error fetching users");
+        }
+        console.log(`${results.length} rows returned`);
+        res.send(results);
+    });
+});
+
 router.delete("/delete/:userID", async (req, res) => {
     console.log("Deleting user...");
     const userID = req.params.userID; 

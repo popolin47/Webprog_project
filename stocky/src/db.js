@@ -6,10 +6,3 @@ var connection = mysql.createConnection({
     password: 'Mahidol20'
 });
 module.exports = connection;
-
-var connectionM = mysql.createConnection({
-    host: 'localhost',
-    database: '',
-    user: 'stocky',
-    password: 'Mingtar2546'
-})

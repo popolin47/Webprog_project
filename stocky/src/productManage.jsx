@@ -101,13 +101,13 @@ const ProductMange = () => {
               <th className='Del'></th>
             </tr>
           </thead>
-          <tbody> 
-            {value & value.map((product) => (
+          <tbody>
+            {value && value.map((product) => (
               <tr key={product.PID}>
                 <td>{product.P_name}</td>
                 <td>{product.Size}</td>
                 <td>{product.Catagory}</td>
-                <td>{product.quantity}</td>
+                <td>quantity</td>
                 <td>{product.PID}</td>
                 <td>
                   <a href='/ModifyProduct'>
