@@ -102,13 +102,13 @@ const ProductMange = () => {
             </tr>
           </thead>
           <tbody>
-            {value && value.map((product) => (
-              <tr key={product.PID}>
-                <td>{product.P_name}</td>
-                <td>{product.Size}</td>
-                <td>{product.Catagory}</td>
-                <td>quantity</td>
-                <td>{product.PID}</td>
+            {Product.map((product) => (
+              <tr key={product.productID}>
+                <td>{product.pro_name}</td>
+                <td>{product.size}</td>
+                <td>{product.collection}</td>
+                <td>{product.quantity}</td>
+                <td>{product.productID}</td>
                 <td>
                   <a href='/ModifyProduct'>
                     <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
