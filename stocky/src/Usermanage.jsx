@@ -10,6 +10,14 @@ import { LiaEdit } from "react-icons/lia";
 const Usermanage = () => {
   const history = useHistory();
   const [value, setValue] = useState('');
+  const [query, setQuery] = useState('');
+  //const [name, setName]= useState('');
+  const [selectedUserId, setSelectedUserId] = useState('');
+  let [valuefordel, setvaluefordel]= useState({
+    firstname: '',
+    lastname: '',
+    phone: '',
+    email:'',username:'', pass:''  });
   useEffect(()=>{
     fetch('/usermanage')
     .then((res)=> res.json())
@@ -25,12 +33,48 @@ const Usermanage = () => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-  
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    // Navigate to the search page with the search query
-    history.push(`/search?query=${value}`);
+  const handleChange2 = (userID) => {
+    console.log(userID);
+    setvaluefordel(userID); // Assuming userID is the unique identifier for the user
   };
+  const handleDelete = (event) => {
+    console.log("deleting start front"); 
+    console.log(valuefordel);
+    fetch(`/delete/${valuefordel}`, {
+      method: 'DELETE'
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Failed to delete data');
+          }
+          return response.text();
+      })
+      .then(data => {
+        console.log("datasent")
+          console.log(valuefordel); 
+      })
+      .catch(error => {
+          console.error('Error:', error); 
+      });
+  };
+  const handleSearchSubmit = async () => {
+ 
+    try {
+      const response = await fetch(`/searchadmin?query=${query}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setValue(data);
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+  };
+  const handlemodify  = (userId) =>{
+    setSelectedUserId(userId);
+    history.push('/modifyuser');
+  };
+ 
   
   
 
@@ -40,7 +84,7 @@ const Usermanage = () => {
         <div className="px-8">
           <h1 className="text-lg pb-5">User</h1>
           <div className="flex flex-row ">
-          <input type="password" name="pass" id="pass" onChange={handleChange}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+          <input type="text" name="pass" id="pass"value={query} onChange={e => setQuery(e.target.value)}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Username' required />
             <button type="submit" onClick={handleSearchSubmit} className= "mx-4 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">
@@ -57,26 +101,31 @@ const Usermanage = () => {
           <table>
             <thead>
               <tr>
-                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
                 <th>Email</th>
-                <th>Password</th>
+                <th>Username</th>
                 <th>ID</th>
               </tr>
             </thead>
             <tbody>
               {value && value.map((user) => (
-                <tr key={user.Username}>
-                  <td>{user.AFname}</td>
-                  <td>{user.Aemail}</td>
-                  <td>{user.Password}</td>
-                  <td>{user.AID}</td>
+                <tr key={user.AID}>
+                  <td className="p-3">{user.AFname}</td>
+                  <td className="p-3">{user.ALname}</td>
+                  <td className="p-3">{user.Aemail}</td>
+                  <td className="p-3">{user.Username}</td>
+                  <td className="p-3">{user.AID}</td>
                   <td className="flex">
                   <div className="pl-5" >
-                    <Link to="/modifyuser"><TbEdit size={"22"}/></Link>
+                    <Link to="/modifyuser"><TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/></Link>
                     
                   </div>
                   <div className="pl-5" >
-                    <FaTrash size={"18"}/>
+                    <form onSubmit={handleDelete} > 
+                      <button  onClick={() => handleChange2(user.AID)}>
+                    <FaTrash  size={"18"}/></button>
+                     </form> 
                   </div>
                 </td>
                 </tr>
