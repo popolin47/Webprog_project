@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 const ModifyProduct = () => {
     const catagory = ['All','Man', 'Women', 'Kid'];
     const defaultOption = catagory[0];
