@@ -19,11 +19,11 @@ const Usermanage = () => {
     phone: '',
     email:'',username:'', pass:''  });
   useEffect(()=>{
-    fetch('/usermanage')
+     fetch('/usermanage')
     .then((res)=> res.json())
     .then((data)=>{
     if (Array.isArray(data)) {
-      setValue(data);
+      setValue(data); 
       console.log("match");
     } else {
       console.error("Data received from server is not an array:", data);
