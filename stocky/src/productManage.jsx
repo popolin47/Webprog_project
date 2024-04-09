@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 const spaces = '      '.repeat(30)
-const Product = [
+/*const Product = [
   {
     productID: 'P001',
     pro_name: 'shoes1',
@@ -99,7 +99,7 @@ const Product = [
     quantity: 1,
     size: 'US M 4',
   },
-];
+];*/
 
 
 const ProductMange = () => {
@@ -111,6 +111,19 @@ const ProductMange = () => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+  useEffect(()=>{
+    fetch('/productManage')
+    .then((res)=> res.json())
+    .then((data)=>{
+    if (Array.isArray(data)) {
+      setValue(data);
+      console.log("match");
+    } else {
+      console.error("Data received from server is not an array:", data);
+    }})
+    .catch((err) => console.log(err));
+  },[]);
 
   return (
 
@@ -144,13 +157,13 @@ const ProductMange = () => {
             </tr>
           </thead>
           <tbody>
-            {Product.map((product) => (
-              <tr key={product.productID}>
-                <td>{product.pro_name}</td>
-                <td>{product.size}</td>
-                <td>{product.collection}</td>
+            {value & value.map((product) => (
+              <tr key={product.PID}>
+                <td>{product.P_name}</td>
+                <td>{product.Size}</td>
+                <td>{product.Catagory}</td>
                 <td>{product.quantity}</td>
-                <td>{product.productID}</td>
+                <td>{product.PID}</td>
                 <td>
                   <a href='/ModifyProduct'>
                     <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
