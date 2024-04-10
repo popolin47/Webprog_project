@@ -28,6 +28,8 @@ const ProductManage = () => {
 
     <div class="p-8 sm:ml-64 overflow-x-auto shadow-md">
 
+    <div>
+<Sidebar/>
       <div>
         <h1 className='Title'>Product</h1>
       </div>
@@ -156,6 +158,8 @@ const ProductManage = () => {
               <td colSpan="6"></td>
             </tr>
           </tbody>
+            Additional rows go here
+         {/* </tbody> */}
         </table>
       </div>
 
@@ -167,6 +171,8 @@ const ProductManage = () => {
     
     </div>
 
+      </div>   
+    
   )
 };
 

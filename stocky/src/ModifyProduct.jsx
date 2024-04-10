@@ -16,15 +16,15 @@ const ModifyProduct = () => {
         <br />
       </div>
       <div className='flex justify-center'>
-      <form class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 sm:ml-64 ">
+      <form class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 sm:ml-64 " action="" method="">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase dark:text-gray-400 my-4">
             <h1>Product's ID: 10004 </h1>
-            
+
         </thead>
         <tbody>
 
-            {/* Name */}
+            {/* Name*/}
             <tr class="border-b border-gray-200 dark:border-gray-700">
                 <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                     Product's name
@@ -127,7 +127,16 @@ const ModifyProduct = () => {
                     </div>
                 </td>
             </tr>                
-
+            
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    Description 
+                </th>
+                <td class="px-12 py-4">
+                    <input id="description" type='text' rows="1" class="block mx-4 p-2.5 py-11 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                    placeholder="description"></input>
+                </td>
+            </tr>
         </tbody>
         
         
@@ -139,6 +148,6 @@ const ModifyProduct = () => {
       </div>
     </div>
   )
-}
+};
 
 export default ModifyProduct;
