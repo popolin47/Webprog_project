@@ -87,6 +87,7 @@ class App extends React.Component {
               
               <Route path="/ProductManage" render={(props) => <><Sidebar {...props} authed={true} /><ProductManage {...props} authed={true} /></>}/>
               {/* </Route> */}
+
               <Route path="/login">
                 <Navbarwithoutsearch/>
                 <Login/>
@@ -117,11 +118,6 @@ class App extends React.Component {
               </Route>
 
              
-
-              <Route path="/ProductSearchAdmin">
-                <Sidebar/>
-                <ProductSearchAdmin/>
-              </Route>
 
               <Route path="/ProductSearchAdmin">
                 <Sidebar/>
