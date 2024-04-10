@@ -44,6 +44,36 @@ router.get("/usermanage", (req, res) => {
     });
 });
 
+router.get("/login", (req, res) => {
+    console.log(req.query)
+    const {username, password} = req.query
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM admin WHERE Username="${username}" and Password="${password}"`; // Assuming 'admin' is the name of your table
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching users:", error);
+            return res.status(500).send("Error fetching users");
+        }
+        console.log(results);
+        let query_login_history = `SELECT * FROM LogInHistory WHERE AID="${results[0].AID}" ORDER BY LogDate DESC`;
+        connection.query(query_login_history, (error, result_login_history) => {
+            if(result_login_history.length == 0){
+                const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
+                connection.query(insert_login_history, [results[0].AID, 'LOG001', new Date, results[0].Username], (err, result_login_history_final) => {
+                    res.send(results);
+                })
+            }else{
+                const new_logID_num = ('000'+ (Number(result_login_history[0].LogID.slice(-3)) + 1)).slice(-3)
+                const new_logID = 'LOG'+ new_logID_num
+                const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
+                connection.query(insert_login_history, [results[0].AID, new_logID, new Date, results[0].Username], (err, result_login_history_final) => {
+                    res.send(results);
+                })
+            }
+        })
+    });
+});
+
 router.get("/searchadmin", (req, res) => {
     const query = req.query.query;
   const sql = `SELECT * from admin WHERE CONCAT(Afname,Alname) LIKE "%${query}%"`;

@@ -210,9 +210,10 @@ const ProductSearchAdmin = () => {
         const idMatches = !searchID || product.productID.toLowerCase().includes(searchID.toLowerCase());
         const nameMatches = !searchName || product.pro_name.toLowerCase().includes(searchName.toLowerCase());
         const brandMatches = !searchBrand || product.brand.toLowerCase().includes(searchBrand.toLowerCase());
-        const categoryMatches = selectedCategory === 'All' || product.catagory.toLowerCase() === selectedCategory.toLowerCase();
+        const categoryMatches = selectedCategory === 'All' ? true : product.catagory.toLowerCase() === selectedCategory.toLowerCase();
+        // const categoryMatches = selectedCategory === 'All';
         const availabilityMatches = isAvailable ? product.quantity > 0 : product.quantity === 0;
-        const sizeMatches = selectedCategory === 'All'  || product.size === selectedSize;
+        const sizeMatches = selectedSize === 'All'  || product.size === selectedSize;
         // const sizeMatches = selectedCategory === 'All' || product.catagory === selectedCategory && product.size === selectedSize;
         const minPriceMatches = !minPrice || (product.price >= parseFloat(minPrice));
         const maxPriceMatches = !maxPrice || (product.price <= parseFloat(maxPrice));

@@ -7,9 +7,11 @@ import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 
 const spaces = '      '.repeat(30)
 
-const ProductMange = () => {
+const ProductMange = (props) => {
 
   // declare state to hold input value
+  const {location} = props
+  console.log(location.state)
   const [value, setValue] = useState('');
   const [search, setSearch] = useState('');
   const history = useHistory();
