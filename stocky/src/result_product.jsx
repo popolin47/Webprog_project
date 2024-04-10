@@ -5,6 +5,7 @@ import shoepic from './asset/img/ShoeTest.png';
 const SearchResultPage = () => {
   const location = useLocation();
   const matchingProducts = location.state?.matchingProducts || [];
+  console.log(matchingProducts)
 
   return (
     <div className="bg-gray-100 min-h-screen">

@@ -11,11 +11,29 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const history = useHistory();
 
+
+    const fetchLogin = () => {
+        fetch(`/login?username=${username}&password=${password}`)
+        .then((res)=>res.json())
+        .then((data)=>{
+            if(Array.isArray(data)){
+                // history.push('./ProductManage', {user: data[0]});
+            }
+        })
+        // .then((res)=> res.json())
+        // .then((data)=>{
+        // if (Array.isArray(data)) {
+        // //   setValue(data);
+        //   console.log("match");
+        // } else {
+        //   console.error("Data received from server is not an array:", data);
+        // }})
+        // .catch((err) => console.log(err));
+    }
+
     const handleLogin = () => {
-        console.log("Username:", username);
-        console.log("Password:", password);
-        history.push('/usermanage');
-        history.push('./ProductManage');
+        fetchLogin()
+        // history.push('/usermanage');
     };
 
     return (

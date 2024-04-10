@@ -2,8 +2,8 @@ import React , { useState } from 'react';
 import './productManage.css'
 import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import ModifyIcon from './modify_icon_Ngb.png';
-import RemoveIcon from './remove_icon-Nbg.png';
+import ModifyIcon from './asset/img/modify_icon_Ngb.png';
+import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 
@@ -102,9 +102,11 @@ const Product = [
 ];
 
 
-const ProductMange = () => {
+const ProductMange = (props) => {
 
   // declare state to hold input value
+  const {location} = props
+  console.log(location.state)
   const [value, setValue] = useState('');
 
   //Defie function to handle change to input value
