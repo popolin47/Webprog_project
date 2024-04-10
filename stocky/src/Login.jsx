@@ -51,13 +51,6 @@ const Login = () => {
                 // Handle error
             });
     };
-        fetch(`/login?username=${username}&password=${password}`)
-        .then((res)=>res.json())
-        .then((data)=>{
-            if(Array.isArray(data)){
-                history.push('./ProductManage', {user: data[0]});
-            }
-        })
         // .then((res)=> res.json())
         // .then((data)=>{
         // if (Array.isArray(data)) {

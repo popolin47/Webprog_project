@@ -101,7 +101,6 @@ const Product = [
   },
 ];
 
-
 const ProductMange = (props) => {
 
   // declare state to hold input value
