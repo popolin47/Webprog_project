@@ -17,7 +17,7 @@ const Login = () => {
         .then((res)=>res.json())
         .then((data)=>{
             if(Array.isArray(data)){
-                // history.push('./ProductManage', {user: data[0]});
+                history.push('./ProductManage', {user: data[0]});
             }
         })
         // .then((res)=> res.json())
