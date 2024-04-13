@@ -1,94 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
-const Product = [
-  {
-    productID: 'P001',
-    pro_name: 'shoes1',
-    catagory: 'Man',
-    brand: 'Adibas',
-    quantity: 3,
-    price: 233,
-    size: 'US M 4',
-  },
-  {
-    productID: 'P002',
-    pro_name: 'shoes2',
-    catagory: 'Women',
-    brand: 'Nike',
-    price: 233,
-    quantity: 0,
-    size: 'US M 5',
-  },
-  {
-    productID: 'P003',
-    pro_name: 'shoes3',
-    catagory: 'Kid',
-    brand: 'Aria',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5',
-  },
-  {
-    productID: 'P004',
-    pro_name: 'shoes4',
-    catagory: 'Kid',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 6',
-  },
-  {
-    productID: 'P005',
-    pro_name: 'shoes5',
-    catagory: 'Man',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4.5',
-  },
-  {
-    productID: 'P006',
-    pro_name: 'shoes6',
-    catagory: 'Man',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5.5',
-  },
-  {
-    productID: 'P007',
-    pro_name: 'shoes7',
-    catagory: 'Women',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5.5',
-  },
-  {
-    productID: 'P008',
-    pro_name: 'shoes8',
-    catagory: 'Kid',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4.5',
-  },
-  {
-    productID: 'P009',
-    pro_name: 'shoes9',
-    catagory: 'Women',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4',
-  },
-];
 
 const catagory = ['All','Man', 'Women', 'Kid'];
 const defaultOption = catagory[0];
 
-const size = ['All','US M 4','US M 4.5','US M 5','US M 5.5','US M 6'];
+const size = ['All','4','4.5','5','5.5','6'];
 const defaultsize2 = size[0];
 
 const SearchHome = () => {
@@ -97,7 +13,7 @@ const SearchHome = () => {
   const [selectedCategory, setSelectedCategory] = useState(defaultOption);
   const [isAvailable, setIsAvailable] = useState(true);
   const [selectedSize, setSelectedSize] = useState(defaultsize2);
-  const history = useHistory();
+  
 
   const handleNameChange = (event) => {
     setSearchName(event.target.value);
@@ -121,6 +37,7 @@ const SearchHome = () => {
     setSearchBrand('');
     setSelectedCategory(defaultOption);
     setIsAvailable(false);
+    setSelectedSize(defaultsize2);
   };
 
   const handleSizeChange = (event) => {
@@ -149,10 +66,11 @@ const SearchHome = () => {
                 <input
                   className='justify-items-end ml-4'
                   id="searchName"
+                  name="searchName"
                   type="text"
-                  placeholder="| Enter product name"
                   value={searchName}
                   onChange={handleNameChange}
+                  placeholder="| Enter product name"
                 />
               </div>
 
@@ -164,6 +82,7 @@ const SearchHome = () => {
                 <select
                   className='w-1/4'
                   id="category"
+                  name="category"
                   value={selectedCategory}
                   onChange={handleCategoryChange}
                 >
@@ -182,6 +101,7 @@ const SearchHome = () => {
                 </label>
                 <input
                   id="searchBrand"
+                  name="searchBrand"
                   type="text"
                   placeholder="| Enter Brand name"
                   value={searchBrand}
@@ -197,6 +117,7 @@ const SearchHome = () => {
                 <select
                   className='w-1/4'
                   id="size"
+                  name="size"
                   value={selectedSize}
                   onChange={handleSizeChange}
                 >
@@ -218,6 +139,7 @@ const SearchHome = () => {
                     className='mr-2 size-5'
                     type="checkbox"
                     id="searchAvailable"
+                    name='searchAvailable'
                     checked={isAvailable}
                     onChange={handleAvailableChange}
                   />
