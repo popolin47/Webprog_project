@@ -105,7 +105,46 @@ router.post("/adduser", (req, res) => {
     });
 });
 
+router.get("/searchHome", (req, res) => {
+    const searchName = req.body.searchName;
+    const category = req.body.category;
+    const searchBrand =req.body.searchBrand;
+    const size = req.body.size;
+    const searchAvailable = res.body.searchAvailable;
+    let sql ='SELECT * FROM Product WHERE 1=1'
 
+    if (searchName!=null) {
+        sql += ` AND P_name LIKE "%${searchName}%"`;
+      }
+
+    if (searchBrand!=null) {
+    sql += ` AND brand LIKE "%${category}%"`;
+    }
+
+        if (searchAvailable === 'true') {
+            sql += ' AND quantity > 0';
+        } 
+        else if (searchAvailable === 'false') {
+            sql += ' AND quantity = 0';
+        }
+
+    if (size!=='All') {
+        sql += ` AND size LIKE "%${category}%"`;
+    }
+
+    if (category!=='All') {
+        sql += ` AND category LIKE "%${category}%"`;
+    }
+
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error searching in MySQL:', err);
+      res.status(500).json({ error: 'An error occurred' });
+      return;
+    }
+    res.json(results);
+  });
+});
 
 
 const PORT = 8000;

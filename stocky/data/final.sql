@@ -35,19 +35,23 @@ INSERT INTO `LogInHistory` (`AID`, `LogID`, `LogDate`, `Username`) VALUES
 
 CREATE TABLE IF NOT EXISTS `Product` (
   `PID` char(5) NOT NULL,
-  `P_name` char(50) NOT NULL,
+  `P_name` varchar(50) NOT NULL,
+  `Brand` varchar(50) NOT NULL,
   `Description` text NOT NULL,
+  `quantity` int NOT NULL,
   `Price` double NOT NULL,
   `Pic` blob,
   `Size` double NOT NULL,
   `ReDate` date NOT NULL,
-  `Catagory` char(50) NOT NULL,
-  `color` char(20) NOT NULL,
+  `Catagory` varchar(50) NOT NULL,
+  `color` varchar(20) NOT NULL,
   constraint PK_pid Primary key (PID)
 );
 
-insert into `Product` (`PID`, `P_name`, `Description`, `Price`, `Pic`, `Size`, `ReDate`, `Catagory`, `color`) values
-('PD001', 'product 1', 'this is a product', 9999.00, null, 10.5, '2022-04-05', 'cat', 'white');
+insert into `Product` (`PID`, `P_name`,`Brand`, `Description`,`quantity`, `Price`, `Pic`, `Size`, `ReDate`, `Catagory`, `color`) values
+('PD001', 'product 1','Nike', 'this is a product', 9, 9999.00, null, 4, '2022-04-05', 'Man', 'white'),
+('PD002', 'product 2','Nike', 'this is a product', 2, 9999.00, null, 4.5, '2022-04-05', 'Kid', 'red'),
+('PD002', 'product 2','Nike', 'this is a product',0 , 9999.00, null, 5, '2022-04-05', 'Man', 'red');
 
 CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   `PID` CHAR(5) NOT NULL,
