@@ -105,7 +105,7 @@ router.post("/adduser", (req, res) => {
     });
 });
 
-router.get("/searchHome", (req, res) => {
+router.post("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
     const category = req.body.category;
     const searchBrand =req.body.searchBrand;
@@ -136,14 +136,12 @@ router.get("/searchHome", (req, res) => {
         sql += ` AND category LIKE "%${category}%"`;
     }
 
-  connection.query(sql, (err, results) => {
-    if (err) {
-      console.error('Error searching in MySQL:', err);
-      res.status(500).json({ error: 'An error occurred' });
-      return;
-    }
-    res.json(results);
-  });
+    connection.query( sql, function (error, results) {
+        if (error) throw error;
+        console.log(`${results.length} rows returned`);
+        return res.send(results);
+        
+    });
 });
 
 
