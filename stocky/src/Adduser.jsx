@@ -36,6 +36,7 @@ const Adduser = () => {
           throw new Error(response.statusText);
         }
         setShowModal(true);
+        history.push('/usermanage');
         return response.json();
       })
       .then(() => {
@@ -88,7 +89,10 @@ const Adduser = () => {
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5" >
           confirm
           </button>
-        
+          <Link to="/usermanage">
+          <button   value="Submit" className="bg-slate-950 ml-5 hover:bg-red-700 text-white py-2 px-4 rounded mt-5" >
+         back
+          </button></Link>
         {/* <div className="flex justify-end mt-4   pb-8">
         <Link to="/usermanage"className="flex justify-end mt-4  pr-4 pb-8">
           <button className="bg-black hover:bg-brown text-white py-2 px-4 rounded">
