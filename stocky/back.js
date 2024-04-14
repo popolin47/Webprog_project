@@ -235,6 +235,7 @@ router.post("/adduser", (req, res) => {
     });
 });
 
+
 router.post("/AddProduct", (req, res) => {
     console.log("Adding new product...");
     const productID =  req.body.PID;
