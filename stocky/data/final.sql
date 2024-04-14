@@ -34,7 +34,7 @@ INSERT INTO `LogInHistory` (`AID`, `LogID`, `LogDate`, `Username`) VALUES
 ('101', 'LOG001', '2022-05-01', 'user1');
 
 CREATE TABLE IF NOT EXISTS `Product` (
-  `PID` int auto_increment NOT NULL,
+  `PID` int auto_increment PRIMARY KEY,
   `P_name` varchar(50) NOT NULL,
   `Description` text NOT NULL,
   `quantity` int NOT NULL,
@@ -46,14 +46,15 @@ CREATE TABLE IF NOT EXISTS `Product` (
   `color` varchar(20) NOT NULL,
   CONSTRAINT UQ_Pname UNIQUE (P_name)
 );
-ALTER TABLE product AUTO_INCREMENT=300;
+ALTER TABLE Product AUTO_INCREMENT=300;
 insert into `Product` (`P_name`, `Description`,`quantity`, `Price`, `Pic`, `Size`, `ReDate`, `Catagory`, `color`) values
 ('product 1', 'this is a product', 9, 9999.00, null, 4, '2022-04-05', 'Man', 'white'),
 ('product 2', 'this is a product', 2, 9999.00, null, 4.5, '2022-04-05', 'Kid', 'red'),
-('product 2', 'this is a product',0 , 9999.00, null, 5, '2022-04-05', 'Man', 'red');
+('product 3', 'this is a product',0 , 9999.00, null, 5, '2022-04-05', 'Man', 'red');
+
 
 CREATE TABLE IF NOT EXISTS `ModifyProduct` (
-  `PID` CHAR(5) NOT NULL,
+  `PID` int NOT NULL,
   `AID` int NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
   `Date` DATE NOT NULL,
@@ -65,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `ModifyProduct` (
 );
 
 INSERT INTO `ModifyProduct` (`PID`, `AID`, `Username`, `Date`, `Action`) VALUES
-('PD001', '101', 'user1', '2022-04-07', 'add stock');
+('300', '101', 'user1', '2022-04-07', 'add stock');
 
 CREATE TABLE IF NOT EXISTS `ModifyAdmin` (
   `AID` int NOT NULL,
