@@ -11,6 +11,7 @@ app.use(router)
 router.get('/', (req, res) => {
     res.send('hey');
 });
+
 router.get("/usermanage", (req, res) => {
     console.log("Fetching users...");
     let sql = `SELECT * FROM admin`; // Assuming 'admin' is the name of your table
@@ -75,6 +76,17 @@ router.post("/advancedsearchadmin", (req, res) => {
             res.send(result);
         });
     
+router.get("/ProductManage", (req, res) => {
+    console.log("Fetching products...");
+    let sql = `SELECT * FROM Product`;
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching products:", error);
+            return res.status(500).send("Error fetching products");
+        }
+        console.log(`${results.length} rows returned`);
+        res.send(results);
+    });
 });
 
 router.delete("/delete/:userID", async (req, res) => {
@@ -100,6 +112,28 @@ router.delete("/delete/:userID", async (req, res) => {
     } catch (error) {
         console.error("Error deleting user:", error);
         res.status(500).send("Error deleting user");
+    }
+});
+
+router.delete("/delete/:productID", async (req, res) => {
+    console.log("Deleting Product...");
+    const productID = req.params.productID;
+    console.log("ProductID:", productID);
+
+    let sql = `DELETE FROM Product WHERE PID = ?`;
+    let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
+    
+    try {
+        await Promise.all([
+            connection.query(sql, [productID]),
+            connection.query(sql2, [productID])
+        ]);
+
+        console.log("Product deleted successfully from all tables");
+        res.status(200).send("Product deleted successfully from all tables");
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        res.status(500).send("Error deleting product");
     }
 });
 
@@ -147,6 +181,22 @@ router.put("/modifyuser/:userId", (req, res) => {
         res.status(200).send('Data updated to database successfully');
     });
 });
+
+router.put("/ModifyProduct/:productID", (req, res) => {
+    console.log("Updating product...");
+    const productID = req.params.productID;
+    const sql = `UPDATE Product SET ? WHERE PID = ?`;
+
+    connection.query(sql, [req.body.Product, productID], (err, result) => {
+        if (err) {
+            console.error('Error updating data in database:', err);
+            return res.status(500).send('Error updating data in database');
+        }
+        console.log('Product updated successfully');
+        res.status(200).send('Product updated successfully');
+    });
+});
+
 router.post("/adduser", (req, res) => {
     console.log("start back");
     //let { firstname, lastname, phone, email, username, pass } = req.body;
@@ -165,7 +215,21 @@ router.post("/adduser", (req, res) => {
     });
 });
 
-router.post("/searchHome", (req, res) => {
+router.post("/AddProduct", (req, res) => {
+    console.log("Adding new product...");
+    const sql = `INSERT INTO Product (PID, P_name, Description, Price, Pic, Size, ReDate, Catagory, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    connection.query(sql, req.body.Product, (err, result) => {
+        if (err) {
+            console.error('Error adding data to database:', err);
+            return res.status(500).send('Error adding data to database');
+        }
+        console.log('New product added successfully');
+        res.status(200).send('New product added successfully');
+    });
+});
+
+router.get("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
     const searchcolor = req.body.searchcolor;
     const category = req.body.category;
