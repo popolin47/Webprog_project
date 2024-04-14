@@ -116,6 +116,28 @@ router.delete("/delete/:userID", async (req, res) => {
     }
 });
 
+router.delete("/delete/:productID", async (req, res) => {
+    console.log("Deleting Product...");
+    const productID = req.params.productID; 
+    console.log("ProductID:", productID);
+
+    let sql = `DELETE FROM Product WHERE PID = ?`; 
+    let sql2 = `DELETE FROM Modifyproduct WHERE PID = ?`;
+    
+    try {
+        await Promise.all([
+            connection.query(sql, [productID]),
+            connection.query(sql2, [productID])
+        ]);
+
+        console.log("User deleted successfully from all tables");
+        res.status(200).send("User deleted successfully from all tables");
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).send("Error deleting product");
+    }
+});
+
 router.put("/modifyuser/:userId", (req, res) => {
     console.log("start back");
     //let { firstname, lastname, phone, email, username, pass } = req.body;
@@ -160,6 +182,24 @@ router.put("/modifyuser/:userId", (req, res) => {
         res.status(200).send('Data updated to database successfully');
     });
 });
+
+router.put("/ModifyProduct/:productID", (req, res) => {
+    console.log("start back");
+
+    const sql = `UPDATE Product SET ? WHERE PID = ?`
+
+    connection.query(sql, req.body.Product,req.body.Product.PID, function(err, result){
+        if(err) {
+            console.error('Error adding data to database:', err);
+            res.status(500).send('Error adding data to database');
+            return;
+        }
+        console.error('Error adding data to database:', err);
+            res.status(500).send('Error adding data to database');
+            return;
+    });
+});
+
 router.post("/adduser", (req, res) => {
     console.log("start back");
     //let { firstname, lastname, phone, email, username, pass } = req.body;
@@ -178,7 +218,25 @@ router.post("/adduser", (req, res) => {
     });
 });
 
-router.post("/searchHome", (req, res) => {
+router.post("/AddProduct/:productID", (req, res) => {
+    console.log("start back");
+
+    const sql = `INSERT INTO Product (PID, P_name, Description, Price, Pic, Size, ReDat, Catagory, color) values (?,?,?,?,?,?,?,?,?)`
+    //let id = `select PID from Product`
+
+    connection.query(sql, req.body.Product, function(err, result){
+        if(err) {
+            console.error('Error adding data to database:', err);
+            res.status(500).send('Error adding data to database');
+            return;
+        }
+        console.error('Error adding data to database:', err);
+            res.status(500).send('Error adding data to database');
+            return;
+    });
+});
+
+router.get("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
     const searchcolor = req.body.searchcolor;
     const category = req.body.category;

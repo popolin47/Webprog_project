@@ -72,7 +72,7 @@ class App extends React.Component {
                 <SearchResultPage/>
               </Route>
             
-              <Route path="/ProductDetail">
+              <Route path=" ">
                 <ProductDetail/>
               </Route>
 
