@@ -2,11 +2,7 @@ import React , { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
     const collection = ['None', 'Winter', 'Summer', 'Autuum'];
-    const color = [
-        {name: 'Red', url: 'https://www.riolettcustomaerosols.co.uk/img/colours/bs-381c-bold-red-564.jpg'},
-        {name: 'Green', url: 'https://spraytechnologiesaerosols.com/wp-content/uploads/2020/01/262-Bold-Green.jpg'},
-        {name: 'Blue', url: 'https://www.bhphotovideo.com/images/images500x500/Rosco_110084014812_377_377_Iris_Purple_Fluorescent_594822.jpg'}
-    ]
+    const color = ['None','Red','Green','Blue']
 
 const AddProduct = () => {
 
@@ -47,16 +43,14 @@ const AddProduct = () => {
 
                 <p>Color</p>
                 <label class='flex flex-nowrap gap-0.5'>
+                    <select
+                    class='border-none rounded bg-gray-200'>
                     {color.map((color) => (
-                        <img
-                            className='Colorbox'
-                            key={color.name}
-                            src={color.url}
-                            alt={color.name}
-                            class='w-12 h-12'
-                            onClick={() => setSelectedColor(color)}
-                        />
+                        <option key={color} value={color}>
+                            {color}
+                        </option>
                     ))}
+                    </select>
                 </label> 
             </div>
 
