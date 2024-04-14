@@ -285,7 +285,6 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     });
 });
 
-
 router.post("/adduser", (req, res) => {
     console.log("start back");
     //let { firstname, lastname, phone, email, username, pass } = req.body;
