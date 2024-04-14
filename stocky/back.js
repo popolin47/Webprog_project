@@ -59,14 +59,17 @@ router.get("/login", (req, res) => {
             // No user found with the provided username and password
             return res.status(401).send("Invalid username or password");
         }
-        let query_login_history = `SELECT * FROM LogInHistory WHERE AID="${results[0].AID}" ORDER BY LogDate DESC`;
+        let query_login_history = `SELECT * FROM LogInHistory`;
         connection.query(query_login_history, (error, result_login_history) => {
-            if(result_login_history.length === 0){
+            console.log(result_login_history.length);
+            if(result_login_history.length == 0){
+                console.log("dddddd");
                 const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
                 connection.query(insert_login_history, [results[0].AID, 'LOG001', new Date, results[0].Username], (err, result_login_history_final) => {
                     res.send(results);
                 })
             }else{
+                console.log("aaaaaa");
                 const new_logID_num = ('000'+ (Number(result_login_history[0].LogID.slice(-3)) + 1)).slice(-3)
                 const new_logID = 'LOG'+ new_logID_num
                 const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
