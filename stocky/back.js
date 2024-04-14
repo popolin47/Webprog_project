@@ -146,6 +146,7 @@ router.post("/searchHome", (req, res) => {
 
 router.get("/productdetail/:id", (req, res) => {
     const ProductID = req.params.id;
+    console.log(ProductID);
     if (!ProductID) {
         return res.status(400).send({ error: true, message: 'Please provide a valid product id.' });
     }
