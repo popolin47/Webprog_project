@@ -19,7 +19,7 @@ const AddProduct = () => {
         color:'',
         productdetail:'',
         ReleaseDate:''});
-
+        
   const handleChange = (newData) => {
     let name = newData.target.name;
     setProduct({...product,[name]: newData.target.value})
