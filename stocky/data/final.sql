@@ -34,7 +34,7 @@ INSERT INTO `LogInHistory` (`AID`, `LogID`, `LogDate`, `Username`) VALUES
 ('101', 'LOG001', '2022-05-01', 'user1');
 
 CREATE TABLE IF NOT EXISTS `Product` (
-  `PID` char(5) NOT NULL,
+  `PID` int auto_increment NOT NULL,
   `P_name` varchar(50) NOT NULL,
   `Description` text NOT NULL,
   `quantity` int NOT NULL,
@@ -44,13 +44,13 @@ CREATE TABLE IF NOT EXISTS `Product` (
   `ReDate` date NOT NULL,
   `Catagory` varchar(50) NOT NULL,
   `color` varchar(20) NOT NULL,
-  constraint PK_pid Primary key (PID)
+  CONSTRAINT UQ_Pname UNIQUE (P_name)
 );
-
-insert into `Product` (`PID`, `P_name`, `Description`,`quantity`, `Price`, `Pic`, `Size`, `ReDate`, `Catagory`, `color`) values
-('PD001', 'product 1', 'this is a product', 9, 9999.00, null, 4, '2022-04-05', 'Man', 'white'),
-('PD002', 'product 2', 'this is a product', 2, 9999.00, null, 4.5, '2022-04-05', 'Kid', 'red'),
-('PD002', 'product 2', 'this is a product',0 , 9999.00, null, 5, '2022-04-05', 'Man', 'red');
+ALTER TABLE product AUTO_INCREMENT=300;
+insert into `Product` (`P_name`, `Description`,`quantity`, `Price`, `Pic`, `Size`, `ReDate`, `Catagory`, `color`) values
+('product 1', 'this is a product', 9, 9999.00, null, 4, '2022-04-05', 'Man', 'white'),
+('product 2', 'this is a product', 2, 9999.00, null, 4.5, '2022-04-05', 'Kid', 'red'),
+('product 2', 'this is a product',0 , 9999.00, null, 5, '2022-04-05', 'Man', 'red');
 
 CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   `PID` CHAR(5) NOT NULL,
