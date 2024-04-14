@@ -11,15 +11,16 @@ const AddProduct = () => {
     const [showModal, setShowModal] = useState(false);
     const [product, setProduct] = useState({
         PID: '',
-        Productname: '',
-        description: '',
-        size: '',
-        price: '',
-        collection:'',
+        P_name: '',
+        Description: '',
+        Price: '',
+        pic:'',
+        Size: '',
+        ReDate:'',
+        Catagory:'',
         color:'',
-        productdetail:'',
-        ReleaseDate:''});
-        
+    });
+
   const handleChange = (newData) => {
     let name = newData.target.name;
     setProduct({...product,[name]: newData.target.value})

@@ -1,12 +1,30 @@
 const mysql = require('mysql');
-const connection = require('./src/db'); // Importing the database connection
 const path = require('path');
+const dotenv = require("dotenv");
 const express = require("express");
+const { default: userEvent } = require('@testing-library/user-event');
 const app = express();
 const router = express.Router();
+
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
 app.use(router)
+
+
+
+router.use(express.json());
+router.use(express.urlencoded({extend:true}));
+app.use(router)
+dotenv.config();
+
+const PORT = process.env.MYSQL_PORT;
+
+const connection = mysql.createConnection({
+    host:process.env.MYSQL_HOST,
+    user:process.env.MYSQL_USERNAME,
+    password:process.env.MYSQL_PASSWORD,
+    database:process.env.MYSQL_DATABASE
+}); // Importing the database connection
 
 router.get('/', (req, res) => {
     res.send('hey');
@@ -75,6 +93,7 @@ router.post("/advancedsearchadmin", (req, res) => {
             console.log(result)
             res.send(result);
         });
+    });
     
 router.get("/ProductManage", (req, res) => {
     console.log("Fetching products...");
@@ -217,9 +236,19 @@ router.post("/adduser", (req, res) => {
 
 router.post("/AddProduct", (req, res) => {
     console.log("Adding new product...");
+    const productID =  req.body.PID;
+    const productName = req.body.P_name;
+    const Des = req.body.Description;
+    const price = req.body.Price;
+    const pic = req.body.pic;
+    const size = req.body.Size;
+    const Redate = req.body.ReDate;
+    const collection = req.body.Catagory;
+    const color = req.body.color;
+
     const sql = `INSERT INTO Product (PID, P_name, Description, Price, Pic, Size, ReDate, Catagory, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    connection.query(sql, req.body.Product, (err, result) => {
+    connection.query(sql, [productID, productName, Des, price, pic, size, Redate, collection, color], (err, result) => {
         if (err) {
             console.error('Error adding data to database:', err);
             return res.status(500).send('Error adding data to database');
@@ -285,8 +314,6 @@ router.get("/productdetail/:id", (req, res) => {
     });
 });
 
-
-const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
     // Ensure the database connection is established when the server starts
