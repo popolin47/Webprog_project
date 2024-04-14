@@ -1,22 +1,20 @@
-import React from 'react';
-import shoepic from './asset/img/ShoeTest.png';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; 
 
 const ProductDetail = () => {
-  const Product = [
-    {
-      productID: 'P001',
-      pro_name: 'shoes1',
-      category: 'Man',
-      brand: 'Adibas',
-      quantity: 3,
-      price: 233,
-      size: 'US M 4',
-      Date: '13/12/2024',
-    },
-  ];
+  const { id } = useParams(); 
+  const [product, setProduct] = useState(null);
 
-  const product = Product[0]; // Assuming there is only one product in the array for now
-  
+  useEffect(() => {
+    fetch(`/productdetail/${id}`) 
+      .then(response => response.json())
+      .then(data => setProduct(data.data))
+      .catch(error => console.error('Error fetching product:', error));
+  }, [id]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <div className="bg-red-800 py-4">
@@ -36,7 +34,7 @@ const ProductDetail = () => {
       <div className='items-center'>
       <div className="flex gap-3 m-12 items-center p-12 max-w-fit overflow-hidden">
         <div>
-          <img className="w-full my-3 object-cover object-center" src={shoepic} alt="shoe" />
+          <img className="w-full my-3 object-cover object-center" src={''} alt="shoe" />
         </div>
 
         <div className="px-6 py-4 text-2xl">

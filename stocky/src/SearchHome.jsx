@@ -50,7 +50,7 @@ const SearchHome = () => {
   return (
     <div>
       <div>
-        <form action="" method="">
+        <form action="searchHome" method="post">
           <div className='my-12 mx-36'>
             <div className="flex flex-col w-full h-1/2 items-center justify-between ">
               <div className="bg-[#880501] text-white w-full py-4 text-center ">

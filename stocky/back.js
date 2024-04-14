@@ -105,7 +105,7 @@ router.post("/adduser", (req, res) => {
     });
 });
 
-router.get("/searchHome", (req, res) => {
+router.post("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
     const category = req.body.category;
     const searchBrand =req.body.searchBrand;
@@ -136,14 +136,25 @@ router.get("/searchHome", (req, res) => {
         sql += ` AND category LIKE "%${category}%"`;
     }
 
-  connection.query(sql, (err, results) => {
-    if (err) {
-      console.error('Error searching in MySQL:', err);
-      res.status(500).json({ error: 'An error occurred' });
-      return;
+    connection.query( sql, function (error, results) {
+        if (error) throw error;
+        console.log(`${results.length} rows returned`);
+        return res.send(results);
+        
+    });
+});
+
+router.get("/productdetail/:id", (req, res) => {
+    const ProductID = req.params.id;
+    if (!ProductID) {
+        return res.status(400).send({ error: true, message: 'Please provide a valid product id.' });
     }
-    res.json(results);
-  });
+    connection.query('SELECT * FROM Product WHERE PID = ?', ProductID, function (error, results) {
+        if (error) {
+            throw error;
+        }
+        return res.send({ error: false, data: results[0], message: '' });
+    });
 });
 
 
