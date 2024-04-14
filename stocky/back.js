@@ -144,6 +144,19 @@ router.post("/searchHome", (req, res) => {
     });
 });
 
+router.get("/productdetail/:id", (req, res) => {
+    const ProductID = req.params.id;
+    if (!ProductID) {
+        return res.status(400).send({ error: true, message: 'Please provide a valid product id.' });
+    }
+    connection.query('SELECT * FROM Product WHERE PID = ?', ProductID, function (error, results) {
+        if (error) {
+            throw error;
+        }
+        return res.send({ error: false, data: results[0], message: '' });
+    });
+});
+
 
 const PORT = 8000;
 app.listen(PORT, () => {
