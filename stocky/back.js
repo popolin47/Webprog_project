@@ -55,9 +55,13 @@ router.get("/login", (req, res) => {
             return res.status(500).send("Error fetching users");
         }
         console.log(results);
+        if (results.length === 0) {
+            // No user found with the provided username and password
+            return res.status(401).send("Invalid username or password");
+        }
         let query_login_history = `SELECT * FROM LogInHistory WHERE AID="${results[0].AID}" ORDER BY LogDate DESC`;
         connection.query(query_login_history, (error, result_login_history) => {
-            if(result_login_history.length == 0){
+            if(result_login_history.length === 0){
                 const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
                 connection.query(insert_login_history, [results[0].AID, 'LOG001', new Date, results[0].Username], (err, result_login_history_final) => {
                     res.send(results);
