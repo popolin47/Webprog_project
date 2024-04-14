@@ -1,20 +1,13 @@
 const mysql = require('mysql');
 const connection = require('./src/db'); // Importing the database connection
-
+const path = require('path');
 const express = require("express");
 const app = express();
 const router = express.Router();
-
-
-
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
 app.use(router)
-// router.get('/',(req,res)=>{
-//     console.log(`Request at ${req.path}`);
-//     //console.log("Retrieve a search page");
-//     res.sendFile(path.join(`${__dirname}/L11/search.html`))
-// })
+
 router.get('/', (req, res) => {
     res.send('hey');
 });
@@ -27,6 +20,7 @@ router.get("/usermanage", (req, res) => {
             return res.status(500).send("Error fetching users");
         }
         console.log(`${results.length} rows returned`);
+        console.log(results)
         res.send(results);
     });
 });
@@ -44,22 +38,61 @@ router.get("/searchadmin", (req, res) => {
     res.json(results);
   });
 });
+router.post("/advancedsearchadmin", (req, res) => {
+    console.log("Request body:", req.body);
+    const { userID, username, firstname, lastname, phone, email } = req.body;
+    console.log("UserID:", userID);
+    let sql = '';
+    let params;
+    if (userID) {
+        sql = 'Select * FROM admin WHERE AID = ?';
+        params = userID;
+    } else if (username) {
+        sql = 'Select * FROM admin WHERE Username = ?';
+        params = username;
+    }else if(firstname){
+        sql = 'Select * FROM admin WHERE AFname = ?';
+        params = firstname;
+    }else if(lastname){
+        sql = 'Select * FROM admin WHERE ALname = ?';
+        params = lastname;
+    }else if(phone){
+        sql = 'Select * FROM admin WHERE PhoneNo = ?';
+        params = phone;
+    }else if(email){
+        sql = 'Select * FROM admin WHERE Aemail = ?';
+        params = email;
+    }
+        connection.query(sql, [params], (err, result) => {
+
+            if (err) {
+                console.error('Error adding data to database:', err);
+                res.status(500).send('Error adding data to database');
+                return;
+            }
+            console.log('Find success');
+            console.log(result)
+            res.send(result);
+        });
+    
+});
 
 router.delete("/delete/:userID", async (req, res) => {
     console.log("Deleting user...");
     const userID = req.params.userID; 
     console.log("UserID:", userID);
-    let sql = `DELETE FROM admin WHERE AID = ?`; 
+    
     let sql2 = `DELETE FROM Modifyadmin WHERE AID = ?`;
     let sql3 = `DELETE FROM Modifyproduct WHERE AID = ?`;
     let sql4 = `DELETE FROM LogInHistory WHERE AID = ?`;
+    let sql = `DELETE FROM admin WHERE AID = ?`; 
     
     try {
         await Promise.all([
-            connection.query(sql, [userID]),
+            
             connection.query(sql2, [userID]),
             connection.query(sql3, [userID]),
-            connection.query(sql4, [userID])
+            connection.query(sql4, [userID]), connection.query(sql, [userID])
         ]);
 
         console.log("User deleted successfully from all tables");
@@ -101,7 +134,7 @@ router.post("/adduser", (req, res) => {
             return;
         }
         console.log('Data added to database successfully');
-        res.status(200).send('Data added to database successfully');
+        res.status(200).sendFile(path.join(`${__dirname}/src/Usermanage.jsx`));
     });
 });
 

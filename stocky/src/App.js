@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './App.css';
-
+import Searchresultadmin from './Searchresultadmin';
 import Home from './Home';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import Navbarwithsearch from './Navbarwithsearch';
@@ -37,6 +37,10 @@ class App extends React.Component {
               <Route exact path="/">
               <Navbarwithsearch/>
                 <Home />
+              </Route>
+              <Route path="/searchresultadmin">
+              <Sidebar/>
+                <Searchresultadmin />
               </Route>
               <Route path="/usermanage">
               <Sidebar/>
