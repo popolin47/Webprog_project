@@ -88,7 +88,7 @@ const ProductResultAdmin = () => {
               <tr>
                 <th className='Pn'>{spaces}Product{spaces}</th>
                 <th className='Sz'>{spaces}Size{spaces}</th>
-                <th className='Cat'>{spaces}Catagory{spaces}</th>
+                <th className='Cat'>{spaces}Collection{spaces}</th>
                 <th className='Inst'>{spaces}In Stock{spaces}</th>
                 <th className='Id'>{spaces}ID{spaces}</th>
                 <th className='Modi'></th>
@@ -100,7 +100,7 @@ const ProductResultAdmin = () => {
                 <tr key={product.PID}>
                   <td>{product.P_name}</td>
                   <td>{product.Size}</td>
-                  <td>{product.Catagory}</td>
+                  <td>{product.collection}</td>
                   <td>{product.quantity}</td>
                   <td>{product.PID}</td>
                   <td>

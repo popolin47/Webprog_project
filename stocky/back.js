@@ -40,11 +40,25 @@ router.get("/usermanage", (req, res) => {
     });
 });
 
+router.get("/ProductSearchAdmin", (req, res) => {
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM Product`; // Assuming 'admin' is the name of your table
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching users:", error);
+            return res.status(500).send("Error fetching users");
+        }
+        console.log(`${results.length} rows returned`);
+        console.log(results)
+        res.send(results);
+    });
+});
 
-
-router.get("/ProductList", (req, res) => {
-    console.log("Fetching products...");
-    let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`; // Query to fetch top 3 products
+router.get("/login", (req, res) => {
+    console.log(req.query)
+    const {username, password} = req.query
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM admin WHERE Username="${username}" and Password="${password}"`; // Assuming 'admin' is the name of your table
     connection.query(sql, (error, results) => {
         if (error) {
             console.error("Error fetching products:", error);
@@ -52,7 +66,30 @@ router.get("/ProductList", (req, res) => {
         }
         console.log(`${results.length} rows returned`);
         console.log(results);
-        res.send(results);
+        if (results.length === 0) {
+            // No user found with the provided username and password
+            return res.status(401).send("Invalid username or password");
+        }
+        let query_login_history = `SELECT * FROM LogInHistory`;
+        connection.query(query_login_history, (error, result_login_history) => {
+            console.log(result_login_history.length);
+            if(result_login_history.length == 0){
+                console.log("dddddd");
+                const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
+                connection.query(insert_login_history, [results[0].AID, 'LOG001', new Date, results[0].Username], (err, result_login_history_final) => {
+                    res.send(results);
+                })
+            }else{
+                console.log("aaaaaa");
+                const new_logID_num = ('000'+ (Number(result_login_history[result_login_history.length-1].LogID.slice(-3)) + 1)).slice(-3)
+                const new_logID = 'LOG'+ new_logID_num
+                console.log(new_logID);
+                const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
+                connection.query(insert_login_history, [results[0].AID, new_logID, new Date, results[0].Username], (err, result_login_history_final) => {
+                    res.send(results);
+                })
+            }
+        })
     });
 });
 
