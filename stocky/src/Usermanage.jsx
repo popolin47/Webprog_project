@@ -11,8 +11,8 @@ const Usermanage = () => {
   const history = useHistory();
   const [value, setValue] = useState('');
   const [query, setQuery] = useState('');
-  //const [name, setName]= useState('');
   const [selectedUserId, setSelectedUserId] = useState('');
+
   let [valuefordel, setvaluefordel]= useState({
     firstname: '',
     lastname: '',
@@ -63,7 +63,6 @@ const Usermanage = () => {
   };
 
   const handleSearchSubmit = async () => {
- 
     try {
       const response = await fetch(`/searchadmin?query=${query}`);
       if (!response.ok) {

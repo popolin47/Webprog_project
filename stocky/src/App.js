@@ -21,6 +21,7 @@ import ProductList from './ProductList';
 import Adduser from './Adduser';
 import Modifyuser from './Modifyadmin';
 import ProductSearchAdmin from './ProductSearchAdmin';
+import ProductResultAdmin from './ProductResultAdmin';
 
 class App extends React.Component {
   render() {
@@ -120,6 +121,11 @@ class App extends React.Component {
               <Route path="/ProductSearchAdmin">
                 <Sidebar/>
                 <ProductSearchAdmin/>
+              </Route>
+
+              <Route path="/ProductResultAdmin">
+                <Sidebar/>
+                <ProductResultAdmin/>
               </Route>
 
             </Switch>

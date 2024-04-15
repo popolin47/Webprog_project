@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
+
 const Searchresultadmin = () => {
     const location = useLocation();
     const data = location.results;

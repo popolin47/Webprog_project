@@ -44,6 +44,20 @@ router.get("/usermanage", (req, res) => {
     });
 });
 
+router.get("/ProductSearchAdmin", (req, res) => {
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM Product`; // Assuming 'admin' is the name of your table
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching users:", error);
+            return res.status(500).send("Error fetching users");
+        }
+        console.log(`${results.length} rows returned`);
+        console.log(results)
+        res.send(results);
+    });
+});
+
 router.get("/login", (req, res) => {
     console.log(req.query)
     const {username, password} = req.query
@@ -70,8 +84,9 @@ router.get("/login", (req, res) => {
                 })
             }else{
                 console.log("aaaaaa");
-                const new_logID_num = ('000'+ (Number(result_login_history[0].LogID.slice(-3)) + 1)).slice(-3)
+                const new_logID_num = ('000'+ (Number(result_login_history[result_login_history.length-1].LogID.slice(-3)) + 1)).slice(-3)
                 const new_logID = 'LOG'+ new_logID_num
+                console.log(new_logID);
                 const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
                 connection.query(insert_login_history, [results[0].AID, new_logID, new Date, results[0].Username], (err, result_login_history_final) => {
                     res.send(results);

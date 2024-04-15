@@ -1,103 +1,12 @@
-import React , { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-  const Product = [
-    {
-      productID: 'P001',
-      pro_name: 'shoes1',
-      catagory: 'Man',
-      brand: 'Adibas',
-      quantity: 3,
-      price: 233,
-      size: 'US M 4',
-      releaseDate: new Date('2022-01-01'),
-    },
-    {
-      productID: 'P002',
-      pro_name: 'shoes2',
-      catagory: 'Women',
-      brand: 'Nike',
-      price: 233,
-      quantity: 0,
-      size: 'US M 5',
-      releaseDate: new Date('2022-02-01'),
-    },
-    {
-      productID: 'P003',
-      pro_name: 'shoes3',
-      catagory: 'Kid',
-      brand: 'Aria',
-      price: 233,
-      quantity: 1,
-      size: 'US M 5',
-      releaseDate: new Date('2022-03-01'),
-    },
-    {
-      productID: 'P004',
-      pro_name: 'shoes4',
-      catagory: 'Kid',
-      brand: 'Nike',
-      price: 233,
-      quantity: 1,
-      size: 'US M 6',
-      releaseDate: new Date('2022-04-01'),
-    },
-    {
-      productID: 'P005',
-      pro_name: 'shoes5',
-      catagory: 'Man',
-      brand: 'Nike',
-      price: 233,
-      quantity: 1,
-      size: 'US M 4.5',
-      releaseDate: new Date('2022-05-01'),
-    },
-    {
-      productID: 'P006',
-      pro_name: 'shoes6',
-      catagory: 'Man',
-      brand: 'Nike',
-      price: 233,
-      quantity: 1,
-      size: 'US M 5.5',
-      releaseDate: new Date('2022-06-01'),
-    },
-    {
-      productID: 'P007',
-      pro_name: 'shoes7',
-      catagory: 'Women',
-      brand: 'Nike',
-      price: 233,
-      quantity: 1,
-      size: 'US M 5.5',
-      releaseDate: new Date('2022-07-01'),
-    },
-    {
-      productID: 'P008',
-      pro_name: 'shoes8',
-      catagory: 'Kid',
-      brand: 'Nike',
-      price: 233,
-      quantity: 1,
-      size: 'US M 4.5',
-      releaseDate: new Date('2022-08-01'),
-    },
-    {
-      productID: 'P009',
-      pro_name: 'shoes9',
-      catagory: 'Women',
-      brand: 'Nike',
-      price: 233,
-      quantity: 1,
-      size: 'US M 4',
-      releaseDate: new Date('2022-09-01'),
-    },
-  ];
+  
   
   const catagory = ['All','Man', 'Women', 'Kid'];
   const defaultOption = catagory[0];
   
-  const size = ['All','US M 4','US M 4.5','US M 5','US M 5.5','US M 6'];
+  const size = ['All','4','4.5','5','5.5','6'];
   const defaultsize2 = size[0];
 
   const months = [
@@ -123,13 +32,25 @@ import { useHistory } from 'react-router-dom';
   ];
 
 const ProductSearchAdmin = () => {
+    const [value, setValue] = useState('');
+    const [Product, setProduct] = useState([]);
+    useEffect(()=>{
+      fetch('/ProductSearchAdmin')
+     .then((res)=> res.json())
+     .then((data)=>{
+     if (Array.isArray(data)) {
+      setProduct(data); 
+       console.log("match");
+     } else {
+       console.error("Data received from server is not an array:", data);
+     }})
+     .catch((err) => console.log(err));
+   },[]);
     const [searchName, setSearchName] = useState('');
-    const [searchBrand, setSearchBrand] = useState('');
     const [searchID, setSearchID] = useState('');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [selectedCategory, setSelectedCategory] = useState(defaultOption);
-    const [isAvailable, setIsAvailable] = useState(true);
     const [selectedSize, setSelectedSize] = useState(defaultsize2);
     const [startMonth, setStartMonth] = useState('');
     const [startYear, setStartYear] = useState('');
@@ -141,24 +62,16 @@ const ProductSearchAdmin = () => {
       setSearchName(event.target.value);
     };
   
-    const handleBrandChange = (event) => {
-      setSearchBrand(event.target.value);
-    };
   
     const handleCategoryChange = (event) => {
       const selectedValue = event.target.value;
       setSelectedCategory(selectedValue === 'All' ? '' : selectedValue);
     };
   
-    const handleAvailableChange = (event) => {
-      setIsAvailable(event.target.checked);
-    };
   
     const handleClear = () => {
       setSearchName('');
-      setSearchBrand('');
       setSelectedCategory(defaultOption);
-      setIsAvailable(false);
       setStartMonth('');
       setStartYear('');
       setEndMonth('');
@@ -207,27 +120,25 @@ const ProductSearchAdmin = () => {
     const handleSearchSubmit = (event) => {
       event.preventDefault();
       const matchingProducts = Product.filter((product) => {
-        const idMatches = !searchID || product.productID.toLowerCase().includes(searchID.toLowerCase());
-        const nameMatches = !searchName || product.pro_name.toLowerCase().includes(searchName.toLowerCase());
-        const brandMatches = !searchBrand || product.brand.toLowerCase().includes(searchBrand.toLowerCase());
-        const categoryMatches = selectedCategory === 'All' ? true : product.catagory.toLowerCase() === selectedCategory.toLowerCase();
+        const idMatches = !searchID || product.PID.toLowerCase().includes(searchID.toLowerCase());
+        const nameMatches = !searchName || product.P_name.toLowerCase().includes(searchName.toLowerCase());
+        const categoryMatches = selectedCategory === 'All' ? true : product.Catagory.toLowerCase() === selectedCategory.toLowerCase();
         // const categoryMatches = selectedCategory === 'All';
-        const availabilityMatches = isAvailable ? product.quantity > 0 : product.quantity === 0;
-        const sizeMatches = selectedSize === 'All'  || product.size === selectedSize;
+        const sizeMatches = selectedSize === 'All' || parseFloat(product.Size) === parseFloat(selectedSize);
         // const sizeMatches = selectedCategory === 'All' || product.catagory === selectedCategory && product.size === selectedSize;
-        const minPriceMatches = !minPrice || (product.price >= parseFloat(minPrice));
-        const maxPriceMatches = !maxPrice || (product.price <= parseFloat(maxPrice));
-        const startDate = new Date(`${startYear}-${startMonth}-01`);
-        const endDate = new Date(`${endYear}-${endMonth}-01`);
+        const minPriceMatches = !minPrice || (product.Price >= parseFloat(minPrice));
+        const maxPriceMatches = !maxPrice || (product.Price <= parseFloat(maxPrice));
+        const startDateUTC = new Date(Date.UTC(startYear, startMonth - 1, 1));
+        const endDateUTC = new Date(Date.UTC(endYear, endMonth - 1, 1));
+        const productReDateUTC = new Date(product.ReDate);
         const releaseDateMatches = (!startYear || !startMonth || !endYear || !endMonth) ||
-          (product.releaseDate >= startDate && product.releaseDate <= endDate);
-  
-        return idMatches && nameMatches && brandMatches && categoryMatches &&
-               availabilityMatches && sizeMatches && minPriceMatches &&
+          (productReDateUTC >= startDateUTC && productReDateUTC <= endDateUTC);
+        return idMatches && nameMatches && categoryMatches &&
+               sizeMatches && minPriceMatches &&
                maxPriceMatches && releaseDateMatches;
       });
     
-      history.push('/result_product', { matchingProducts });
+      history.push('/ProductResultAdmin', { matchingProducts });
     };
   
     return (
@@ -317,20 +228,6 @@ const ProductSearchAdmin = () => {
                   </select>
                 </div>
   
-                {/* Brand */}
-                <div className='text-lg section  flex flex-row w-full gap-4 h-full justify-between my-4'>
-                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="searchBrand">
-                    Brand:
-                  </label>
-                  <input
-                    className='w-full justify-items-end ml-4'
-                    id="searchBrand"
-                    type="text"
-                    placeholder="| Enter Brand name"
-                    value={searchBrand}
-                    onChange={handleBrandChange}
-                  />
-                </div>
   
                 {/* Size */}
                 <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
@@ -384,22 +281,6 @@ const ProductSearchAdmin = () => {
                     </select>
                 </div>
 
-
-                {/* Available */}
-                <div className='text-lg section flex flex-row w-full gap-4 h-full justify-between my-4'>
-                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="searchAvailable">
-                    Available:
-                  </label>
-                  <div className="flex mr-28">
-                    <input
-                      className='mr-2 size-5'
-                      type="checkbox"
-                      id="searchAvailable"
-                      checked={isAvailable}
-                      onChange={handleAvailableChange}
-                    />
-                  </div>
-                </div>
   
                 
               </div>

@@ -89,7 +89,6 @@ const ProductMange = (props) => {
   },[]);
 
   return (
-
     <div class="p-8 sm:ml-64 overflow-x-auto shadow-md">
       <div>
         <h1 class='text-xl'>Product</h1>
