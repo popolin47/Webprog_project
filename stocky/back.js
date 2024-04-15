@@ -134,7 +134,7 @@ router.delete("/delete/:userID", async (req, res) => {
     }
 });
 
-router.delete("/delete/:productID", async (req, res) => {
+router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("Deleting Product...");
     const productID = req.params.productID;
     console.log("ProductID:", productID);
@@ -204,9 +204,47 @@ router.put("/modifyuser/:userId", (req, res) => {
 router.put("/ModifyProduct/:productID", (req, res) => {
     console.log("Updating product...");
     const productID = req.params.productID;
+    const productName = req.body.P_name;
+    const Des = req.body.Description;
+    const quantity = req.body.quantity;
+    const price = req.body.Price;
+    const pic = req.body.pic;
+    const size = req.body.Size;
+    const Redate = req.body.ReDate;
+    const collection = req.body.Catagory;
+    const color = req.body.color;
+    let productSet = {};
     const sql = `UPDATE Product SET ? WHERE PID = ?`;
 
-    connection.query(sql, [req.body.Product, productID], (err, result) => {
+    if (productName != null) {
+        productSet.P_name = productName;
+    }
+    if (Des != null) {
+        productSet.Description = Des;
+    }
+    if (price != null) {
+        productSet.Price = price;
+    }
+    if (quantity != null){
+        productSet.quantity = quantity;
+    }
+    if (pic != null) {
+        productSet.pic = pic;
+    }
+    if (size != null) {
+        productSet.Size = size;
+    }
+    if (Redate != null) {
+        productSet.ReDate = Redate;
+    }
+    if (collection != null) {
+        productSet.Catagory = collection;
+    }
+    if (color != null) {
+        productSet.color = color;
+    }
+
+    connection.query(sql, [productSet, productID], (err, result) => {
         if (err) {
             console.error('Error updating data in database:', err);
             return res.status(500).send('Error updating data in database');
@@ -241,6 +279,7 @@ router.post("/AddProduct", (req, res) => {
     const productID =  req.body.PID;
     const productName = req.body.P_name;
     const Des = req.body.Description;
+    const quantity = req.body.quantity;
     const price = req.body.Price;
     const pic = req.body.pic;
     const size = req.body.Size;
@@ -248,9 +287,9 @@ router.post("/AddProduct", (req, res) => {
     const collection = req.body.Catagory;
     const color = req.body.color;
 
-    const sql = `INSERT INTO Product (PID, P_name, Description, Price, Pic, Size, ReDate, Catagory, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO Product (PID, P_name, Description, quantity, Price, Pic, Size, ReDate, Catagory, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    connection.query(sql, [productID, productName, Des, price, pic, size, Redate, collection, color], (err, result) => {
+    connection.query(sql, [productID, productName, Des, quantity, price, pic, size, Redate, collection, color], (err, result) => {
         if (err) {
             console.error('Error adding data to database:', err);
             return res.status(500).send('Error adding data to database');

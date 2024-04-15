@@ -71,8 +71,8 @@ const AddProduct = () => {
             </div>
 
             <div className='infoadd'>
-                <p id='PID'>Product ID</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
+                {/*}<p id='PID'>Product ID</p>
+                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>{*/}
 
                 <p id='ProName'>Product name</p>
                 <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
