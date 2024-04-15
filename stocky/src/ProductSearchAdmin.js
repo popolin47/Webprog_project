@@ -280,20 +280,6 @@ const ProductSearchAdmin = () => {
                   </select>
                 </div>
   
-                {/* Brand */}
-                <div className='text-lg section  flex flex-row w-full gap-4 h-full justify-between my-4'>
-                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="searchBrand">
-                    Brand:
-                  </label>
-                  <input
-                    className='w-full justify-items-end ml-4'
-                    id="searchBrand"
-                    type="text"
-                    placeholder="| Enter Brand name"
-                    value={searchBrand}
-                    onChange={handleBrandChange}
-                  />
-                </div>
   
                 {/* Size */}
                 <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
@@ -347,22 +333,6 @@ const ProductSearchAdmin = () => {
                     </select>
                 </div>
 
-
-                {/* Available */}
-                <div className='text-lg section flex flex-row w-full gap-4 h-full justify-between my-4'>
-                  <label className='flex justify-center items-center text-xl w-40 h-12 bg-gray-100 ml-0' htmlFor="searchAvailable">
-                    Available:
-                  </label>
-                  <div className="flex mr-28">
-                    <input
-                      className='mr-2 size-5'
-                      type="checkbox"
-                      id="searchAvailable"
-                      checked={isAvailable}
-                      onChange={handleAvailableChange}
-                    />
-                  </div>
-                </div>
   
                 
               </div>
