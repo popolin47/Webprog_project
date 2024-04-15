@@ -51,6 +51,23 @@ const Login = () => {
                 // Handle error
             });
     };
+        fetch(`/login?username=${username}&password=${password}`)
+        .then((res)=>res.json())
+        .then((data)=>{
+            if(Array.isArray(data)){
+                history.push('./ProductManage', {user: data[0]});
+            }
+        })
+        // .then((res)=> res.json())
+        // .then((data)=>{
+        // if (Array.isArray(data)) {
+        // //   setValue(data);
+        //   console.log("match");
+        // } else {
+        //   console.error("Data received from server is not an array:", data);
+        // }})
+        // .catch((err) => console.log(err));
+    }
 
     const handleLogin = () => {
         fetchLogin()

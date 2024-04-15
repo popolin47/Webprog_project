@@ -64,8 +64,9 @@ router.get("/ProductSearchAdmin", (req, res) => {
                 })
             }else{
                 console.log("aaaaaa");
-                const new_logID_num = ('000'+ (Number(result_login_history[0].LogID.slice(-3)) + 1)).slice(-3)
+                const new_logID_num = ('000'+ (Number(result_login_history[result_login_history.length-1].LogID.slice(-3)) + 1)).slice(-3)
                 const new_logID = 'LOG'+ new_logID_num
+                console.log(new_logID);
                 const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
                 connection.query(insert_login_history, [results[0].AID, new_logID, new Date, results[0].Username], (err, result_login_history_final) => {
                     res.send(results);
@@ -262,6 +263,25 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
         res.status(500).send("Error deleting product");
     }
 
+router.delete("/delete1/:ProductID", async (req, res) => {
+    console.log("Deleting user...");
+    const ProductID= req.params.ProductID; 
+    console.log("UserID:", ProductID);
+    
+    let sql3 = `DELETE FROM Modifyproduct WHERE PID = ?`;
+    let sql =  `DELETE FROM Product WHERE PID = ?`; 
+    
+    try {
+        await Promise.all([
+            connection.query(sql3, [ProductID]),
+            connection.query(sql, [ProductID])
+        ]);
+        console.log("User deleted successfully from all tables");
+        res.status(200).send("User deleted successfully from all tables");
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(401).send("Not Found");
+    }
 });
 
 router.put("/modifyuser/:userId", async (req, res) => {
