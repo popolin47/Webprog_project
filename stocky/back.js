@@ -107,17 +107,44 @@ router.put("/modifyuser/:userId", (req, res) => {
     console.log("start back");
     //let { firstname, lastname, phone, email, username, pass } = req.body;
     //console.log(firstname);
-
-    const sql = `INSERT INTO Admin (AID, Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    let id = `select AID from admin`
-    connection.query(sql, ["AID06", req.body.username,req.body.email, req.body.pass, req.body.firstname, req.body.lastname, req.body.phone], (err, result) => {
+    const userid = req.params.userId;
+    const Password = req.body.Password;
+    const username = req.body.Username;
+    const firstname = req.body.Afname;
+    const lastname= req.body.Alname;
+    const phone= req.body.PhoneNo;
+    const email= req.body.Aemail;
+ 
+    console.log(req.body)
+     if (username) {
+        sql = 'UPDATE  admin set Username = ? WHERE AID = ?';
+        params = username;
+    }else if(firstname){
+        sql = 'UPDATE  admin set AFname = ? WHERE AID = ?';
+        params = firstname;
+    }else if(lastname){
+        sql = 'UPDATE  admin set ALname = ? WHERE AID = ?';
+        params = lastname;
+    }else if(phone){
+        sql = 'UPDATE  admin set PhoneNo = ? WHERE AID = ?';
+        params = phone;
+    }else if(email){
+        sql = 'UPDATE  admin set Aemail = ? WHERE AID = ?';
+        params = email;
+    }else if(Password){
+        sql = 'UPDATE  admin set Password = ? WHERE AID = ?';
+        params = Password;
+    }
+    // const sql = `UPDATE  Admin (AID, Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    // let id = `select AID from admin`
+    connection.query(sql, [params, userid], (err, result) => {
         if (err) {
-            console.error('Error adding data to database:', err);
-            res.status(500).send('Error adding data to database');
+            console.error('Error updating data to database:', err);
+            res.status(500).send('Error updating data to database');
             return;
         }
-        console.log('Data added to database successfully');
-        res.status(200).send('Data added to database successfully');
+        console.log('Data updated to database successfully');
+        res.status(200).send('Data updated to database successfully');
     });
 });
 router.post("/adduser", (req, res) => {
