@@ -276,10 +276,10 @@ router.post("/adduser", (req, res) => {
 
 router.post("/AddProduct", (req, res) => {
     console.log("Adding new product...");
-    const productID =  req.body.PID;
+    //const productID =  req.body.PID;
     const productName = req.body.P_name;
     const Des = req.body.Description;
-    const quantity = req.body.quantity;
+    const quantity = parseInt(req.body.quantity);
     const price = req.body.Price;
     const pic = req.body.pic;
     const size = req.body.Size;
@@ -287,9 +287,9 @@ router.post("/AddProduct", (req, res) => {
     const collection = req.body.Catagory;
     const color = req.body.color;
 
-    const sql = `INSERT INTO Product (PID, P_name, Description, quantity, Price, Pic, Size, ReDate, Catagory, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO Product (P_name, Description, quantity, Price, Pic, Size, ReDate, Catagory, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    connection.query(sql, [productID, productName, Des, quantity, price, pic, size, Redate, collection, color], (err, result) => {
+    connection.query(sql, [productName, Des, quantity, price, pic, size, Redate, collection, color], (err, result) => {
         if (err) {
             console.error('Error adding data to database:', err);
             return res.status(500).send('Error adding data to database');

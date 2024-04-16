@@ -2,17 +2,18 @@ import React , { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
     const collection = ['None', 'Winter', 'Summer', 'Autuum'];
-    const color = ['None','Red','Green','Blue']
+    const colorOptions = ['None','Red','Green','Blue']
 
 const AddProduct = () => {
 
-    const [selectedColor, setSelectedColor] = useState(color[0]);
+    //const [selectedColor, setSelectedColor] = useState(color[0]);
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const [product, setProduct] = useState({
         PID: '',
         P_name: '',
         Description: '',
+        quantity:'',
         Price: '',
         pic:'',
         Size: '',
@@ -80,6 +81,9 @@ const AddProduct = () => {
                 <p id='Des'>Description</p>
                 <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>  
 
+                <p id='quantity'>Quantity</p>
+                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
+
                 <p id='Size'>Size</p>
                 <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
 
@@ -99,15 +103,17 @@ const AddProduct = () => {
                 </select>
 
                 <p>Color</p>
-                <label class='flex flex-nowrap gap-0.5'>
+                <label className='flex flex-nowrap gap-0.5'>
                     <select
-                    onChange={handleChange}
-                    class='border-none rounded bg-gray-200'>
-                    {color.map((color) => (
-                        <option key={color} value={color}>
-                            {color}
-                        </option>
-                    ))}
+                        name="productColor"
+                        value={product.productColor}
+                        onChange={handleChange}
+                        className='border-none rounded bg-gray-200'>
+                        {colorOptions.map((color) => (
+                            <option key={color} value={color}>
+                                {color}
+                            </option>
+                        ))}
                     </select>
                 </label> 
 
@@ -118,19 +124,13 @@ const AddProduct = () => {
 
                 <p id='Release Date'>Release Date</p>
                 <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>  
-
             </div>
 
-            <div class='flex ml-100 w-4/5 justify-end'>
- 
-                <a href='/productmanage'>
-                    <button class='flex-1 m-2 border-none rounded bg-black text-white' type='submit'>Back</button>
-                </a>
-                      
+            <div className='flex ml-100 w-4/5 justify-end'>
+                <button className='flex-1 m-2 border-none rounded bg-black text-white' onClick={() => history.push('/productmanage')}>Back</button>
                 <form onSubmit={handleSubmit}>
-                    <button type='submit' value="Submit" class='flex-1 m-2 border-none rounded bg-red-600 text-white'>Confirm</button>
+                    <button type='submit' value="Submit" className='flex-1 m-2 border-none rounded bg-red-600 text-white'>Confirm</button>
                 </form>
-            
             </div>
         </div>
     )
