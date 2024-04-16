@@ -140,18 +140,18 @@ router.post("/adduser", (req, res) => {
 
 router.post("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
+    const searchcolor = req.body.searchcolor;
     const category = req.body.category;
-    const searchBrand =req.body.searchBrand;
     const size = req.body.size;
-    const searchAvailable = res.body.searchAvailable;
+    const searchAvailable = req.body.isAvailable;
     let sql ='SELECT * FROM Product WHERE 1=1'
 
-    if (searchName!=null) {
-        sql += ` AND P_name LIKE "%${searchName}%"`;
-      }
+    if (searchName !== '') {
+        sql += ` AND P_name LIKE "${searchName}"`;
+    }
 
-    if (searchBrand!=null) {
-    sql += ` AND brand LIKE "%${category}%"`;
+    if (searchcolor !== '') {
+        sql += ` AND color LIKE "${searchcolor}"`;
     }
 
         if (searchAvailable === 'true') {
@@ -161,19 +161,22 @@ router.post("/searchHome", (req, res) => {
             sql += ' AND quantity = 0';
         }
 
-    if (size!=='All') {
-        sql += ` AND size LIKE "%${category}%"`;
+    if (size !== 'All') {
+        sql += ` AND size LIKE "${size}"`;
     }
 
-    if (category!=='All') {
-        sql += ` AND category LIKE "%${category}%"`;
+    if (category !== 'All') {
+        sql += ` AND category LIKE "${category}"`;
     }
 
-    connection.query( sql, function (error, results) {
-        if (error) throw error;
+    connection.query(sql, function (error, results) {
+        if (error) {
+            console.error('Error executing SQL query:', error);
+            return res.status(500).json({ error: 'An error occurred while processing your request.' });
+        }
+        console.log(sql);
         console.log(`${results.length} rows returned`);
-        return res.send(results);
-        
+        return res.json(results);
     });
 });
 

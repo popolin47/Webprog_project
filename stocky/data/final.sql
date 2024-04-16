@@ -42,12 +42,12 @@ CREATE TABLE IF NOT EXISTS `Product` (
   `Pic` blob,
   `Size` double NOT NULL,
   `ReDate` date NOT NULL,
-  `Catagory` varchar(50) NOT NULL,
+  `Category` varchar(50) NOT NULL,
   `color` varchar(20) NOT NULL,
   CONSTRAINT UQ_Pname UNIQUE (P_name)
 );
 ALTER TABLE Product AUTO_INCREMENT=300;
-insert into `Product` (`P_name`, `Description`,`quantity`, `Price`, `Pic`, `Size`, `ReDate`, `Catagory`, `color`) values
+insert into `Product` (`P_name`, `Description`,`quantity`, `Price`, `Pic`, `Size`, `ReDate`, `Category`, `color`) values
 ('product 1', 'this is a product', 9, 9999.00, null, 4, '2022-04-05', 'Man', 'white'),
 ('product 2', 'this is a product', 2, 9999.00, null, 4.5, '2022-04-05', 'Kid', 'red'),
 ('product 3', 'this is a product',0 , 9999.00, null, 5, '2022-04-05', 'Man', 'red');

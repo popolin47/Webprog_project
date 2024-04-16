@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
   const { id } = useParams(); 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetch(`/productdetail`) 
+    
+    fetch(`/productdetail/${id}`)
       .then(response => response.json())
       .then(data => setProduct(data.data))
       .catch(error => console.error('Error fetching product:', error));
   }, [id]);
 
+  
   if (!product) {
     return <div>Loading...</div>;
   }
