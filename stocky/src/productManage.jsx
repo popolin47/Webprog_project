@@ -10,9 +10,47 @@ const ProductMange = () => {
   // declare state to hold input value
   const [value, setValue] = useState('');
 
+  const [valueDel, setValueDel] = useState({
+        P_name: '',
+        Description: '',
+        quantity:'',
+        Price: '',
+        pic:'',
+        Size: '',
+        ReDate:'',
+        Catagory:'',
+        color:'',
+  });
+
   //Defie function to handle change to input value
   const handleChange = (event) => {
     setValue(event.target.value);
+  };
+
+  const handleChange2 = (id) => {
+    console.log(id)
+    setValueDel(id)
+  };
+
+  const handleDelete = (event) => {
+    console.log("deleting start front"); 
+    console.log(valueDel);
+    fetch(`/deleteProduct/${valueDel}`, {
+      method: 'DELETE'
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Failed to delete data');
+          }
+          return response.text();
+      })
+      .then(data => {
+        console.log("datasent")
+          console.log(valueDel); 
+      })
+      .catch(error => {
+          console.error('Error:', error); 
+      });
   };
 
   useEffect(()=>{
@@ -63,7 +101,7 @@ const ProductMange = () => {
                 <td>{product.P_name}</td>
                 <td>{product.Size}</td>
                 <td>{product.Catagory}</td>
-                <td>quantity</td>
+                <td>{product.quantity}</td>
                 <td>{product.PID}</td>
                 <td>
                   <a href='/ModifyProduct'>
@@ -71,7 +109,11 @@ const ProductMange = () => {
                   </a>
                 </td>
                 <td>
-                  <img src={RemoveIcon} alt='Remove icon' className='w-7 h-auto'/>
+                  <form onSubmit={handleDelete}>
+                    <button onClick={() => handleChange2(product.PID)}>
+                    <img src={RemoveIcon} alt='Remove icon' className='w-7 h-auto'/>
+                    </button>
+                  </form>
                 </td>
               </tr>
             ))}

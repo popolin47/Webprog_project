@@ -1,7 +1,7 @@
 import React , { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-    const collection = ['None', 'Winter', 'Summer', 'Autuum'];
+    const collection = ['None', 'Men', 'Women', 'Kids'];
     const colorOptions = ['None','Red','Green','Blue']
 
 const AddProduct = () => {
@@ -10,12 +10,11 @@ const AddProduct = () => {
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const [product, setProduct] = useState({
-        PID: '',
         P_name: '',
         Description: '',
         quantity:'',
         Price: '',
-        pic:'',
+        //pic:'',
         Size: '',
         ReDate:'',
         Catagory:'',
@@ -46,6 +45,7 @@ const AddProduct = () => {
           throw new Error(response.statusText);
         }
         setShowModal(true);
+        history.push('/productmanage');
         return response.json();
       })
       .then(() => {
@@ -76,22 +76,23 @@ const AddProduct = () => {
                 <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>{*/}
 
                 <p id='ProName'>Product name</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="text" onChange={handleChange} name='P_name' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='Des'>Description</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>  
+                <input type="text" onChange={handleChange} name='Description' class='w-4/5 bg-gray-200 border-none rounded'/>  
 
                 <p id='quantity'>Quantity</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="text" onChange={handleChange} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='Size'>Size</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="text" onChange={handleChange} name='Size' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='price'>Price</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="text" onChange={handleChange} name='Price' class='w-4/5 bg-gray-200 border-none rounded'/>
 
-                <p id='coll'>Collection</p>
+                <p id='coll'>Catagory</p>
                 <select
+                name='Catagory'
                 onChange={handleChange}
                 class='border-none rounded bg-gray-200'
                 >
@@ -105,7 +106,7 @@ const AddProduct = () => {
                 <p>Color</p>
                 <label className='flex flex-nowrap gap-0.5'>
                     <select
-                        name="productColor"
+                        name="color"
                         value={product.productColor}
                         onChange={handleChange}
                         className='border-none rounded bg-gray-200'>
@@ -119,11 +120,8 @@ const AddProduct = () => {
 
                 <h3 class='text-xl'>Product Detail</h3>
 
-                <p id='style'>Style</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>
-
                 <p id='Release Date'>Release Date</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>  
+                <input type="text" onChange={handleChange} name='ReDate' class='w-4/5 bg-gray-200 border-none rounded'/>  
             </div>
 
             <div className='flex ml-100 w-4/5 justify-end'>
