@@ -21,7 +21,7 @@ const AddProduct = () => {
         color:'',
     });
 
-  const handleChange = (newData) => {
+  const handleInsery = (newData) => {
     let name = newData.target.name;
     setProduct({...product,[name]: newData.target.value})
   }
@@ -60,11 +60,6 @@ const AddProduct = () => {
   };
 
 
-    const handleSearchSubmit = (event) => {
-        event.preventDefault();
-        history.push('/productmanage');
-      };
-
     return(
         <div class="p-4 sm:ml-64">
             <div>
@@ -73,27 +68,24 @@ const AddProduct = () => {
 
             <div className='infoadd'>
                 {/*}<p id='PID'>Product ID</p>
-                <input type="text" onChange={handleChange} class='w-4/5 bg-gray-200 border-none rounded'/>{*/}
+                <input type="text" onChange={handleInsery} class='w-4/5 bg-gray-200 border-none rounded'/>{*/}
 
                 <p id='ProName'>Product name</p>
-                <input type="text" onChange={handleChange} name='P_name' class='w-4/5 bg-gray-200 border-none rounded'/>
-
-                <p id='Des'>Description</p>
-                <input type="text" onChange={handleChange} name='Description' class='w-4/5 bg-gray-200 border-none rounded'/>  
+                <input type="text" onChange={handleInsery} name='P_name' class='w-4/5 bg-gray-200 border-none rounded'/>  
 
                 <p id='quantity'>Quantity</p>
-                <input type="text" onChange={handleChange} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="number" onChange={handleInsery} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='Size'>Size</p>
-                <input type="text" onChange={handleChange} name='Size' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="text" onChange={handleInsery} name='Size' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='price'>Price</p>
-                <input type="text" onChange={handleChange} name='Price' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="text" onChange={handleInsery} name='Price' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='coll'>Catagory</p>
                 <select
                 name='Catagory'
-                onChange={handleChange}
+                onChange={handleInsery}
                 class='border-none rounded bg-gray-200'
                 >
                     {collection.map((ColOption) => (
@@ -108,7 +100,7 @@ const AddProduct = () => {
                     <select
                         name="color"
                         value={product.productColor}
-                        onChange={handleChange}
+                        onChange={handleInsery}
                         className='border-none rounded bg-gray-200'>
                         {colorOptions.map((color) => (
                             <option key={color} value={color}>
@@ -121,13 +113,19 @@ const AddProduct = () => {
                 <h3 class='text-xl'>Product Detail</h3>
 
                 <p id='Release Date'>Release Date</p>
-                <input type="text" onChange={handleChange} name='ReDate' class='w-4/5 bg-gray-200 border-none rounded'/>  
+                <input type="date" onChange={handleInsery} name='ReDate' class='w-4/5 bg-gray-200 border-none rounded' placeholder="Select date"/>  
+
+                <p id='Des'>Description</p>
+                <input type="text" onChange={handleInsery} name='Description' class='w-4/5 bg-gray-200 border-none rounded'/>
+
             </div>
 
             <div className='flex ml-100 w-4/5 justify-end'>
                 <button className='flex-1 m-2 border-none rounded bg-black text-white' onClick={() => history.push('/productmanage')}>Back</button>
                 <form onSubmit={handleSubmit}>
-                    <button type='submit' value="Submit" className='flex-1 m-2 border-none rounded bg-red-600 text-white'>Confirm</button>
+                    <button type='submit' value="Submit" className='flex-1 m-2 border-none rounded bg-red-600 text-white'>
+                      Confirm
+                    </button>
                 </form>
             </div>
         </div>

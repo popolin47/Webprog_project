@@ -88,7 +88,7 @@ const ProductMange = () => {
             <tr>
               <th className='Pn'>{spaces}Product{spaces}</th>
               <th className='Sz'>{spaces}Size{spaces}</th>
-              <th className='Cat'>{spaces}Collection{spaces}</th>
+              <th className='Cat'>{spaces}Catagory{spaces}</th>
               <th className='Inst'>{spaces}In Stock{spaces}</th>
               <th className='Id'>{spaces}ID{spaces}</th>
               <th className='Modi'></th>
