@@ -71,8 +71,7 @@ const Usermanage = () => {
     }
   };
   const handlemodify  = (userId) =>{
-    setSelectedUserId(userId);
-    history.push('/modifyuser');
+    history.push({pathname:`/Modifyuser/${userId}`,  state: userId});
   };
  
   
@@ -118,7 +117,7 @@ const Usermanage = () => {
                   <td className="p-3">{user.AID}</td>
                   <td className="flex">
                   <div className="pl-5" >
-                    <Link to="/modifyuser"><TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/></Link>
+                    <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
                     
                   </div>
                   <div className="pl-5" >
