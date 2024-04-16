@@ -105,7 +105,7 @@ const ProductMange = () => {
                 <td>{product.P_name}</td>
                 <td>{product.Size}</td>
                 <td>{product.Catagory}</td>
-                <td>quantity</td>
+                <td>{product.quantity}</td>
                 <td>{product.PID}</td>
                 <td>
                   <a href='/ModifyProduct'>
