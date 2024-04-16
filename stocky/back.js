@@ -211,10 +211,39 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     const pic = req.body.pic;
     const size = req.body.Size;
     const Redate = req.body.ReDate;
-    const collection = req.body.Catagory;
+    const Catagory = req.body.Catagory;
     const color = req.body.color;
     let productSet = {};
     const sql = `UPDATE Product SET ? WHERE PID = ?`;
+
+    /*if (productName) {
+        sql = 'UPDATE  admin set P_name = ? WHERE PID = ?';
+        params = productName;
+    }else if(Des){
+        sql = 'UPDATE  admin set Description = ? WHERE PID = ?';
+        params = Des;
+    }else if(quantity){
+        sql = 'UPDATE  admin set quantity = ? WHERE PID = ?';
+        params = quantity;
+    }else if(price){
+        sql = 'UPDATE  admin set Price = ? WHERE PID = ?';
+        params = price;
+    }else if(pic){
+        sql = 'UPDATE  admin set pic = ? WHERE PID = ?';
+        params = pic;
+    }else if(size){
+        sql = 'UPDATE  admin set Size = ? WHERE PID = ?';
+        params = size;
+    }else if(Redate){
+        sql = 'UPDATE  admin set ReDate = ? WHERE PID = ?';
+        params = Redate;
+    }else if(Catagory){
+        sql = 'UPDATE  admin set Catagory = ? WHERE PID = ?';
+        params = Catagory;
+    }else if(color){
+        sql = 'UPDATE  admin set color = ? WHERE PID = ?';
+        params = color;
+    }*/
 
     if (productName != null) {
         productSet.P_name = productName;
@@ -237,12 +266,14 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     if (Redate != null) {
         productSet.ReDate = Redate;
     }
-    if (collection != null) {
-        productSet.Catagory = collection;
+    if (Catagory != null) {
+        productSet.Catagory = Catagory;
     }
     if (color != null) {
         productSet.color = color;
     }
+
+    //const params = [productName, Des, quantity, price, pic, size, Redate, Catagory, color, productID];
 
     connection.query(sql, [productSet, productID], (err, result) => {
         if (err) {
