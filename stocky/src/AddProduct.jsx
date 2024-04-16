@@ -14,7 +14,7 @@ const AddProduct = () => {
         Description: '',
         quantity:'',
         Price: '',
-        //pic:'',
+        pic:'',
         Size: '',
         ReDate:'',
         Catagory:'',
@@ -67,14 +67,9 @@ const AddProduct = () => {
             </div>
 
             <div className='infoadd'>
-                {/*}<p id='PID'>Product ID</p>
-                <input type="text" onChange={handleInsery} class='w-4/5 bg-gray-200 border-none rounded'/>{*/}
 
                 <p id='ProName'>Product name</p>
                 <input type="text" onChange={handleInsery} name='P_name' class='w-4/5 bg-gray-200 border-none rounded'/>  
-
-                <p id='quantity'>Quantity</p>
-                <input type="number" onChange={handleInsery} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='quantity'>Quantity</p>
                 <input type="number" onChange={handleInsery} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
@@ -120,6 +115,9 @@ const AddProduct = () => {
 
                 <p id='Des'>Description</p>
                 <input type="text" onChange={handleInsery} name='Description' class='w-4/5 bg-gray-200 border-none rounded'/>
+
+                <p id='PicUrl'>Picture Url</p>
+                <input type="number" onChange={handleInsery} name='Pic' class='w-4/5 bg-gray-200 border-none rounded'/>
 
             </div>
 
