@@ -1,106 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, Link , useLocation } from 'react-router-dom';
 import shoepic from './asset/img/ShoeTest.png';
 import yyy from './asset/img/bandner.png';
 // Replace the following with the actual path to your background image
 const backgroundImage = require('./asset/img/Mingtar.jpg');
 
-const Product = [
-  {
-    productID: 'P001',
-    pro_name: 'shoes1',
-    catagory: 'Man',
-    brand: 'Adibas',
-    quantity: 3,
-    price: 233,
-    size: 'US M 4',
-  },
-  {
-    productID: 'P002',
-    pro_name: 'shoes2',
-    catagory: 'Women',
-    brand: 'Nike',
-    price: 233,
-    quantity: 0,
-    size: 'US M 5',
-  },
-  {
-    productID: 'P003',
-    pro_name: 'shoes3',
-    catagory: 'Kid',
-    brand: 'Aria',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5',
-  },
-  {
-    productID: 'P004',
-    pro_name: 'shoes4',
-    catagory: 'Kid',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 6',
-  },
-  {
-    productID: 'P005',
-    pro_name: 'shoes5',
-    catagory: 'Man',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4.5',
-  },
-  {
-    productID: 'P006',
-    pro_name: 'shoes6',
-    catagory: 'Man',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5.5',
-  },
-  {
-    productID: 'P007',
-    pro_name: 'shoes7',
-    catagory: 'Women',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5.5',
-  },
-  {
-    productID: 'P008',
-    pro_name: 'shoes8',
-    catagory: 'Kid',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4.5',
-  },
-  {
-    productID: 'P009',
-    pro_name: 'shoes9',
-    catagory: 'Women',
-    brand: 'Nike',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4',
-  },
-];
-
 
 const ProductList = () => {
   const location = useLocation();
-  const matchingProducts = location.state?.matchingProducts || [];
+  const [Product, setProduct] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  React.useEffect(()=>{
+    fetch('/ProductSearchAdmin')
+      .then((res)=> res.json())
+      .then((data)=>{
+      if (Array.isArray(data)) {
+        setProduct(data); 
+        setRecommendedProducts(getRandomProducts(data))
+        console.log("match");
+      } else {
+        console.error("Data received from server is not an array:", data);
+      }})
+      .catch((err) => console.log(err));
+  },[]);
   const handleProductClick = (product) => {
     // Add product viewing functionality here
   };
 
   // Function to get three random products
-  const getRandomProducts = () => {
+  const getRandomProducts = (p) => {
     const randomProducts = [];
-    const shuffledProducts = Product.sort(() => 0.5 - Math.random());
+    const shuffledProducts = p.sort(() => 0.5 - Math.random());
     for (let i = 0; i < 3; i++) {
       randomProducts.push(shuffledProducts[i]);
     }
@@ -108,7 +38,8 @@ const ProductList = () => {
   };
 
   // Get three random products
-  const recommendedProducts = getRandomProducts();
+  console.log(recommendedProducts)
+  
 
   return (
     <div className="bg-slate-50 bg-cover bg-center min-h-screen font-roboto">
@@ -128,14 +59,14 @@ const ProductList = () => {
         </div>
         <div className="flex flex-col md:flex-row justify-between">
           <div className="w-full md:w-3/5 md:pr-10">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full md:w-full">
               {/* Mapping through recommendedProducts array and displaying products */}
               {recommendedProducts.map((product) => (
-                <div key={product.productID} className="rounded-lg shadow-md p-5">
-                  <img src={shoepic} alt="Product" className="bg-white max-w-full max-h-full object-cover" />
-                  <h3 className="text-gray-600 text-lg font-semibold mt-3">{product.pro_name}</h3>
+                <div key={product?.PID ? product.PID : null} className="w-200 h-200px rounded-lg shadow-md p-5">
+                  <img src={shoepic} alt="ProductList" className="bg-white max-w-full max-h-full object-cover" />
+                  <h3 className="text-gray-600 text-lg font-semibold mt-3">{product?.P_name ? product.P_name : '-'}</h3>
                   <div className="flex justify-between mt-1">
-                    <div className="text-black">${product.price}</div>
+                    <div className="text-black">${product?.Price ? product.Price : '-'}</div>
                   </div>
                 </div>
               ))}
@@ -152,11 +83,11 @@ const ProductList = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {/* Mapping through Product array and displaying products */}
               {Product.map((product) => (
-                <div key={product.productID} className="rounded-lg shadow-md p-5">
+                <div key={product.PID} className="rounded-lg shadow-md p-5">
                   <img src={shoepic} alt="Product" className="bg-white max-w-full max-h-full object-cover" />
-                  <h3 className="text-gray-600 text-lg font-semibold mt-3">{product.pro_name}</h3>
+                  <h3 className="text-gray-600 text-lg font-semibold mt-3">{product.P_name}</h3>
                   <div className="flex justify-between mt-1">
-                    <div className="text-black">${product.price}</div>
+                    <div className="text-black">${product.Price}</div>
                   </div>
                 </div>
               ))}
