@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 
 const catagory = ['All','Man', 'Women', 'Kid'];
 const defaultOption = catagory[0];
@@ -8,8 +8,9 @@ const size = ['All','4','4.5','5','5.5','6'];
 const defaultsize2 = size[0];
 
 const SearchHome = () => {
+  const history= useHistory();
   const [searchName, setSearchName] = useState('');
-  const [searchBrand, setSearchBrand] = useState('');
+  const [searchcolor, setcolor] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(defaultOption);
   const [isAvailable, setIsAvailable] = useState(true);
   const [selectedSize, setSelectedSize] = useState(defaultsize2);
@@ -19,8 +20,8 @@ const SearchHome = () => {
     setSearchName(event.target.value);
   };
 
-  const handleBrandChange = (event) => {
-    setSearchBrand(event.target.value);
+  const handleColorChange = (event) => {
+    setcolor(event.target.value);
   };
 
   const handleCategoryChange = (event) => {
@@ -34,7 +35,7 @@ const SearchHome = () => {
 
   const handleClear = () => {
     setSearchName('');
-    setSearchBrand('');
+    setcolor('');
     setSelectedCategory(defaultOption);
     setIsAvailable(false);
     setSelectedSize(defaultsize2);
@@ -45,12 +46,45 @@ const SearchHome = () => {
     setSelectedSize(selectedValue === 'All' ? '' : selectedValue);
   };
 
-  
+  const handleSearch = async (event) => {
+    event.preventDefault();
+
+    const searchData = {
+      searchName,
+      searchcolor,
+      category: selectedCategory,
+      isAvailable,
+      size: selectedSize,
+    };
+
+    try {
+      const response = await fetch('/searchHome', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(searchData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const searchResults = await response.json();
+      console.log('Search Results:', searchResults);
+
+      history.push({ pathname: '/result_product', results: searchResults });
+    } 
+    catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <div>
       <div>
-        <form action="searchHome" method="post">
+        <form onSubmit={handleSearch}>
           <div className='my-12 mx-36'>
             <div className="flex flex-col w-full h-1/2 items-center justify-between ">
               <div className="bg-[#880501] text-white w-full py-4 text-center ">
@@ -74,6 +108,22 @@ const SearchHome = () => {
                 />
               </div>
 
+              {/* color */}
+              <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
+                <label className='text-black text-xl text-left ml-12' htmlFor="searchName">
+                  Color:
+                </label>
+                <input
+                  className='justify-items-end ml-4'
+                  id="searchcolor"
+                  name="searchcolor"
+                  type="text"
+                  value={searchcolor}
+                  onChange={handleColorChange}
+                  placeholder="| Enter product's color'"
+                />
+              </div>
+
               {/* category choices */}
               <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
                 <label className='ml-12' htmlFor="category">
@@ -94,20 +144,6 @@ const SearchHome = () => {
                 </select>
               </div>
 
-              {/* Brand */}
-              <div className='text-lg section  flex flex-row w-full gap-4 h-full justify-between my-4'>
-                <label className='ml-12' htmlFor="searchBrand">
-                  Brand:
-                </label>
-                <input
-                  id="searchBrand"
-                  name="searchBrand"
-                  type="text"
-                  placeholder="| Enter Brand name"
-                  value={searchBrand}
-                  onChange={handleBrandChange}
-                />
-              </div>
 
               {/* Size */}
               <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
@@ -139,7 +175,7 @@ const SearchHome = () => {
                     className='mr-2 size-5'
                     type="checkbox"
                     id="searchAvailable"
-                    name='searchAvailable'
+                    name='isAvailable'
                     checked={isAvailable}
                     onChange={handleAvailableChange}
                   />
