@@ -77,7 +77,7 @@ const AddProduct = () => {
                 <input type="number" onChange={handleInsery} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='quantity'>Quantity</p>
-                <input type="text" onChange={handleChange} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="number" onChange={handleInsery} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
 
                 <p id='Size'>Size</p>
                 <input type="text" onChange={handleInsery} name='Size' class='w-4/5 bg-gray-200 border-none rounded'/>
