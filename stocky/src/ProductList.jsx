@@ -40,9 +40,9 @@ const ProductList = () => {
   };
 
   // Function to get three random products
-  const getRandomProducts = () => {
+  const getRandomProducts = (p) => {
     const randomProducts = [];
-    const shuffledProducts = Product.sort(() => 0.5 - Math.random());
+    const shuffledProducts = p.sort(() => 0.5 - Math.random());
     for (let i = 0; i < 3; i++) {
       randomProducts.push(shuffledProducts[i]);
     }
