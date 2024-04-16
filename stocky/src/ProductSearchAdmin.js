@@ -120,7 +120,7 @@ const ProductSearchAdmin = () => {
     const handleSearchSubmit = (event) => {
       event.preventDefault();
       const matchingProducts = Product.filter((product) => {
-        const idMatches = !searchID || product.PID.toLowerCase().includes(searchID.toLowerCase());
+        const idMatches = !searchID || (typeof searchID === 'string' && product.PID.toString().toLowerCase().includes(searchID.toLowerCase()));
         const nameMatches = !searchName || product.P_name.toLowerCase().includes(searchName.toLowerCase());
         const categoryMatches = selectedCategory === 'All' ? true : product.Catagory.toLowerCase() === selectedCategory.toLowerCase();
         // const categoryMatches = selectedCategory === 'All';
