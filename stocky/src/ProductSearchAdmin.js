@@ -45,7 +45,7 @@ const ProductSearchAdmin = () => {
        console.error("Data received from server is not an array:", data);
      }})
      .catch((err) => console.log(err));
-   },[]);
+    },[]);
     const [searchName, setSearchName] = useState('');
     const [searchID, setSearchID] = useState('');
     const [minPrice, setMinPrice] = useState('');
@@ -56,6 +56,8 @@ const ProductSearchAdmin = () => {
     const [startYear, setStartYear] = useState('');
     const [endMonth, setEndMonth] = useState('');
     const [endYear, setEndYear] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const history = useHistory();
   
     const handleNameChange = (event) => {
@@ -117,28 +119,78 @@ const ProductSearchAdmin = () => {
 
     
   
-    const handleSearchSubmit = (event) => {
-      event.preventDefault();
-      const matchingProducts = Product.filter((product) => {
-        const idMatches = !searchID || (typeof searchID === 'string' && product.PID.toString().toLowerCase().includes(searchID.toLowerCase()));
-        const nameMatches = !searchName || product.P_name.toLowerCase().includes(searchName.toLowerCase());
-        const categoryMatches = selectedCategory === 'All' ? true : product.Catagory.toLowerCase() === selectedCategory.toLowerCase();
-        // const categoryMatches = selectedCategory === 'All';
-        const sizeMatches = selectedSize === 'All' || parseFloat(product.Size) === parseFloat(selectedSize);
-        // const sizeMatches = selectedCategory === 'All' || product.catagory === selectedCategory && product.size === selectedSize;
-        const minPriceMatches = !minPrice || (product.Price >= parseFloat(minPrice));
-        const maxPriceMatches = !maxPrice || (product.Price <= parseFloat(maxPrice));
-        const startDateUTC = new Date(Date.UTC(startYear, startMonth - 1, 1));
-        const endDateUTC = new Date(Date.UTC(endYear, endMonth - 1, 1));
-        const productReDateUTC = new Date(product.ReDate);
-        const releaseDateMatches = (!startYear || !startMonth || !endYear || !endMonth) ||
-          (productReDateUTC >= startDateUTC && productReDateUTC <= endDateUTC);
-        return idMatches && nameMatches && categoryMatches &&
-               sizeMatches && minPriceMatches &&
-               maxPriceMatches && releaseDateMatches;
-      });
+    const handleSearchSubmit = async (event) => {
+      // event.preventDefault();
+      // const matchingProducts = Product.filter((product) => {
+      //   const idMatches = !searchID || (typeof searchID === 'string' && product.PID.toString().toLowerCase().includes(searchID.toLowerCase()));
+      //   const nameMatches = !searchName || product.P_name.toLowerCase().includes(searchName.toLowerCase());
+      //   const categoryMatches = selectedCategory === 'All' ? true : product.Catagory.toLowerCase() === selectedCategory.toLowerCase();
+      //   // const categoryMatches = selectedCategory === 'All';
+      //   const sizeMatches = selectedSize === 'All' || parseFloat(product.Size) === parseFloat(selectedSize);
+      //   // const sizeMatches = selectedCategory === 'All' || product.catagory === selectedCategory && product.size === selectedSize;
+      //   const minPriceMatches = !minPrice || (product.Price >= parseFloat(minPrice));
+      //   const maxPriceMatches = !maxPrice || (product.Price <= parseFloat(maxPrice));
+      //   const startDateUTC = new Date(Date.UTC(startYear, startMonth - 1, 1));
+      //   const endDateUTC = new Date(Date.UTC(endYear, endMonth - 1, 1));
+      //   const productReDateUTC = new Date(product.ReDate);
+      //   const releaseDateMatches = (!startYear || !startMonth || !endYear || !endMonth) ||
+      //     (productReDateUTC >= startDateUTC && productReDateUTC <= endDateUTC);
+      //   return idMatches && nameMatches && categoryMatches &&
+      //          sizeMatches && minPriceMatches &&
+      //          maxPriceMatches && releaseDateMatches;
+      // });
     
-      history.push('/ProductResultAdmin', { matchingProducts });
+      // history.push('/ProductResultAdmin', { matchingProducts });
+      event.preventDefault();
+      let startDateValue = null;
+      let endDateValue = null;
+
+      // Check if both startMonth, startYear, endMonth, and endYear are selected
+      if (startYear !== '' && startMonth !== '' && endYear !== '' && endMonth !== '') {
+        // If all are selected, set the startDateValue and endDateValue accordingly
+        startDateValue = new Date(Date.UTC(startYear, startMonth - 1, 1));
+        endDateValue = new Date(Date.UTC(endYear, endMonth - 1, 1));
+      }
+
+      
+
+      console.log(startMonth);
+      console.log(startYear);
+      const searchData = {
+        searchName: searchName || null,
+        searchID: searchID || null,
+        minPrice: minPrice || null,
+        maxPrice: maxPrice || null,
+        selectedSize: selectedSize || null,
+        startDateValue: startDateValue || null,
+        endDateValue: endDateValue || null,
+        category: selectedCategory,
+        size: selectedSize,
+      };
+      console.log(searchData);
+
+      try {
+        const response = await fetch('/ProductSearchAdmin', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(searchData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const matchingProducts = await response.json();
+        console.log('Search Results:', matchingProducts);
+
+        history.push('/ProductResultAdmin', { matchingProducts });
+      } 
+      catch (error) {
+        console.error('Error:', error);
+      }
     };
   
     return (

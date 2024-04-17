@@ -39,6 +39,20 @@ router.get("/ProductSearchAdmin", (req, res) => {
     });
 });
 
+router.get("/ProductList", (req, res) => {
+    console.log("Fetching products...");
+    let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`; // Query to fetch top 3 products
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching products:", error);
+            return res.status(500).send("Error fetching products");
+        }
+        console.log(`${results.length} rows returned`);
+        console.log(results);
+        res.send(results);
+    });
+});
+
 router.get("/login", (req, res) => {
     console.log(req.query)
     const {username, password} = req.query
@@ -413,6 +427,49 @@ router.post("/searchHome", (req, res) => {
         console.log(`${results.length} rows returned`);
         return res.send(results);
         
+    });
+});
+
+router.post("/ProductSearchAdmin", (req, res) => {
+    const searchName = req.body.searchName;
+    const category = req.body.category;
+    const size = req.body.size;
+    const minPrice = req.body.minPrice;
+    const maxPrice = req.body.maxPrice;
+    const startDate = req.body.startDateValue;
+    const endDate = req.body.endDateValue;
+    const searchID = req.body.searchID;
+
+    let sql = 'SELECT * FROM Product WHERE 1=1';
+
+    if (searchName != null) {
+        sql += ` AND P_name LIKE "%${searchName}%"`;
+    }
+
+    if (searchID != null) {
+        sql += ` AND PID LIKE "%${searchID}%"`;
+    }
+
+    if (minPrice != null && maxPrice != null) {
+        sql += ` AND Price >= ${minPrice} AND Price <= ${maxPrice}`;
+    }
+
+    if (startDate != null && endDate != null) {
+        sql += ` AND ReDate >= "${startDate}" AND ReDate <= "${endDate}"`;
+    }
+
+    if (size !== 'All') {
+        sql += ` AND Size = "${size}"`;
+    }
+
+    if (category !== 'All') {
+        sql += ` AND Catagory = "${category}"`;
+    }
+    console.log(sql);
+    connection.query(sql, function (error, results) {
+        if (error) throw error;
+        console.log(`${results.length} rows returned`);
+        return res.send(results);
     });
 });
 

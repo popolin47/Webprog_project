@@ -10,32 +10,36 @@ const ProductList = () => {
   const location = useLocation();
   const [Product, setProduct] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
+  
   React.useEffect(()=>{
     fetch('/ProductSearchAdmin')
       .then((res)=> res.json())
       .then((data)=>{
       if (Array.isArray(data)) {
         setProduct(data); 
-        setRecommendedProducts(getRandomProducts(data))
         console.log("match");
       } else {
         console.error("Data received from server is not an array:", data);
       }})
       .catch((err) => console.log(err));
+    
+      fetch('/ProductList')
+      .then((res)=> res.json())
+      .then((data)=>{
+      if (Array.isArray(data)) {
+        setRecommendedProducts(data)
+        console.log("match");
+      } else {
+        console.error("Data received from server is not an array:", data);
+      }})
+      .catch((err) => console.log(err));
+    
   },[]);
   const handleProductClick = (product) => {
     // Add product viewing functionality here
   };
 
   // Function to get three random products
-  const getRandomProducts = (p) => {
-    const randomProducts = [];
-    const shuffledProducts = p.sort(() => 0.5 - Math.random());
-    for (let i = 0; i < 3; i++) {
-      randomProducts.push(shuffledProducts[i]);
-    }
-    return randomProducts;
-  };
 
   // Get three random products
   console.log(recommendedProducts)
