@@ -144,8 +144,8 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     
     try {
         await Promise.all([
-            connection.query(sql, [productID]),
-            connection.query(sql2, [productID])
+            connection.query(sql, productID),
+            connection.query(sql2, productID)
         ]);
 
         console.log("Product deleted successfully from all tables");
