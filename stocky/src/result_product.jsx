@@ -9,7 +9,7 @@ const SearchResultPage = () => {
 
   const handleViewDetails = (productID) => {
     console.log(productID)
-    history.push({pathname:`/ProductDetail/${productID}` });
+    history.push({pathname:`/ProductDetail/${productID}`, state: productID });
     
   };
 

@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useLocation } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect}from 'react';
+import {useLocation } from 'react-router-dom';
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const location = useLocation();
-  const id = location.results;
+  const id = location.state;
+  console.log("id")
   console.log(id)
   useEffect(() => {
     
@@ -12,7 +13,7 @@ const ProductDetail = () => {
       .then(response => response.json())
       .then(data => setProduct(data.data))
       .catch(error => console.error('Error fetching product:', error));
-  }, [id]);
+  }, []);
     console.log(id)
     console.log(product)
   if (!product) {
@@ -51,7 +52,7 @@ const ProductDetail = () => {
 
       <div className='text-wrap w-1/2 ml-12 mb-24'>
         <h1 className='font-bold text-2xl mb-4 '>Description</h1>
-        <p>The Air Jordan 4 Retro Military Blue 2024 stands as a beacon of Jordan Brand's innovation and style. It features an off-white leather base contrasted with the striking military blue splashed on the eyelet wings, heel, and parts of the midsole, creating a look of disciplined yet daring design. The neutral grey touches on the forefoot and outsole balance the aesthetic, highlighting the sneaker's clean lines and geometric shapes.</p>
+        <p>{product.Description}</p>
       </div>
       </div>
     </div>
