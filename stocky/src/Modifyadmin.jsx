@@ -30,7 +30,10 @@ const Modifyuser = () => {
   const handleChange = (newData) => {
     let name = newData.target.name;
     setInfo({...info,[name]: newData.target.value})
- 
+    setInfo(prevInfo => ({
+      ...prevInfo,
+      AID: userId
+    }));
   }
     const handleSubmit = async (e) => {
       console.log("start change")
@@ -76,7 +79,7 @@ const Modifyuser = () => {
         </form>
       
         <label for="first_name" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Last name</label>
-        <form className="flex"> <input type="text" name="Alname" id="first_name"onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <input type="text" name="Alname" id="first_name"onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" onClick={handleSubmit}
@@ -85,7 +88,7 @@ const Modifyuser = () => {
           </button>
         </form>
         <label for="first_name" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Phone number</label>
-        <form className="flex"> <input type="text" name="PhoneNo" id="first_name" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <input type="text" name="PhoneNo" id="first_name" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -93,7 +96,7 @@ const Modifyuser = () => {
           </button>
         </form>
         <label for="first_name" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Email</label>
-        <form className="flex"> <input type="text" name="Aemail" id="first_name"onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex"onSubmit={handleSubmit}> <input type="text" name="Aemail" id="first_name"onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -101,7 +104,7 @@ const Modifyuser = () => {
           </button>
         </form>
          <label for="first_name" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Username</label>
-         <form className="flex"> <input type="text" name="Username" id="first_name" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+         <form className="flex" onSubmit={handleSubmit}> <input type="text" name="Username" id="first_name" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -109,7 +112,7 @@ const Modifyuser = () => {
           </button>
         </form>
         <label for="first_name" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Password</label>
-        <form className="flex"> <input type="text" name="Password" id="first_name" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex"onSubmit={handleSubmit}> <input type="text" name="Password" id="first_name" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
