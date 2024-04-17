@@ -262,6 +262,7 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
         console.error("Error deleting product:", error);
         res.status(500).send("Error deleting product");
     }
+});
 
 router.delete("/delete1/:ProductID", async (req, res) => {
     console.log("Deleting user...");
@@ -505,7 +506,7 @@ router.post("/searchHome", (req, res) => {
     sql += ` AND brand LIKE "%${category}%"`;
     }
 
-        if (searchAvailable === true) {
+        if (searchAvailable === 'true') {
             sql += ' AND quantity > 0';
         } 
         else if (searchAvailable === false) {
