@@ -104,6 +104,7 @@ router.get("/ProductManage", (req, res) => {
             return res.status(500).send("Error fetching products");
         }
         console.log(`${results.length} rows returned`);
+        //console.log(results)
         res.send(results);
     });
 });
@@ -144,8 +145,8 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     
     try {
         await Promise.all([
-            connection.query(sql, [productID]),
-            connection.query(sql2, [productID])
+            connection.query(sql, productID),
+            connection.query(sql2, productID)
         ]);
 
         console.log("Product deleted successfully from all tables");
@@ -213,72 +214,40 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     const Redate = req.body.ReDate;
     const Catagory = req.body.Catagory;
     const color = req.body.color;
-    let productSet = {};
-    const sql = `UPDATE Product SET ? WHERE PID = ?`;
 
-    /*if (productName) {
-        sql = 'UPDATE  admin set P_name = ? WHERE PID = ?';
+    if (productName) {
+        sql = 'UPDATE product set P_name = ? WHERE PID = ?';
         params = productName;
     }else if(Des){
-        sql = 'UPDATE  admin set Description = ? WHERE PID = ?';
+        sql = 'UPDATE Product set Description = ? WHERE PID = ?';
         params = Des;
     }else if(quantity){
-        sql = 'UPDATE  admin set quantity = ? WHERE PID = ?';
+        sql = 'UPDATE Product set quantity = ? WHERE PID = ?';
         params = quantity;
     }else if(price){
-        sql = 'UPDATE  admin set Price = ? WHERE PID = ?';
+        sql = 'UPDATE Product set Price = ? WHERE PID = ?';
         params = price;
     }else if(pic){
-        sql = 'UPDATE  admin set pic = ? WHERE PID = ?';
+        sql = 'UPDATE Product set pic = ? WHERE PID = ?';
         params = pic;
     }else if(size){
-        sql = 'UPDATE  admin set Size = ? WHERE PID = ?';
+        sql = 'UPDATE Product set Size = ? WHERE PID = ?';
         params = size;
     }else if(Redate){
-        sql = 'UPDATE  admin set ReDate = ? WHERE PID = ?';
+        sql = 'UPDATE Product set ReDate = ? WHERE PID = ?';
         params = Redate;
     }else if(Catagory){
-        sql = 'UPDATE  admin set Catagory = ? WHERE PID = ?';
+        sql = 'UPDATE Product set Catagory = ? WHERE PID = ?';
         params = Catagory;
     }else if(color){
-        sql = 'UPDATE  admin set color = ? WHERE PID = ?';
+        sql = 'UPDATE Product set color = ? WHERE PID = ?';
         params = color;
-    }*/
-
-    if (productName != null) {
-        productSet.P_name = productName;
-    }
-    if (Des != null) {
-        productSet.Description = Des;
-    }
-    if (price != null) {
-        productSet.Price = price;
-    }
-    if (quantity != null){
-        productSet.quantity = quantity;
-    }
-    if (pic != null) {
-        productSet.pic = pic;
-    }
-    if (size != null) {
-        productSet.Size = size;
-    }
-    if (Redate != null) {
-        productSet.ReDate = Redate;
-    }
-    if (Catagory != null) {
-        productSet.Catagory = Catagory;
-    }
-    if (color != null) {
-        productSet.color = color;
     }
 
-    //const params = [productName, Des, quantity, price, pic, size, Redate, Catagory, color, productID];
-
-    connection.query(sql, [productSet, productID], (err, result) => {
+    connection.query(sql, [params, productID], (err, result) => {
         if (err) {
             console.error('Error updating data in database:', err);
-            return res.status(500).send('Error updating data in database');
+            return res.status(500).send('Error updating data to database');
         }
         console.log('Product updated successfully');
         res.status(200).send('Product updated successfully');
@@ -307,7 +276,6 @@ router.post("/adduser", (req, res) => {
 
 router.post("/AddProduct", (req, res) => {
     console.log("Adding new product...");
-    //const productID =  req.body.PID;
     const productName = req.body.P_name;
     const Des = req.body.Description;
     const quantity = req.body.quantity;

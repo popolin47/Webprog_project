@@ -32,37 +32,19 @@ const ModifyProduct = () => {
         setProduct({...product,[name]: newData.target.value})
     }
 
-    /*useEffect(() => {
-        if (location.state) {
-            setProduct(location.state.product);
-        }
-    }, [location.state]);
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setProduct((prevProduct) => ({
-            ...prevProduct,
-            [name]: value,
-        }));
-    };*/
-
-    const handleCategoryChange = (event) => {
-        const selectedValue = event.target.value;
-        setSelectedCategory(selectedValue === 'All' ? '' : selectedValue);
-      };
-
       const handleSubmit = async (e) => {
         console.log("start change");
+        console.log(product)
         e.preventDefault();
 
         try{
             const response = await fetch(`/ModifyProduct/${PID}`, {
                 method: 'PUT',
                 headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
+                  //Accept: 'application/json',
+                  'Content-Type': 'application/json'//,
                 },
-                body: JSON.stringify(PID),
+                body: JSON.stringify(product),
             })
             if (!response.ok) {
                 throw new Error('Failed to update user');
@@ -82,11 +64,11 @@ const ModifyProduct = () => {
             <br />
         </div> 
 
-        <div className='flex justify-center'>
-        <form onSubmit={handleSubmit} class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 sm:ml-64 " action="" method="">
+        {/*}<div className='flex justify-center'>
+        <form class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 sm:ml-64 "  onSubmit={handleSubmit} action="" method="">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase dark:text-gray-400 my-4">
-                <h1>Product's ID: {product.PID} </h1>
+                <h1>Product's ID: {PID} </h1>
 
             </thead>
             <tbody>
@@ -150,7 +132,7 @@ const ModifyProduct = () => {
                         className='block mx-4 p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                         name="Category"
                         value={selectedCategory}
-                        onChange={handleCategoryChange}>
+                        onChange={handleChange}>
                             {catagory.map((option) => (
                                 <option key={option} value={option}>
                                 {option}
@@ -206,9 +188,9 @@ const ModifyProduct = () => {
                 </Link>
             </div>
         </form>
-        </div>
+        </div>{*/}
 
-        {/*}<div className="p-72 sm:ml-64 pt-12 items-center"action="/form-useradd" method="GET"> 
+        <div className="p-72 sm:ml-64 pt-12 items-center"action="/form-useradd" method="GET"> 
    
         <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Product's name</label>
         <form className="flex" onSubmit={handleSubmit}> <input type="text" name="P_name" id="Product" onChange={handleChange}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
@@ -220,17 +202,17 @@ const ModifyProduct = () => {
         </form>
       
         <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Stock</label>
-        <form className="flex"> <input type="text" name="quantity" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <input type="text" name="quantity" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
-        <button  type="submit" value="Submit" onClick={handleSubmit}
+        <button  type="submit" value="Submit"
           className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
           change
           </button>
         </form>
 
         <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Size</label>
-        <form className="flex"> <input type="text" name="Size" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <input type="text" name="Size" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -239,7 +221,7 @@ const ModifyProduct = () => {
         </form>
 
         <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Price (THB)</label>
-        <form className="flex"> <input type="text" name="Price" id="Product"onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <input type="text" name="Price" id="Product"onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -248,7 +230,7 @@ const ModifyProduct = () => {
         </form>
 
          <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">color</label>
-         <form className="flex"> <input type="text" name="color" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+         <form className="flex" onSubmit={handleSubmit}> <input type="text" name="color" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -257,16 +239,22 @@ const ModifyProduct = () => {
         </form>
 
         <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Category</label>
-        <form className="flex"> <input type="text" name="Catagory" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <select name="Catagory" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
-        dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
+        dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required >
+            {catagory.map((option) => (
+                                <option key={option} value={option}>
+                                {option}
+                                </option>
+            ))}
+        </select>
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
           change
           </button>
         </form>
 
         <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Release date</label>
-        <form className="flex"> <input type="text" name="ReDate" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <input type="date" name="ReDate" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -275,7 +263,7 @@ const ModifyProduct = () => {
         </form>
 
         <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Description </label>
-        <form className="flex"> <input type="text" name="Description" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <input type="text" name="Description" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -284,7 +272,7 @@ const ModifyProduct = () => {
         </form>
 
         <label for="Product" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Picture's URL</label>
-        <form className="flex"> <input type="text" name="pic" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        <form className="flex" onSubmit={handleSubmit}> <input type="text" name="pic" id="Product" onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
         dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-2"  required />
         <button  type="submit" value="Submit" className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded pl-4">
@@ -304,7 +292,7 @@ const ModifyProduct = () => {
           </button>
         </Link>
       </div>
-      </div>{*/}
+      </div>
       
     </div>
   )
