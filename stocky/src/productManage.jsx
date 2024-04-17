@@ -11,7 +11,7 @@ const ProductMange = () => {
 
   // declare state to hold input value
   const [value, setValue] = useState('');
-
+  const history = useHistory();
   const [valueDel, setValueDel] = useState({
         P_name: '',
         Description: '',
@@ -53,6 +53,10 @@ const ProductMange = () => {
       .catch(error => {
           console.error('Error:', error); 
       });
+  };
+
+  const handlemodify  = (ProductId) =>{
+    history.push({pathname:`/ModifyProduct/${ProductId}`,  state: ProductId});
   };
 
   useEffect(()=>{
@@ -106,9 +110,9 @@ const ProductMange = () => {
                 <td>{product.quantity}</td>
                 <td>{product.PID}</td>
                 <td>
-                  <a href='/ModifyProduct'>
-                    <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
-                  </a>
+                  <form>
+                    <img src={ModifyIcon} alt='Modify icon' onClick={() => handlemodify(product.PID)} className='w-8 h-auto'/>
+                  </form>
                 </td>
                 <td>
                   <form onSubmit={handleDelete}>
