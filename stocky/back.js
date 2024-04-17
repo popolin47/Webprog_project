@@ -217,33 +217,49 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     const Catagory = req.body.Catagory;
     const color = req.body.color;
 
+    const AID = '100';//req.body.AID;
+    const username = 'user1';//req.body.username;
+    //let date = `NOW()`;
+    let action = ' ';
+
+    let sql, params;
+
     if (productName) {
         sql = 'UPDATE product set P_name = ? WHERE PID = ?';
         params = productName;
+        action = 'Change name of product'; 
     }else if(Des){
         sql = 'UPDATE Product set Description = ? WHERE PID = ?';
         params = Des;
+        action = 'Change description of product'; 
     }else if(quantity){
         sql = 'UPDATE Product set quantity = ? WHERE PID = ?';
         params = quantity;
+        action = 'Change quantity of product in stock'; 
     }else if(price){
         sql = 'UPDATE Product set Price = ? WHERE PID = ?';
         params = price;
+        action = 'Change price of product'; 
     }else if(pic){
         sql = 'UPDATE Product set pic = ? WHERE PID = ?';
         params = pic;
+        action = 'Change picture of product'; 
     }else if(size){
         sql = 'UPDATE Product set Size = ? WHERE PID = ?';
         params = size;
+        action = 'Change size of product'; 
     }else if(Redate){
         sql = 'UPDATE Product set ReDate = ? WHERE PID = ?';
         params = Redate;
+        action = 'Change release date of product'; 
     }else if(Catagory){
         sql = 'UPDATE Product set Catagory = ? WHERE PID = ?';
         params = Catagory;
+        action = 'Change catagory of product'; 
     }else if(color){
         sql = 'UPDATE Product set color = ? WHERE PID = ?';
         params = color;
+        action = 'Change color of product'; 
     }
 
     connection.query(sql, [params, productID], (err, result) => {
@@ -254,6 +270,19 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         console.log('Product updated successfully');
         res.status(200).send('Product updated successfully');
     });
+
+    /*sql2 = 'INSERT INTO ModifyProduct (PID,AID,Username, Date, Action) VALUES ( ?, ?, ?, NOW(), ?)';
+    const params2 = [productID, AID, username, action];
+
+    connection.query(sql2, params2, (err,result) =>{
+        if(err){
+            console.error('Error insert updating data in database:', err);
+            return res.status(500).send('Error insert updating data in database')
+        }
+        console.log('Product inserted successfully');
+        res.status(200).send('Modify data inserted successfully');
+    });*/
+
 });
 
 
