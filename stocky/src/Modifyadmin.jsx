@@ -30,14 +30,10 @@ const Modifyuser = () => {
   const handleChange = (newData) => {
     let name = newData.target.name;
     setInfo({...info,[name]: newData.target.value})
-<<<<<<< Updated upstream
     setInfo(prevInfo => ({
       ...prevInfo,
       AID: userId
     }));
-=======
-    set 
->>>>>>> Stashed changes
   }
     const handleSubmit = async (e) => {
       console.log("start change")
