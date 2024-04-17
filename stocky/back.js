@@ -161,18 +161,22 @@ router.put("/modifyuser/:userId", (req, res) => {
     console.log("start back");
     //let { firstname, lastname, phone, email, username, pass } = req.body;
     //console.log(firstname);
-    const userid = req.params.userId;
+    const userid = req.body.AID;
     const Password = req.body.Password;
     const username = req.body.Username;
     const firstname = req.body.Afname;
     const lastname= req.body.Alname;
     const phone= req.body.PhoneNo;
     const email= req.body.Aemail;
- 
+    // let sql2 = `DELETE FROM Modifyadmin WHERE AID = ?`;
+    // let sql3 = `DELETE FROM Modifyproduct WHERE AID = ?`;
+    // let sql4 = `DELETE FROM LogInHistory WHERE AID = ?`;
+    // let sql = `DELETE FROM admin WHERE AID = ?`; 
     console.log(req.body)
      if (username) {
         sql = 'UPDATE  admin set Username = ? WHERE AID = ?';
         params = username;
+        let sql1= '';
     }else if(firstname){
         sql = 'UPDATE  admin set AFname = ? WHERE AID = ?';
         params = firstname;
