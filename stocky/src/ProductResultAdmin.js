@@ -50,6 +50,7 @@ const ProductResultAdmin = () => {
         .then(response => {
             if (response.ok) {
                 alert('User deleted successfully');
+                //history.push('/productManage'); 
                 // Optionally, you can remove the deleted user row from the table
             } else {
                 alert('Error deleting user');

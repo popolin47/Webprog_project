@@ -1,35 +1,16 @@
 const mysql = require('mysql');
+const connection = require('./src/db'); // Importing the database connection
 const path = require('path');
-const dotenv = require("dotenv");
 const express = require("express");
-const { default: userEvent } = require('@testing-library/user-event');
 const app = express();
 const router = express.Router();
-
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
 app.use(router)
-
-
-
-router.use(express.json());
-router.use(express.urlencoded({extend:true}));
-app.use(router)
-dotenv.config();
-
-const PORT = process.env.MYSQL_PORT;
-
-const connection = mysql.createConnection({
-    host:process.env.MYSQL_HOST,
-    user:process.env.MYSQL_USERNAME,
-    password:process.env.MYSQL_PASSWORD,
-    database:process.env.MYSQL_DATABASE
-}); // Importing the database connection
 
 router.get('/', (req, res) => {
     res.send('hey');
 });
-
 router.get("/usermanage", (req, res) => {
     console.log("Fetching users...");
     let sql = `SELECT * FROM admin`; // Assuming 'admin' is the name of your table
@@ -161,8 +142,7 @@ router.post("/advancedsearchadmin", (req, res) => {
             console.log('Find success');
             console.log(result)
             res.send(result);
-        });
-    });
+        });});
     
 router.get("/ProductManage", (req, res) => {
     console.log("Fetching products...");
@@ -264,12 +244,12 @@ router.put("/modifyuser/:userId", (req, res) => {
     // let id = `select AID from admin`
     connection.query(sql, [params, userid], (err, result) => {
         if (err) {
-            console.error('Error updating data to database:', err);
-            res.status(500).send('Error updating data to database');
+            console.error('Error adding data to database:', err);
+            res.status(500).send('Error adding data to database');
             return;
         }
-        console.log('Data updated to database successfully');
-        res.status(200).send('Data updated to database successfully');
+        console.log('Data added to database successfully');
+        res.status(200).send('Data added to database successfully');
     });
 });
 
@@ -399,18 +379,18 @@ router.post("/AddProduct", (req, res) => {
 
 router.post("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
-    const searchcolor = req.body.searchcolor;
     const category = req.body.category;
+    const searchBrand =req.body.searchBrand;
     const size = req.body.size;
-    const searchAvailable = req.body.isAvailable;
+    const searchAvailable = res.body.searchAvailable;
     let sql ='SELECT * FROM Product WHERE 1=1'
 
-    if (searchName !== '') {
-        sql += ` AND P_name LIKE "${searchName}"`;
-    }
+    if (searchName!=null) {
+        sql += ` AND P_name LIKE "%${searchName}%"`;
+      }
 
-    if (searchcolor !== '') {
-        sql += ` AND color LIKE "${searchcolor}"`;
+    if (searchBrand!=null) {
+    sql += ` AND brand LIKE "%${category}%"`;
     }
 
         if (searchAvailable === true) {
@@ -420,22 +400,19 @@ router.post("/searchHome", (req, res) => {
             sql += ' AND quantity = 0';
         }
 
-    if (size !== 'All') {
-        sql += ` AND size LIKE "${size}"`;
+    if (size!=='All') {
+        sql += ` AND size LIKE "%${category}%"`;
     }
 
-    if (category !== 'All') {
-        sql += ` AND category LIKE "${category}"`;
+    if (category!=='All') {
+        sql += ` AND category LIKE "%${category}%"`;
     }
 
-    connection.query(sql, function (error, results) {
-        if (error) {
-            console.error('Error executing SQL query:', error);
-            return res.status(500).json({ error: 'An error occurred while processing your request.' });
-        }
-        console.log(sql);
+    connection.query( sql, function (error, results) {
+        if (error) throw error;
         console.log(`${results.length} rows returned`);
-        return res.json(results);
+        return res.send(results);
+        
     });
 });
 
@@ -453,6 +430,8 @@ router.get("/productdetail/:id", (req, res) => {
     });
 });
 
+
+const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
     // Ensure the database connection is established when the server starts
