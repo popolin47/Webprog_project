@@ -38,14 +38,14 @@ const ProductDetail = () => {
       <div className='items-center'>
       <div className="flex gap-3 m-12 items-center p-12 max-w-fit overflow-hidden">
         <div>
-          <img className="w-full my-3 object-cover object-center" src={''} alt="shoe" />
+          <img className="w-full h-1/2 my-3 object-cover object-center" src={product.Pic} alt="shoe" />
         </div>
 
         <div className="px-6 py-4 text-2xl">
           <h1 className="font-bold ">Product Details</h1>
           <h1 className=' text-lg'>Release Date: {product.ReDate}</h1>
           <h1 className=' text-lg'>Category: {product.Category}</h1>
-          <h1 className=' text-lg'>Price: {product.Price}</h1>
+          <h1 className=' text-lg'>Price: ${product.Price}</h1>
           <h1 className=' text-lg'>Available in stock: {product.quantity}</h1>
         </div>
       </div>

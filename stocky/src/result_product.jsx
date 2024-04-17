@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import shoepic from './asset/img/ShoeTest.png';
+
 
 const SearchResultPage = () => {
   const history = useHistory();
@@ -36,10 +36,11 @@ const SearchResultPage = () => {
               <h1 className="text-3xl font-bold mb-4">Browse {matchingProducts.length} results</h1>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-12">
               {matchingProducts.map((product) => (
+                
                 <div key={product.P_name} className="bg-white max-w-m rounded-lg overflow-hidden shadow-md">
-                  <img className="w-full  object-cover object-center" src={shoepic} alt="shoe" />
+                  <img className="w-full h-1/2  object-cover object-center" src={product.Pic} alt="shoe" />
                   <div className="p-4">
                     <h5 className="text-xl font-semibold mb-2">{product.P_name}</h5>
                     <p className="text-lg text-gray-700 mb-2">Category: {product.Category}</p>
