@@ -168,10 +168,8 @@ router.put("/modifyuser/:userId", (req, res) => {
     const lastname= req.body.Alname;
     const phone= req.body.PhoneNo;
     const email= req.body.Aemail;
-    // let sql2 = `DELETE FROM Modifyadmin WHERE AID = ?`;
-    // let sql3 = `DELETE FROM Modifyproduct WHERE AID = ?`;
-    // let sql4 = `DELETE FROM LogInHistory WHERE AID = ?`;
-    // let sql = `DELETE FROM admin WHERE AID = ?`; 
+    let sql='';
+    let params = '';
     console.log(req.body)
      if (username) {
         sql = 'UPDATE  admin set Username = ? WHERE AID = ?';
@@ -318,10 +316,10 @@ router.get("/searchHome", (req, res) => {
         sql += ` AND color LIKE "${searchcolor}"`;
     }
 
-        if (searchAvailable === 'true') {
+        if (searchAvailable === true) {
             sql += ' AND quantity > 0';
         } 
-        else if (searchAvailable === 'false') {
+        else if (searchAvailable === false) {
             sql += ' AND quantity = 0';
         }
 
