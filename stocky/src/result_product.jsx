@@ -8,7 +8,9 @@ const SearchResultPage = () => {
   const matchingProducts = location.results;
 
   const handleViewDetails = (productID) => {
-    history.push(`/ProductDetail/${productID}`);
+    console.log(productID)
+    history.push({pathname:`/ProductDetail/${productID}` });
+    
   };
 
   return (
@@ -44,7 +46,7 @@ const SearchResultPage = () => {
                     <p className="text-lg text-gray-700 mb-2">Size: {product.Size}</p>
                     <p className="text-lg text-gray-700 mb-4">Price: ${product.Price}</p>
                     <button className="bg-[#880501] text-white px-4 py-2 rounded-md hover:bg-opacity-75 transition-colors"
-                      onClick={() => handleViewDetails(product.productID)}
+                      onClick={() => handleViewDetails(product.PID)}
                     >
                       View Details
                     </button>

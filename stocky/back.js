@@ -318,10 +318,10 @@ router.get("/searchHome", (req, res) => {
         sql += ` AND color LIKE "${searchcolor}"`;
     }
 
-        if (searchAvailable === 'true') {
+        if (searchAvailable === true) {
             sql += ' AND quantity > 0';
         } 
-        else if (searchAvailable === 'false') {
+        else if (searchAvailable === false) {
             sql += ' AND quantity = 0';
         }
 

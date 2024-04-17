@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLocation } from 'react';
 import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
-  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
-
+  const location = useLocation();
+  const id = location.results;
+  console.log(id)
   useEffect(() => {
     
     fetch(`/productdetail/${id}`)
@@ -12,8 +13,8 @@ const ProductDetail = () => {
       .then(data => setProduct(data.data))
       .catch(error => console.error('Error fetching product:', error));
   }, [id]);
-
-  
+    console.log(id)
+    console.log(product)
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -29,8 +30,8 @@ const ProductDetail = () => {
       </div>
 
       <div className="m-12">
-        <h1 className="text-5xl font-bold">{product.pro_name}</h1>
-        <h1 className="text-xl text-gray-600">Product ID: {product.productID}</h1>
+        <h1 className="text-5xl font-bold">{product.P_name}</h1>
+        <h1 className="text-xl text-gray-600">Product ID: {product.PID}</h1>
       </div>
 
       <div className='items-center'>
@@ -41,9 +42,9 @@ const ProductDetail = () => {
 
         <div className="px-6 py-4 text-2xl">
           <h1 className="font-bold ">Product Details</h1>
-          <h1 className=' text-lg'>Release Date: {product.Date}</h1>
-          <h1 className=' text-lg'>Category: {product.category}</h1>
-          <h1 className=' text-lg'>Price: {product.price}</h1>
+          <h1 className=' text-lg'>Release Date: {product.ReDate}</h1>
+          <h1 className=' text-lg'>Category: {product.Category}</h1>
+          <h1 className=' text-lg'>Price: {product.Price}</h1>
           <h1 className=' text-lg'>Available in stock: {product.quantity}</h1>
         </div>
       </div>
