@@ -1,16 +1,35 @@
 const mysql = require('mysql');
-const connection = require('./src/db'); // Importing the database connection
 const path = require('path');
+const dotenv = require("dotenv");
 const express = require("express");
+const { default: userEvent } = require('@testing-library/user-event');
 const app = express();
 const router = express.Router();
+
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
 app.use(router)
 
+
+
+router.use(express.json());
+router.use(express.urlencoded({extend:true}));
+app.use(router)
+dotenv.config();
+
+const PORT = process.env.MYSQL_PORT;
+
+const connection = mysql.createConnection({
+    host:process.env.MYSQL_HOST,
+    user:process.env.MYSQL_USERNAME,
+    password:process.env.MYSQL_PASSWORD,
+    database:process.env.MYSQL_DATABASE
+}); // Importing the database connection
+
 router.get('/', (req, res) => {
     res.send('hey');
 });
+
 router.get("/usermanage", (req, res) => {
     console.log("Fetching users...");
     let sql = `SELECT * FROM admin`; // Assuming 'admin' is the name of your table
@@ -74,7 +93,19 @@ router.post("/advancedsearchadmin", (req, res) => {
             console.log(result)
             res.send(result);
         });
+    });
     
+router.get("/ProductManage", (req, res) => {
+    console.log("Fetching products...");
+    let sql = `SELECT * FROM Product`;
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching products:", error);
+            return res.status(500).send("Error fetching products");
+        }
+        console.log(`${results.length} rows returned`);
+        res.send(results);
+    });
 });
 
 router.delete("/delete/:userID", async (req, res) => {
@@ -100,6 +131,28 @@ router.delete("/delete/:userID", async (req, res) => {
     } catch (error) {
         console.error("Error deleting user:", error);
         res.status(500).send("Error deleting user");
+    }
+});
+
+router.delete("/deleteProduct/:productID", async (req, res) => {
+    console.log("Deleting Product...");
+    const productID = req.params.productID;
+    console.log("ProductID:", productID);
+
+    let sql = `DELETE FROM Product WHERE PID = ?`;
+    let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
+    
+    try {
+        await Promise.all([
+            connection.query(sql, [productID]),
+            connection.query(sql2, [productID])
+        ]);
+
+        console.log("Product deleted successfully from all tables");
+        res.status(200).send("Product deleted successfully from all tables");
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        res.status(500).send("Error deleting product");
     }
 });
 
@@ -147,6 +200,92 @@ router.put("/modifyuser/:userId", (req, res) => {
         res.status(200).send('Data updated to database successfully');
     });
 });
+
+router.put("/ModifyProduct/:productID", (req, res) => {
+    console.log("Updating product...");
+    const productID = req.params.productID;
+    const productName = req.body.P_name;
+    const Des = req.body.Description;
+    const quantity = req.body.quantity;
+    const price = req.body.Price;
+    const pic = req.body.pic;
+    const size = req.body.Size;
+    const Redate = req.body.ReDate;
+    const Catagory = req.body.Catagory;
+    const color = req.body.color;
+    let productSet = {};
+    const sql = `UPDATE Product SET ? WHERE PID = ?`;
+
+    /*if (productName) {
+        sql = 'UPDATE  admin set P_name = ? WHERE PID = ?';
+        params = productName;
+    }else if(Des){
+        sql = 'UPDATE  admin set Description = ? WHERE PID = ?';
+        params = Des;
+    }else if(quantity){
+        sql = 'UPDATE  admin set quantity = ? WHERE PID = ?';
+        params = quantity;
+    }else if(price){
+        sql = 'UPDATE  admin set Price = ? WHERE PID = ?';
+        params = price;
+    }else if(pic){
+        sql = 'UPDATE  admin set pic = ? WHERE PID = ?';
+        params = pic;
+    }else if(size){
+        sql = 'UPDATE  admin set Size = ? WHERE PID = ?';
+        params = size;
+    }else if(Redate){
+        sql = 'UPDATE  admin set ReDate = ? WHERE PID = ?';
+        params = Redate;
+    }else if(Catagory){
+        sql = 'UPDATE  admin set Catagory = ? WHERE PID = ?';
+        params = Catagory;
+    }else if(color){
+        sql = 'UPDATE  admin set color = ? WHERE PID = ?';
+        params = color;
+    }*/
+
+    if (productName != null) {
+        productSet.P_name = productName;
+    }
+    if (Des != null) {
+        productSet.Description = Des;
+    }
+    if (price != null) {
+        productSet.Price = price;
+    }
+    if (quantity != null){
+        productSet.quantity = quantity;
+    }
+    if (pic != null) {
+        productSet.pic = pic;
+    }
+    if (size != null) {
+        productSet.Size = size;
+    }
+    if (Redate != null) {
+        productSet.ReDate = Redate;
+    }
+    if (Catagory != null) {
+        productSet.Catagory = Catagory;
+    }
+    if (color != null) {
+        productSet.color = color;
+    }
+
+    //const params = [productName, Des, quantity, price, pic, size, Redate, Catagory, color, productID];
+
+    connection.query(sql, [productSet, productID], (err, result) => {
+        if (err) {
+            console.error('Error updating data in database:', err);
+            return res.status(500).send('Error updating data in database');
+        }
+        console.log('Product updated successfully');
+        res.status(200).send('Product updated successfully');
+    });
+});
+
+
 router.post("/adduser", (req, res) => {
     console.log("start back");
     //let { firstname, lastname, phone, email, username, pass } = req.body;
@@ -165,7 +304,33 @@ router.post("/adduser", (req, res) => {
     });
 });
 
-router.post("/searchHome", (req, res) => {
+
+router.post("/AddProduct", (req, res) => {
+    console.log("Adding new product...");
+    //const productID =  req.body.PID;
+    const productName = req.body.P_name;
+    const Des = req.body.Description;
+    const quantity = req.body.quantity;
+    const price = req.body.Price;
+    const pic = req.body.pic;
+    const size = req.body.Size;
+    const Redate = req.body.ReDate;
+    const collection = req.body.Catagory;
+    const color = req.body.color;
+
+    const sql = `INSERT INTO Product (P_name, Description, quantity, Price, Pic, Size, ReDate, Catagory, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    connection.query(sql, [productName, Des, quantity, price, pic, size, Redate, collection, color], (err, result) => {
+        if (err) {
+            console.error('Error adding data to database:', err);
+            return res.status(500).send('Error adding data to database');
+        }
+        console.log('New product added successfully');
+        res.status(200).send('New product added successfully');
+    });
+});
+
+router.get("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
     const searchcolor = req.body.searchcolor;
     const category = req.body.category;
@@ -221,8 +386,6 @@ router.get("/productdetail/:id", (req, res) => {
     });
 });
 
-
-const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
     // Ensure the database connection is established when the server starts

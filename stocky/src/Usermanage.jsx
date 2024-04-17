@@ -18,6 +18,7 @@ const Usermanage = () => {
     lastname: '',
     phone: '',
     email:'',username:'', pass:''  });
+    
   useEffect(()=>{
     fetch('/usermanage')
     .then((res)=> res.json())
@@ -30,13 +31,16 @@ const Usermanage = () => {
     }})
     .catch((err) => console.log(err));
   },[]);
+
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
   const handleChange2 = (userID) => {
     console.log(userID);
     setvaluefordel(userID); // Assuming userID is the unique identifier for the user
   };
+
   const handleDelete = (event) => {
     console.log("deleting start front"); 
     console.log(valuefordel);
@@ -57,6 +61,7 @@ const Usermanage = () => {
           console.error('Error:', error); 
       });
   };
+
   const handleSearchSubmit = async () => {
  
     try {

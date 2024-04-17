@@ -1,22 +1,64 @@
-import React , { useState } from 'react';
+import React , { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-    const collection = ['None', 'Winter', 'Summer', 'Autuum'];
-    const color = [
-        {name: 'Red', url: 'https://www.riolettcustomaerosols.co.uk/img/colours/bs-381c-bold-red-564.jpg'},
-        {name: 'Green', url: 'https://spraytechnologiesaerosols.com/wp-content/uploads/2020/01/262-Bold-Green.jpg'},
-        {name: 'Blue', url: 'https://www.bhphotovideo.com/images/images500x500/Rosco_110084014812_377_377_Iris_Purple_Fluorescent_594822.jpg'}
-    ]
+    const collection = ['None', 'Men', 'Women', 'Kids'];
+    const colorOptions = ['None','Red','Green','Blue']
 
 const AddProduct = () => {
 
-    const [selectedColor, setSelectedColor] = useState(color[0]);
+    //const [selectedColor, setSelectedColor] = useState(color[0]);
     const history = useHistory();
+    const [showModal, setShowModal] = useState(false);
+    const [product, setProduct] = useState({
+        P_name: '',
+        Description: '',
+        quantity:'',
+        Price: '',
+        pic:'',
+        Size: '',
+        ReDate:'',
+        Catagory:'',
+        color:'',
+    });
 
-    const handleSearchSubmit = (event) => {
-        event.preventDefault();
+  const handleInsery = (newData) => {
+    let name = newData.target.name;
+    setProduct({...product,[name]: newData.target.value})
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("start submit");
+    console.log(product);
+    fetch('/AddProduct', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(product),
+    })
+      .then((response) => {
+        console.log(response)
+        if (response.status !== 200) {
+          console.log("bad");
+          throw new Error(response.statusText);
+        }
+        setShowModal(true);
         history.push('/productmanage');
-      };
+        return response.json();
+      })
+      .then(() => {
+        
+        console.log('success');
+        history.push('/productmanage');
+      })
+      .catch((err) => {
+        console.log(err.toString());
+        console.log('error front');
+      });
+  };
+
 
     return(
         <div class="p-4 sm:ml-64">
@@ -25,17 +67,23 @@ const AddProduct = () => {
             </div>
 
             <div className='infoadd'>
+
                 <p id='ProName'>Product name</p>
-                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>
+                <input type="text" onChange={handleInsery} name='P_name' class='w-4/5 bg-gray-200 border-none rounded'/>  
 
-                <p id='Des'>Description</p>
-                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>  
+                <p id='quantity'>Quantity</p>
+                <input type="number" onChange={handleInsery} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
 
-                <p id='PID'>Product ID</p>
-                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>
+                <p id='Size'>Size</p>
+                <input type="text" onChange={handleInsery} name='Size' class='w-4/5 bg-gray-200 border-none rounded'/>
 
-                <p id='coll'>Collection</p>
+                <p id='price'>Price</p>
+                <input type="text" onChange={handleInsery} name='Price' class='w-4/5 bg-gray-200 border-none rounded'/>
+
+                <p id='coll'>Catagory</p>
                 <select
+                name='Catagory'
+                onChange={handleInsery}
                 class='border-none rounded bg-gray-200'
                 >
                     {collection.map((ColOption) => (
@@ -46,42 +94,40 @@ const AddProduct = () => {
                 </select>
 
                 <p>Color</p>
-                <label class='flex flex-nowrap gap-0.5'>
-                    {color.map((color) => (
-                        <img
-                            className='Colorbox'
-                            key={color.name}
-                            src={color.url}
-                            alt={color.name}
-                            class='w-12 h-12'
-                            onClick={() => setSelectedColor(color)}
-                        />
-                    ))}
+                <label className='flex flex-nowrap gap-0.5'>
+                    <select
+                        name="color"
+                        value={product.productColor}
+                        onChange={handleInsery}
+                        className='border-none rounded bg-gray-200'>
+                        {colorOptions.map((color) => (
+                            <option key={color} value={color}>
+                                {color}
+                            </option>
+                        ))}
+                    </select>
                 </label> 
-            </div>
-
-            <div className='ProDetail'>
 
                 <h3 class='text-xl'>Product Detail</h3>
 
-                <p id='style'>Style</p>
-                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>
-
                 <p id='Release Date'>Release Date</p>
-                <input type="text" class='w-4/5 bg-gray-200 border-none rounded'/>  
+                <input type="date" onChange={handleInsery} name='ReDate' class='w-4/5 bg-gray-200 border-none rounded' placeholder="Select date"/>  
+
+                <p id='Des'>Description</p>
+                <input type="text" onChange={handleInsery} name='Description' class='w-4/5 bg-gray-200 border-none rounded'/>
+
+                <p id='PicUrl'>Picture Url</p>
+                <input type="number" onChange={handleInsery} name='Pic' class='w-4/5 bg-gray-200 border-none rounded'/>
 
             </div>
 
-            <div class='flex ml-100 w-4/5 justify-end'>
- 
-                <a href='/productmanage'>
-                    <button class='flex-1 m-2 border-none rounded bg-black text-white' type='submit'>Back</button>
-                </a>
-                      
-                <form onSubmit={handleSearchSubmit}>
-                    <button type='submit' class='flex-1 m-2 border-none rounded bg-red-600 text-white'>Confirm</button>
+            <div className='flex ml-100 w-4/5 justify-end'>
+                <button className='flex-1 m-2 border-none rounded bg-black text-white' onClick={() => history.push('/productmanage')}>Back</button>
+                <form onSubmit={handleSubmit}>
+                    <button type='submit' value="Submit" className='flex-1 m-2 border-none rounded bg-red-600 text-white'>
+                      Confirm
+                    </button>
                 </form>
-            
             </div>
         </div>
     )
