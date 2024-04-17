@@ -156,8 +156,8 @@ router.post("/advancedsearchadmin", (req, res) => {
             console.log('Find success');
             console.log(result)
             res.send(result);
-        });});
-    
+        });
+});
 router.get("/ProductManage", (req, res) => {
     console.log("Fetching products...");
     let sql = `SELECT * FROM Product`;

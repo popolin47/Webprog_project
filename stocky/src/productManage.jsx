@@ -108,7 +108,6 @@ const ProductMange = (props) => {
   const [search, setSearch] = useState('');
   const history = useHistory();
   const [valueDel, setValueDel] = useState({
-        P_name: '',
         Description: '',
         quantity:'',
         Price: '',
@@ -120,8 +119,6 @@ const ProductMange = (props) => {
   });
 
   //Defie function to handle change to input value
-  const handleChange = (event) => {
-    setValue(event.target.value);
   };
 
   const handleChange2 = (id) => {
@@ -148,7 +145,7 @@ const ProductMange = (props) => {
       .catch(error => {
           console.error('Error:', error); 
       });
-  };
+  
 
   const handleSearchSubmit = async () => {
     try {
