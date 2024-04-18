@@ -13,8 +13,6 @@ const ModifyProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState(defaultOption);
     //const [showModal, setShowModal] = useState(false);
     //const [value, setValue] = useState('');
-
-
     const [product, setProduct] = useState({
         P_name: '',
         Description: '',
@@ -153,6 +151,7 @@ const ModifyProduct = () => {
           change
           </button>
         </form>
+
 
         <div className="flex justify-end mt-4   pb-8">
         <Link to="/ProductManage"className="flex justify-end mt-4  pr-4 pb-8">
