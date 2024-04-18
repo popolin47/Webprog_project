@@ -17,7 +17,7 @@ const AddProduct = () => {
         pic:'',
         Size: '',
         ReDate:'',
-        Catagory:'',
+        Category:'',
         color:'',
     });
 
@@ -61,30 +61,42 @@ const AddProduct = () => {
 
 
     return(
-        <div class="p-4 sm:ml-64">
-            <div>
-                <h1 class='text-3xl'>Add Product</h1>
+        <div>
+            <div className="p-4 sm:ml-64 shadow-md ">
+              <div className="px-8">
+                <h1 class='text-3xl pt-12 '>Add Product</h1>
+              </div>
             </div>
 
-            <div className='infoadd'>
+            <form className='p-72 sm:ml-64 pt-12 items-center' onSubmit={handleSubmit}>
 
-                <p id='ProName'>Product name</p>
-                <input type="text" onChange={handleInsery} name='P_name' class='w-4/5 bg-gray-200 border-none rounded'/>  
+                <label id='ProName' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Product name</label>
+                <input type="text" onChange={handleInsery} name='P_name' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                  dark:focus:ring-blue-500 dark:focus:border-blue-500' required/>  
 
-                <p id='quantity'>Quantity</p>
-                <input type="number" onChange={handleInsery} name='quantity' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <label id='quantity' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Quantity</label>
+                <input type="number" onChange={handleInsery} name='quantity' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                  dark:focus:ring-blue-500 dark:focus:border-blue-500' required/>
 
-                <p id='Size'>Size</p>
-                <input type="text" onChange={handleInsery} name='Size' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <label id='Size' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Size</label>
+                <input type="text" onChange={handleInsery} name='Size' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                  dark:focus:ring-blue-500 dark:focus:border-blue-500' required/>
 
-                <p id='price'>Price</p>
-                <input type="text" onChange={handleInsery} name='Price' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <label id='price' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Price</label>
+                <input type="text" onChange={handleInsery} name='Price' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                  dark:focus:ring-blue-500 dark:focus:border-blue-500' required/>
 
-                <p id='coll'>Catagory</p>
+                <label id='coll' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Catagory</label>
                 <select
-                name='Catagory'
-                onChange={handleInsery}
-                class='border-none rounded bg-gray-200'
+                  name='Category'
+                  onChange={handleInsery}
+                  class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                  dark:focus:ring-blue-500 dark:focus:border-blue-500' required
                 >
                     {collection.map((ColOption) => (
                         <option key={ColOption} value={ColOption}>
@@ -93,13 +105,15 @@ const AddProduct = () => {
                     ))}
                 </select>
 
-                <p>Color</p>
-                <label className='flex flex-nowrap gap-0.5'>
+                <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Color</label>
+                <label>
                     <select
-                        name="color"
-                        value={product.productColor}
-                        onChange={handleInsery}
-                        className='border-none rounded bg-gray-200'>
+                      name="color"
+                      value={product.productColor}
+                      onChange={handleInsery}
+                      class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                      focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                      dark:focus:ring-blue-500 dark:focus:border-blue-500' required>
                         {colorOptions.map((color) => (
                             <option key={color} value={color}>
                                 {color}
@@ -108,27 +122,32 @@ const AddProduct = () => {
                     </select>
                 </label> 
 
-                <h3 class='text-xl'>Product Detail</h3>
+                <label id='Release Date' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Release Date</label>
+                <input type="date" onChange={handleInsery} name='ReDate' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                    dark:focus:ring-blue-500 dark:focus:border-blue-500' required/>  
 
-                <p id='Release Date'>Release Date</p>
-                <input type="date" onChange={handleInsery} name='ReDate' class='w-4/5 bg-gray-200 border-none rounded' placeholder="Select date"/>  
+                <p id='Des' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Description</p>
+                <input type="text" onChange={handleInsery} name='Description' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                    dark:focus:ring-blue-500 dark:focus:border-blue-500' required/>
 
-                <p id='Des'>Description</p>
-                <input type="text" onChange={handleInsery} name='Description' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <p id='PicUrl' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Picture Url</p>
+                <input type="number" onChange={handleInsery} name='Pic' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                    dark:focus:ring-blue-500 dark:focus:border-blue-500' required/>
 
-                <p id='PicUrl'>Picture Url</p>
-                <input type="number" onChange={handleInsery} name='Pic' class='w-4/5 bg-gray-200 border-none rounded'/>
+                <button className="bg-slate-950 ml-5 hover:bg-red-700 text-white py-2 px-4 rounded mt-5" onClick={() => history.push('/productmanage')}>
+                  Back
+                </button>
 
-            </div>
+                <button type='submit' value="Submit"  className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded mt-5" >
+                  Confirm
+                </button>
 
-            <div className='flex ml-100 w-4/5 justify-end'>
-                <button className='flex-1 m-2 border-none rounded bg-black text-white' onClick={() => history.push('/productmanage')}>Back</button>
-                <form onSubmit={handleSubmit}>
-                    <button type='submit' value="Submit" className='flex-1 m-2 border-none rounded bg-red-600 text-white'>
-                      Confirm
-                    </button>
-                </form>
-            </div>
+                
+            
+            </form>
         </div>
     )
 
