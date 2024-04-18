@@ -18,6 +18,7 @@ const Login = () => {
             headers: { 'Content-Type': 'application/json' },
         };
     
+    
         fetch(`/login?username=${username}&password=${password}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
@@ -60,7 +61,7 @@ const Login = () => {
         //   console.error("Data received from server is not an array:", data);
         // }})
         // .catch((err) => console.log(err));
-    }
+    
 
     const handleLogin = () => {
         fetchLogin()
