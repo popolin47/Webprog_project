@@ -271,7 +271,7 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         res.status(200).send('Product updated successfully');
     });
 
-    /*sql2 = 'INSERT INTO ModifyProduct (PID,AID,Username, Date, Action) VALUES ( ?, ?, ?, NOW(), ?)';
+    sql2 = 'INSERT INTO ModifyProduct (PID,AID,Username, Date, Action) VALUES ( ?, ?, ?, NOW(), ?)';
     const params2 = [productID, AID, username, action];
 
     connection.query(sql2, params2, (err,result) =>{
@@ -281,7 +281,7 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         }
         console.log('Product inserted successfully');
         res.status(200).send('Modify data inserted successfully');
-    });*/
+    });
 
 });
 
