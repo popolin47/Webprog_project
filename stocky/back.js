@@ -57,6 +57,23 @@ router.get("/searchadmin", (req, res) => {
     res.json(results);
   });
 });
+
+router.get("/searchproduct", (req, res) => {
+    const query = req.query.query;
+  const sql = `SELECT * from Product WHERE P_name LIKE "%${query}%"`;
+
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error searching in MySQL:', err);
+      res.status(500).json({ error: 'An error occurred' });
+      return;
+    }
+    res.json(results);
+  });
+});
+
+
+
 router.post("/advancedsearchadmin", (req, res) => {
     console.log("Request body:", req.body);
     const { userID, username, firstname, lastname, phone, email } = req.body;
@@ -277,11 +294,9 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     connection.query(sql2, params2, (err,result) =>{
         if(err){
             console.error('Error insert updating data in database:', err);
-            //return res.status(500).send('Error insert updating data in database')
         }
         console.log('Product data inserted successfully');
         console.log(result);
-        //res.status(200).send('Modify data inserted successfully');
     });
 
 });
@@ -315,12 +330,12 @@ router.post("/AddProduct", (req, res) => {
     const pic = req.body.pic;
     const size = req.body.Size;
     const Redate = req.body.ReDate;
-    const collection = req.body.Catagory;
+    const Category = req.body.Category;
     const color = req.body.color;
 
-    const sql = `INSERT INTO Product (P_name, Description, quantity, Price, Pic, Size, ReDate, Catagory, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO Product (P_name, Description, quantity, Price, Pic, Size, ReDate, Category, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    connection.query(sql, [productName, Des, quantity, price, pic, size, Redate, collection, color], (err, result) => {
+    connection.query(sql, [productName, Des, quantity, price, pic, size, Redate, Category, color], (err, result) => {
         if (err) {
             console.error('Error adding data to database:', err);
             return res.status(500).send('Error adding data to database');

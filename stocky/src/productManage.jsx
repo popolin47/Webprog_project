@@ -11,6 +11,7 @@ const ProductMange = () => {
 
   // declare state to hold input value
   const [value, setValue] = useState('');
+  const [search, setSearch] = useState('');
   const history = useHistory();
   const [valueDel, setValueDel] = useState({
         P_name: '',
@@ -55,6 +56,19 @@ const ProductMange = () => {
       });
   };
 
+  const handleSearchSubmit = async () => {
+    try {
+      const response = await fetch(`/searchproduct?query=${search}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setValue(data);
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+  };
+
   const handlemodify  = (ProductId) =>{
     history.push({pathname:`/ModifyProduct/${ProductId}`,  state: ProductId});
   };
@@ -81,11 +95,13 @@ const ProductMange = () => {
       <div className='searchBar'>
         <input id="searchName" 
           type="text" 
+          name='P_name'
+          value={search}
+          onChange={e => setSearch(e.target.value)}
           placeholder="Enter product name"
           class=''
-          onChange={handleChange}
         />
-        <button type='submit'>Search</button><br/>
+        <button type='submit' onClick={handleSearchSubmit}>Search</button><br/>
       </div>
 
       <div className='Tablebox'>
