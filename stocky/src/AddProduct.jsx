@@ -58,8 +58,6 @@ const AddProduct = () => {
         console.log('error front');
       });
   };
-
-
     return(
         <div>
             <div className="p-4 sm:ml-64 shadow-md ">
