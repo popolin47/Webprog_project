@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `Admin` (
 CREATE TABLE IF NOT EXISTS `LogInHistory` (
   `AID` int NOT NULL,
   `LogID` CHAR(6) NOT NULL,
-  `LogDate` DATE NOT NULL,
+  `LogDate` datetime NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
   CONSTRAINT PK_login PRIMARY KEY (LogID),
   CONSTRAINT FK_AID_LogInHistory FOREIGN KEY (AID) REFERENCES Admin(AID),
@@ -43,7 +43,17 @@ INSERT INTO `Admin` (`Username`, `Aemail`, `Password`, `AFname`, `ALname`, `Phon
 
 
 INSERT INTO `LogInHistory` (`AID`, `LogID`, `LogDate`, `Username`) VALUES
-('101', 'LOG001', '2022-05-01', 'Jun');
+(101, 'LOG002', '2024-04-18 08:30:00', 'S_Coups'),
+(102, 'LOG003', '2024-04-18 09:15:00', 'Jeonghan'),
+(103, 'LOG004', '2024-04-18 10:00:00', 'Joshua'),
+(104, 'LOG005', '2024-04-18 10:45:00', 'Jun'),
+(105, 'LOG006', '2024-04-18 11:30:00', 'Hoshi'),
+(106, 'LOG007', '2024-04-18 12:15:00', 'Wonwoo'),
+(107, 'LOG008', '2024-04-18 13:00:00', 'Woozi'),
+(108, 'LOG009', '2024-04-18 13:45:00', 'DK'),
+(109, 'LOG010', '2024-04-18 14:30:00', 'Mingyu'),
+(110, 'LOG011', '2024-04-18 15:15:00', 'The8');
+
 
 CREATE TABLE IF NOT EXISTS `Product` (
   `PID` int auto_increment PRIMARY KEY,
@@ -90,8 +100,8 @@ insert into `Product` (`P_name`, `Description`,`quantity`, `Price`, `Pic`, `Size
 CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   `PID` int NOT NULL,
   `AID` int NOT NULL,
+  `T_product` datetime NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
-  `Date` DATE NOT NULL,
   `Action` TEXT NOT NULL,
   CONSTRAINT PKmodi__admin PRIMARY KEY (PID, AID),
   CONSTRAINT FK_PID FOREIGN KEY (PID) REFERENCES Product(PID),
@@ -99,18 +109,36 @@ CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   CONSTRAINT FK_user FOREIGN KEY (Username) REFERENCES Admin(Username)
 );
 
-INSERT INTO `ModifyProduct` (`PID`, `AID`, `Username`, `Date`, `Action`) VALUES
-('300', '101', 'Jun', '2022-04-07', 'add stock');
+INSERT INTO `ModifyProduct` (`PID`, `AID`,`T_product`, `Username`,  `Action`) VALUES
+(301, 101, '2024-04-18 09:00:00', 'S_Coups', 'Updated product description'),
+(302, 102, '2024-04-18 10:00:00', 'Jeonghan', 'Updated product price'),
+(303, 103, '2024-04-18 11:00:00', 'Joshua', 'Updated product quantity'),
+(304, 104, '2024-04-18 12:00:00', 'Jun', 'Added new product variant'),
+(305, 105, '2024-04-18 13:00:00', 'Hoshi', 'Deleted product'),
+(306, 106, '2024-04-18 14:00:00', 'Wonwoo', 'Updated product image'),
+(307, 107, '2024-04-18 15:00:00', 'Woozi', 'Updated product category'),
+(308, 108, '2024-04-18 16:00:00', 'DK', 'Updated product color'),
+(309, 109, '2024-04-18 17:00:00', 'Mingyu', 'Updated product size'),
+(310, 110, '2024-04-18 18:00:00', 'The8', 'Added new product category');
 
 CREATE TABLE IF NOT EXISTS `ModifyAdmin` (
   `AID` int NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
-  `Date` DATE NOT NULL,
+   `T_admin` datetime NOT NULL,
   `Action` TEXT NOT NULL,
-  CONSTRAINT PKmodi__admin PRIMARY KEY (AID, Username),
+  CONSTRAINT PKmodi__admin PRIMARY KEY (AID, Username,T_admin),
   CONSTRAINT FK_Aid_ad FOREIGN KEY (AID) REFERENCES Admin(AID),
   CONSTRAINT FK_user_ad FOREIGN KEY (Username) REFERENCES Admin(Username)
 );
 
-INSERT INTO `ModifyAdmin` (`AID`, `Username`, `Date`, `Action`) VALUES
-('101', 'Jun', '2022-04-08', 'change password');
+INSERT INTO `ModifyAdmin` (`AID`, `Username`,`T_admin`, `Action`) VALUES
+(101, 'S_Coups', '2024-04-18', 'Updated email address'),
+(102, 'Jeonghan', '2024-04-18', 'Changed phone number'),
+(103, 'Joshua', '2024-04-18', 'Reset password'),
+(104, 'Jun', '2024-04-18', 'Updated last name'),
+(105, 'Hoshi', '2024-04-18', 'Updated first name'),
+(106, 'Wonwoo', '2024-04-18', 'Disabled account'),
+(107, 'Woozi', '2024-04-18', 'Enabled two-factor authentication'),
+(108, 'DK', '2024-04-18', 'Granted administrative privileges'),
+(109, 'Mingyu', '2024-04-18', 'Revoked administrative privileges'),
+(110, 'The8', '2024-04-18', 'Added new admin user');
