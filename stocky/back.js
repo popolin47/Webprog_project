@@ -345,7 +345,7 @@ router.post("/AddProduct", (req, res) => {
     });
 });
 
-router.get("/searchHome", (req, res) => {
+router.post("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
     const searchcolor = req.body.searchcolor;
     const category = req.body.category;

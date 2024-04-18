@@ -38,7 +38,7 @@ const ProductDetail = () => {
       <div className='items-center'>
       <div className="flex gap-3 m-12 items-center p-12 max-w-fit overflow-hidden">
         <div>
-          <img className="w-full h-1/2 my-3 object-cover object-center" src={product.Pic} alt="shoe" />
+          <img className="w-1/2 h-1/2 my-3 object-cover object-center" src={product.Pic} alt="shoe" />
         </div>
 
         <div className="px-6 py-4 text-2xl">
