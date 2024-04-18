@@ -214,11 +214,11 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     const pic = req.body.pic;
     const size = req.body.Size;
     const Redate = req.body.ReDate;
-    const Catagory = req.body.Catagory;
+    const Category = req.body.Category;
     const color = req.body.color;
 
-    const AID = '100';//req.body.AID;
-    const username = 'user1';//req.body.username;
+    const AID = '104';//req.body.AID;
+    const username = 'Hoshi';//req.body.username;
     //let date = `NOW()`;
     let action = ' ';
 
@@ -252,10 +252,10 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         sql = 'UPDATE Product set ReDate = ? WHERE PID = ?';
         params = Redate;
         action = 'Change release date of product'; 
-    }else if(Catagory){
-        sql = 'UPDATE Product set Catagory = ? WHERE PID = ?';
-        params = Catagory;
-        action = 'Change catagory of product'; 
+    }else if(Category){
+        sql = 'UPDATE Product set Category = ? WHERE PID = ?';
+        params = Category;
+        action = 'Change Category of product'; 
     }else if(color){
         sql = 'UPDATE Product set color = ? WHERE PID = ?';
         params = color;
@@ -271,16 +271,17 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         res.status(200).send('Product updated successfully');
     });
 
-    sql2 = 'INSERT INTO ModifyProduct (PID,AID,Username, Date, Action) VALUES ( ?, ?, ?, NOW(), ?)';
+    sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
     const params2 = [productID, AID, username, action];
 
     connection.query(sql2, params2, (err,result) =>{
         if(err){
             console.error('Error insert updating data in database:', err);
-            return res.status(500).send('Error insert updating data in database')
+            //return res.status(500).send('Error insert updating data in database')
         }
-        console.log('Product inserted successfully');
-        res.status(200).send('Modify data inserted successfully');
+        console.log('Product data inserted successfully');
+        console.log(result);
+        //res.status(200).send('Modify data inserted successfully');
     });
 
 });
