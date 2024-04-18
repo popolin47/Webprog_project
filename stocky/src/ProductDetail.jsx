@@ -35,18 +35,18 @@ const ProductDetail = () => {
         <h1 className="text-xl text-gray-600">Product ID: {product.PID}</h1>
       </div>
 
-      <div className='items-center'>
-      <div className="flex gap-3 m-12 items-center p-12 max-w-fit overflow-hidden">
+      <div className=''>
+      <div className="flex m-12 items-center  max-w-fit overflow-hidden">
         <div>
           <img className="w-1/2 h-1/2 my-3 object-cover object-center" src={product.Pic} alt="shoe" />
         </div>
 
-        <div className="px-6 py-4 text-2xl">
+        <div className=" py-4 text-4xl">
           <h1 className="font-bold ">Product Details</h1>
-          <h1 className=' text-lg'>Release Date: {product.ReDate}</h1>
-          <h1 className=' text-lg'>Category: {product.Category}</h1>
-          <h1 className=' text-lg'>Price: ${product.Price}</h1>
-          <h1 className=' text-lg'>Available in stock: {product.quantity}</h1>
+          <h1 className=' text-2xl'>Release Date: {product.ReDate}</h1>
+          <h1 className=' text-2xl'>Category: {product.Category}</h1>
+          <h1 className=' text-2xl'>Price: ${product.Price}</h1>
+          <h1 className=' text-2xl'>Available in stock: {product.quantity}</h1>
         </div>
       </div>
 
