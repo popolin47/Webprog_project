@@ -13,23 +13,41 @@ const Login = () => {
 
 
     const fetchLogin = () => {
-        fetch(`/login?username=${username}&password=${password}`)
-        .then((res)=>res.json())
-        .then((data)=>{
-            if(Array.isArray(data)){
-                history.push('./ProductManage', {user: data[0]});
-            }
-        })
-        // .then((res)=> res.json())
-        // .then((data)=>{
-        // if (Array.isArray(data)) {
-        // //   setValue(data);
-        //   console.log("match");
-        // } else {
-        //   console.error("Data received from server is not an array:", data);
-        // }})
-        // .catch((err) => console.log(err));
-    }
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+    
+        fetch(`/login?username=${username}&password=${password}`, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        alert("Not found user");
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (Array.isArray(data.results) && data.results.length > 0) {
+                    // User found
+                    if (data.status === "0") {
+                        alert("Not found user");
+                    } else if (data.status === "1") {
+                        localStorage.setItem("access_token", data.access_token);
+                        history.push('./ProductManage', { user: data.results[0] });
+                    }
+                } else {
+                    console.error('No user found');
+                    // Handle case where no user is found
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching login:', error);
+                // Handle error
+            });
+    };
 
     const handleLogin = () => {
         fetchLogin()

@@ -659,6 +659,7 @@ video {
   width: 14rem;
 }
 
+
 .w-full {
   width: 100%;
 }
@@ -711,9 +712,6 @@ video {
   gap: 2rem;
 }
 
-.gap-7 {
-  gap: 6rem;
-}
 
 .rounded-md {
   border-radius: 0.375rem;

@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState,useEffect } from 'react';
 import './productManage.css'
 import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -105,19 +105,39 @@ const ProductMange = (props) => {
   const {location} = props
   console.log(location.state)
   const [value, setValue] = useState('');
-  const [search, setSearch] = useState('');
-  const history = useHistory();
-  const [valueDel, setValueDel] = useState({
-        Description: '',
-        quantity:'',
-        Price: '',
-        pic:'',
-        Size: '',
-        ReDate:'',
-        Catagory:'',
-        color:'',
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`/check_authen`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+                }
+            });
 
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+
+            if (data != false) {
+                console.log(data);
+            } else {
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+    fetchData(); // Call the function immediately after the component mounts
+
+    // You can optionally add a cleanup function here if needed
+
+    // If you remove the dependency array, the effect will run every time the component re-renders
+});
   //Defie function to handle change to input value
   };
 
