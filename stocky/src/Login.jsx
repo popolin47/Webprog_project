@@ -11,10 +11,48 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const history = useHistory();
 
+
+    const fetchLogin = () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+    
+        fetch(`/login?username=${username}&password=${password}`, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        alert("Not found user");
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (Array.isArray(data.results) && data.results.length > 0) {
+                    // User found
+                    if (data.status === "0") {
+                        alert("Not found user");
+                    } else if (data.status === "1") {
+                        localStorage.setItem("access_token", data.access_token);
+                        localStorage.setItem("username", username);
+                        history.push('./ProductManage', { user: data.results[0] });
+                    }
+                } else {
+                    console.error('No user found');
+                    // Handle case where no user is found
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching login:', error);
+                // Handle error
+            });
+    };
+
     const handleLogin = () => {
-        console.log("Username:", username);
-        console.log("Password:", password);
-        history.push('/usermanage');
+        fetchLogin()
+        // history.push('/usermanage');
     };
 
     return (
@@ -22,7 +60,7 @@ const Login = () => {
         <div>
             <div className="bg-cover bg-center min-h-screen font-roboto " style={{ backgroundImage: `url(${shoepic})` }}>
             {/* แก้บัค */}
-            <h2 className='text-5xl font-bold mb-8 text-center invisible'>  ffd</h2>
+            <h2 className='text-5xl font-bold mb-8 text-center invisible'>ffd</h2>
                 <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-5 mx-auto my-32">
                 <h2 className='text-5xl font-bold mb-8 text-center'>Log In</h2>
                 <div className="form-group">

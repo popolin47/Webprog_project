@@ -188,9 +188,7 @@ const SearchHome = () => {
               <button
                 className="bg-[#880501] text-white items-center text-center px-5 py-2 rounded-md hover:scale-105 transition-transform "
                 type="submit"
-              >
-                Search
-              </button>
+              >Search</button>
 
               <button
                 className="bg-gray-800 text-white items-center text-center px-5 py-2 rounded-md hover:scale-105 transition-transform"

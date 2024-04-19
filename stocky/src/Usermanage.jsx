@@ -11,8 +11,8 @@ const Usermanage = () => {
   const history = useHistory();
   const [value, setValue] = useState('');
   const [query, setQuery] = useState('');
-  //const [name, setName]= useState('');
   const [selectedUserId, setSelectedUserId] = useState('');
+
   let [valuefordel, setvaluefordel]= useState({
     firstname: '',
     lastname: '',
@@ -20,11 +20,11 @@ const Usermanage = () => {
     email:'',username:'', pass:''  });
     
   useEffect(()=>{
-    fetch('/usermanage')
+     fetch('/usermanage')
     .then((res)=> res.json())
     .then((data)=>{
     if (Array.isArray(data)) {
-      setValue(data);
+      setValue(data); 
       console.log("match");
     } else {
       console.error("Data received from server is not an array:", data);
@@ -63,7 +63,6 @@ const Usermanage = () => {
   };
 
   const handleSearchSubmit = async () => {
- 
     try {
       const response = await fetch(`/searchadmin?query=${query}`);
       if (!response.ok) {

@@ -20,6 +20,9 @@ import ForgotPassword from './ForgotPassword';
 import ProductList from './ProductList';
 import Adduser from './Adduser';
 import Modifyuser from './Modifyadmin';
+import ProductSearchAdmin from './ProductSearchAdmin';
+import ProductResultAdmin from './ProductResultAdmin';
+
 class App extends React.Component {
   render() {
     const title = "Welcome to login blog";
@@ -28,6 +31,7 @@ class App extends React.Component {
     
 
   
+    console.log(this.state)
     
     return (
       <Router>
@@ -81,15 +85,13 @@ class App extends React.Component {
                 <Aboutus/>
               </Route>
               
-              <Route path="/ProductManage">
-                <Sidebar/>
-                <ProductManage/>
-              </Route>
+              <Route path="/ProductManage" render={(props) => <><Sidebar {...props} authed={true} /><ProductManage {...props} authed={true} /></>}/>
+              {/* </Route> */}
               <Route path="/login">
-              <Navbarwithoutsearch/>
+                <Navbarwithoutsearch/>
                 <Login/>
-              
               </Route>
+
               <Route path='/AddProduct'>
                 <Sidebar/>
                 <AddProduct/>
@@ -100,6 +102,32 @@ class App extends React.Component {
                 <ModifyProduct/>
               </Route>
               
+              <Route path="/result_product">
+                <SearchResultPage/>
+              </Route>
+
+              <Route path="/ForgotPassword">
+                <Navbarwithsearch/>
+                <ForgotPassword/>
+              </Route>
+
+              <Route path="/ProductList">
+                <Navbarwithsearch/>
+                <ProductList/>
+              </Route>
+
+             
+
+              <Route path="/ProductSearchAdmin">
+                <Sidebar/>
+                <ProductSearchAdmin/>
+              </Route>
+
+              <Route path="/ProductResultAdmin">
+                <Sidebar/>
+                <ProductResultAdmin/>
+              </Route>
+
             </Switch>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React , { useEffect,useState } from 'react';
+import React , { useState,useEffect } from 'react';
 import './productManage.css'
 import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -6,28 +6,139 @@ import ModifyIcon from './asset/img/modify_icon_Ngb.png';
 import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 
 const spaces = '      '.repeat(30)
+const Product = [
+  {
+    productID: 'P001',
+    pro_name: 'shoes1',
+    catagory: 'Man',
+    brand: 'Adibas',
+    collection: 'summer',
+    price: 233,
+    quantity: 3,
+    size: 'US M 4',
+  },
+  {
+    productID: 'P002',
+    pro_name: 'shoes2',
+    catagory: 'Women',
+    brand: 'Nike',
+    collection: 'summer',
+    price: 233,
+    quantity: 0,
+    size: 'US M 5',
+  },
+  {
+    productID: 'P003',
+    pro_name: 'shoes3',
+    catagory: 'Kid',
+    brand: 'Aria',
+    collection: 'winter',
+    price: 233,
+    quantity: 1,
+    size: 'US M 5',
+  },
+  {
+    productID: 'P004',
+    pro_name: 'shoes4',
+    catagory: 'Kid',
+    brand: 'Nike',
+    collection: 'summer',
+    price: 233,
+    quantity: 1,
+    size: 'US M 6',
+  },
+  {
+    productID: 'P005',
+    pro_name: 'shoes5',
+    catagory: 'Man',
+    brand: 'Nike',
+    collection: 'winter',
+    price: 233,
+    quantity: 1,
+    size: 'US M 4.5',
+  },
+  {
+    productID: 'P006',
+    pro_name: 'shoes6',
+    catagory: 'Man',
+    brand: 'Nike',
+    collection: 'winter',
+    price: 233,
+    quantity: 1,
+    size: 'US M 5.5',
+  },
+  {
+    productID: 'P007',
+    pro_name: 'shoes7',
+    catagory: 'Women',
+    brand: 'Nike',
+    collection: 'autuum',
+    price: 233,
+    quantity: 1,
+    size: 'US M 5.5',
+  },
+  {
+    productID: 'P008',
+    pro_name: 'shoes8',
+    catagory: 'Kid',
+    brand: 'Nike',
+    collection: 'autuum',
+    price: 233,
+    quantity: 1,
+    size: 'US M 4.5',
+  },
+  {
+    productID: 'P009',
+    pro_name: 'shoes9',
+    catagory: 'Women',
+    brand: 'Nike',
+    collection: 'winter',
+    price: 233,
+    quantity: 1,
+    size: 'US M 4',
+  },
+];
 
-const ProductMange = () => {
+const ProductMange = (props) => {
 
   // declare state to hold input value
+  const {location} = props
+  console.log(location.state)
   const [value, setValue] = useState('');
-  const [search, setSearch] = useState('');
-  const history = useHistory();
-  const [valueDel, setValueDel] = useState({
-        P_name: '',
-        Description: '',
-        quantity:'',
-        Price: '',
-        pic:'',
-        Size: '',
-        ReDate:'',
-        Catagory:'',
-        color:'',
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`/check_authen`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+                }
+            });
 
+            if (!response.ok) {   
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+
+            if (data != false) {
+                console.log(data);
+            } else {
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+    fetchData(); // Call the function immediately after the component mounts
+
+    // You can optionally add a cleanup function here if needed
+
+    // If you remove the dependency array, the effect will run every time the component re-renders
+});
   //Defie function to handle change to input value
-  const handleChange = (event) => {
-    setValue(event.target.value);
   };
 
   const handleChange2 = (id) => {
@@ -54,7 +165,7 @@ const ProductMange = () => {
       .catch(error => {
           console.error('Error:', error); 
       });
-  };
+  
 
   const handleSearchSubmit = async () => {
     try {
@@ -87,11 +198,12 @@ const ProductMange = () => {
   },[]);
 
   return (
-
     <div class="p-8 sm:ml-64 overflow-x-auto shadow-md">
+
       <div>
         <h1 class='text-xl'>Product</h1>
       </div>
+      
       <div className='searchBar'>
         <input id="searchName" 
           type="text" 
@@ -124,18 +236,14 @@ const ProductMange = () => {
                 <td>{product.Size}</td>
                 <td>{product.Category}</td>
                 <td>{product.quantity}</td>
-                <td>{product.PID}</td>
+                <td>{product.productID}</td>
                 <td>
-                  <form>
-                    <img src={ModifyIcon} alt='Modify icon' onClick={() => handlemodify(product.PID)} className='w-8 h-auto'/>
-                  </form>
+                  <a href='/ModifyProduct'>
+                    <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
+                  </a>
                 </td>
                 <td>
-                  <form onSubmit={handleDelete}>
-                    <button onClick={() => handleChange2(product.PID)}>
-                    <img src={RemoveIcon} alt='Remove icon' className='w-7 h-auto'/>
-                    </button>
-                  </form>
+                  <img src={RemoveIcon} alt='Remove icon' className='w-7 h-auto'/>
                 </td>
               </tr>
             ))}
