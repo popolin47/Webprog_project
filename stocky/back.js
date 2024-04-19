@@ -85,9 +85,8 @@ router.get("/login", (req, res) => {
         }
 
         // Generate access token using user's ID or another unique identifier
-        let accessToken = TokenManager.getGenerateAccessToken({username});
-        console.log(accessToken);
-
+        let accessToken = TokenManager.getGenerateAccessToken({"username":username});
+   
         let query_login_history = `SELECT * FROM LogInHistory`;
         connection.query(query_login_history, (error, result_login_history) => {
             if (error) {
@@ -111,8 +110,7 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/get_user_data",(req,res)=>{
-    const {username} = req.query;
-    let jwtStatus = TokenManager.checkAuthentication(username);
+    let jwtStatus = TokenManager.checkAuthentication(req);
     if(jwtStatus!=false){
         res.send(username);
     }else{

@@ -36,6 +36,7 @@ const Login = () => {
                         alert("Not found user");
                     } else if (data.status === "1") {
                         localStorage.setItem("access_token", data.access_token);
+                        localStorage.setItem("username", username);
                         history.push('./ProductManage', { user: data.results[0] });
                     }
                 } else {
