@@ -309,7 +309,6 @@ router.put("/ModifyProduct/:productID", (req, res) => {
 
     const AID = '104';//req.body.AID;
     const username = 'Hoshi';//req.body.username;
-    //let date = `NOW()`;
     let action = ' ';
 
     let sql, params;
