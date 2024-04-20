@@ -288,10 +288,10 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         res.status(200).send('Product updated successfully');
     });
 
-    sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
+    sql = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
     const params2 = [productID, AID, username, action];
 
-    connection.query(sql2, params2, (err,result) =>{
+    connection.query(sql, params2, (err,result) =>{
         if(err){
             console.error('Error insert updating data in database:', err);
         }

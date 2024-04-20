@@ -36,7 +36,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/">
               <Navbarwithsearch/>
-                <Home />
+                <ProductList />
               </Route>
               <Route path="/searchresultadmin">
               <Sidebar/>
@@ -70,10 +70,6 @@ class App extends React.Component {
               <Route path="/result_product">
                 <Navbarwithoutsearch/>
                 <SearchResultPage/>
-              </Route>
-            
-              <Route path=" ">
-                <ProductDetail/>
               </Route>
 
               <Route path="/aboutus">
