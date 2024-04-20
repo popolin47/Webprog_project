@@ -12,6 +12,7 @@ const ProductMange = (props) => {
   // declare state to hold input value
   const {location} = props
   console.log(location.state)
+  const history = useHistory();
   const [value, setValue] = useState('');
   const [search, setSearch] = useState('');
   const [valueDel,setValueDel] = useState({
@@ -58,9 +59,8 @@ const ProductMange = (props) => {
     // You can optionally add a cleanup function here if needed
 
     // If you remove the dependency array, the effect will run every time the component re-renders
-});
+  });
   //Defie function to handle change to input value
-  };
 
   const handleChange2 = (id) => {
     console.log(id)
@@ -86,7 +86,7 @@ const ProductMange = (props) => {
       .catch(error => {
           console.error('Error:', error); 
       });
-  
+    }
 
   const handleSearchSubmit = async () => {
     try {
@@ -134,7 +134,8 @@ const ProductMange = (props) => {
           placeholder="Enter product name"
           class=''
         />
-        <button type='submit' onClick={handleSearchSubmit}>Search</button><br/>
+        <button type='submit' onClick={handleSearchSubmit}>Search</button>
+        <button type='submit'>Advanced Search</button><br/>
       </div>
 
       <div className='Tablebox'>
@@ -157,10 +158,12 @@ const ProductMange = (props) => {
                 <td>{product.Size}</td>
                 <td>{product.Category}</td>
                 <td>{product.quantity}</td>
-                <td>{product.productID}</td>
+                <td>{product.PID}</td>
                 <td>
-                  <a href='/ModifyProduct'>
-                    <img src={ModifyIcon} alt='Modify icon' onClick={handlemodify(product.PID)} className='w-8 h-auto'/>
+                  <a>
+                    <button  onClick={() => handlemodify(product.PID)}>
+                      <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
+                    </button>
                   </a>
                 </td>
                 <td>

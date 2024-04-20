@@ -55,12 +55,12 @@ const Sidebar = () => {
          
          <li>
          <div class="flex flex-col items-center justify-center h-20 hover:bg-red-300  
-          @if(currentPath === '/productmanage' || currentPath === '/modifyproduct' || currentPath === '/home')
+          @if(currentPath === '/ProductManage' || currentPath === '/modifyproduct' || currentPath === '/home')
           bg-[#ea580c]
       @else
           bg-[#a3a3a3]
       @endif">
-            <a href="/productmanage" class="max-w-50 flex flex-col items-center">
+            <a href="/ProductManage" class="max-w-50 flex flex-col items-center">
                 <FaBoxArchive class="text-4xl" color="#00000"/>
                 <div class="text-xl">Product</div>
             </a>
