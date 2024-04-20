@@ -6,105 +6,27 @@ import ModifyIcon from './asset/img/modify_icon_Ngb.png';
 import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 
 const spaces = '      '.repeat(30)
-const Product = [
-  {
-    productID: 'P001',
-    pro_name: 'shoes1',
-    catagory: 'Man',
-    brand: 'Adibas',
-    collection: 'summer',
-    price: 233,
-    quantity: 3,
-    size: 'US M 4',
-  },
-  {
-    productID: 'P002',
-    pro_name: 'shoes2',
-    catagory: 'Women',
-    brand: 'Nike',
-    collection: 'summer',
-    price: 233,
-    quantity: 0,
-    size: 'US M 5',
-  },
-  {
-    productID: 'P003',
-    pro_name: 'shoes3',
-    catagory: 'Kid',
-    brand: 'Aria',
-    collection: 'winter',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5',
-  },
-  {
-    productID: 'P004',
-    pro_name: 'shoes4',
-    catagory: 'Kid',
-    brand: 'Nike',
-    collection: 'summer',
-    price: 233,
-    quantity: 1,
-    size: 'US M 6',
-  },
-  {
-    productID: 'P005',
-    pro_name: 'shoes5',
-    catagory: 'Man',
-    brand: 'Nike',
-    collection: 'winter',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4.5',
-  },
-  {
-    productID: 'P006',
-    pro_name: 'shoes6',
-    catagory: 'Man',
-    brand: 'Nike',
-    collection: 'winter',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5.5',
-  },
-  {
-    productID: 'P007',
-    pro_name: 'shoes7',
-    catagory: 'Women',
-    brand: 'Nike',
-    collection: 'autuum',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5.5',
-  },
-  {
-    productID: 'P008',
-    pro_name: 'shoes8',
-    catagory: 'Kid',
-    brand: 'Nike',
-    collection: 'autuum',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4.5',
-  },
-  {
-    productID: 'P009',
-    pro_name: 'shoes9',
-    catagory: 'Women',
-    brand: 'Nike',
-    collection: 'winter',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4',
-  },
-];
 
 const ProductMange = (props) => {
 
   // declare state to hold input value
   const {location} = props
   console.log(location.state)
+  const history = useHistory();
   const [value, setValue] = useState('');
+  const [search, setSearch] = useState('');
+  const [valueDel,setValueDel] = useState({
+        P_name: '',
+        Description: '',
+        quantity:'',
+        Price: '',
+        pic:'',
+        Size: '',
+        ReDate:'',
+        Category:'',
+        color:'',
+  });
+
   useEffect(() => {
     const fetchData = async () => {
         try {
@@ -137,9 +59,8 @@ const ProductMange = (props) => {
     // You can optionally add a cleanup function here if needed
 
     // If you remove the dependency array, the effect will run every time the component re-renders
-});
+  });
   //Defie function to handle change to input value
-  };
 
   const handleChange2 = (id) => {
     console.log(id)
@@ -165,7 +86,7 @@ const ProductMange = (props) => {
       .catch(error => {
           console.error('Error:', error); 
       });
-  
+    }
 
   const handleSearchSubmit = async () => {
     try {
@@ -213,7 +134,8 @@ const ProductMange = (props) => {
           placeholder="Enter product name"
           class=''
         />
-        <button type='submit' onClick={handleSearchSubmit}>Search</button><br/>
+        <button type='submit' onClick={handleSearchSubmit}>Search</button>
+        <button type='submit'>Advanced Search</button><br/>
       </div>
 
       <div className='Tablebox'>
@@ -236,14 +158,20 @@ const ProductMange = (props) => {
                 <td>{product.Size}</td>
                 <td>{product.Category}</td>
                 <td>{product.quantity}</td>
-                <td>{product.productID}</td>
+                <td>{product.PID}</td>
                 <td>
-                  <a href='/ModifyProduct'>
-                    <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
+                  <a>
+                    <button  onClick={() => handlemodify(product.PID)}>
+                      <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
+                    </button>
                   </a>
                 </td>
                 <td>
-                  <img src={RemoveIcon} alt='Remove icon' className='w-7 h-auto'/>
+                  <form onSubmit={handleDelete}>
+                    <button onClick={() => handleChange2(product.PID)}>
+                      <img src={RemoveIcon} alt='Remove icon' className='w-7 h-auto'/>
+                    </button>
+                  </form>
                 </td>
               </tr>
             ))}
