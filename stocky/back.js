@@ -252,21 +252,34 @@ router.delete("/delete1/:ProductID", async (req, res) => {
     console.log("Deleting user...");
     const ProductID= req.params.ProductID; 
     console.log("UserID:", ProductID);
-    
-    let sql3 = `DELETE FROM Modifyproduct WHERE PID = ?`;
+  
+    const AID = req.query.adminID;
+    const username = req.query.username;
+
     let sql =  `DELETE FROM Product WHERE PID = ?`; 
+    let action = 'Delete product';
+    connection.query(sql, [ProductID], (err, result) => {
+        if (err) {
+            console.error('Error adding data to database:', err);
+            return res.status(500).send('Error adding data to database');
+        }
+        
+        console.log('Delete product added successfully');
+        
     
-    try {
-        await Promise.all([
-            connection.query(sql3, [ProductID]),
-            connection.query(sql, [ProductID])
-        ]);
-        console.log("User deleted successfully from all tables");
-        res.status(200).send("User deleted successfully from all tables");
-    } catch (error) {
-        console.error("Error deleting user:", error);
-        res.status(401).send("Not Found");
-    }
+
+        const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES (?, ?, ?, NOW(), ?)';
+        connection.query(sql2, [ProductID, AID, username, action], (err, result) => {
+            if (err) {
+                console.error('Error inserting data into ModifyProduct table:', err);
+                return res.status(500).send('Error inserting data into ModifyProduct table');
+            }
+            console.log('Product data inserted successfully');
+            console.log(result);
+            res.status(200).send('Delete product added successfully');
+        });
+    
+    });
 });
 
 router.put("/modifyuser/:userId", async (req, res) => {
@@ -462,26 +475,29 @@ router.post("/AddProduct", (req, res) => {
     let action = 'Add product';
 
     const sql = `INSERT INTO Product (P_name, Description, quantity, Price, Pic, Size, ReDate, Category, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
+    
     connection.query(sql, [productName, Des, quantity, price, pic, size, Redate, Category, color], (err, result) => {
         if (err) {
             console.error('Error adding data to database:', err);
             return res.status(500).send('Error adding data to database');
         }
+        
         console.log('New product added successfully');
-        res.status(200).send('New product added successfully');
+        
+        const productID = result.insertId;
+
+        const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES (?, ?, ?, NOW(), ?)';
+        connection.query(sql2, [productID, AID, username, action], (err, result) => {
+            if (err) {
+                console.error('Error inserting data into ModifyProduct table:', err);
+                return res.status(500).send('Error inserting data into ModifyProduct table');
+            }
+            console.log('Product data inserted successfully');
+            console.log(result);
+            res.status(200).send('New product added successfully');
+        });
+    
     });
-
-    const sqlPID = 'SELECT PID FROM Product limit 1 DESC';
-    const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
-
-    /*connection.query(sql2, [productID, AID, username, action], (err,result) =>{
-        if(err){
-            console.error('Error insert updating data in database:', err);
-        }
-        console.log('Product data inserted successfully');
-        console.log(result);
-    });*/
 
 });
 
