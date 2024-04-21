@@ -110,14 +110,7 @@ router.get("/login", (req, res) => {
     });
 });
 
-router.post("/get_user_data",(req,res)=>{
-    let jwtStatus = TokenManager.checkAuthentication(req);
-    if(jwtStatus!=false){
-        res.send(username);
-    }else{
-        res.send(false);
-    }   
-})
+
 
 router.get("/searchadmin", (req, res) => {
     const query = req.query.query;

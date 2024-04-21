@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const catagory = ['All','Man', 'Women', 'Kid'];
+const catagory = ['All', 'Man', 'Women', 'Kid'];
 const defaultOption = catagory[0];
 
-const size = ['All','4','4.5','5','5.5','6'];
+const size = ['All', '4', '4.5', '5', '5.5', '6'];
 const defaultsize2 = size[0];
 
 const SearchHome = () => {
-  const history= useHistory();
+  const history = useHistory();
   const [searchName, setSearchName] = useState('');
   const [searchcolor, setcolor] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(defaultOption);
   const [isAvailable, setIsAvailable] = useState(true);
   const [selectedSize, setSelectedSize] = useState(defaultsize2);
-  
+  const [searchResults, setSearchResults] = useState('');
 
   const handleNameChange = (event) => {
     setSearchName(event.target.value);
@@ -39,6 +39,7 @@ const SearchHome = () => {
     setSelectedCategory(defaultOption);
     setIsAvailable(false);
     setSelectedSize(defaultsize2);
+    setSearchResults(null);
   };
 
   const handleSizeChange = (event) => {
@@ -73,12 +74,15 @@ const SearchHome = () => {
 
       const searchResults = await response.json();
       console.log('Search Results:', searchResults);
-
-      history.push({ pathname: '/result_product', results: searchResults });
-    } 
-    catch (error) {
+      setSearchResults(searchResults);
+    } catch (error) {
       console.error('Error:', error);
     }
+  };
+  const handleViewDetails = (productID) => {
+    console.log(productID)
+    history.push({pathname:`/ProductDetail/${productID}`, state: productID });
+    
   };
 
   return (
@@ -91,7 +95,6 @@ const SearchHome = () => {
                 <h1 className='text-3xl text-white'>Search</h1>
               </div>
 
-            
               {/* Name */}
               <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
                 <label className='text-black text-xl text-left ml-12' htmlFor="searchName">
@@ -120,7 +123,7 @@ const SearchHome = () => {
                   type="text"
                   value={searchcolor}
                   onChange={handleColorChange}
-                  placeholder="| Enter product's color'"
+                  placeholder="| Enter product's color"
                 />
               </div>
 
@@ -143,7 +146,6 @@ const SearchHome = () => {
                   ))}
                 </select>
               </div>
-
 
               {/* Size */}
               <div className='text-lg section flex flex-row w-full gap-4 h-1/2 justify-between my-4'>
@@ -181,8 +183,6 @@ const SearchHome = () => {
                   />
                 </div>
               </div>
-
-              
             </div>
             <div className="flex justify-center mt-8 gap-5">
               <button
@@ -192,7 +192,7 @@ const SearchHome = () => {
 
               <button
                 className="bg-gray-800 text-white items-center text-center px-5 py-2 rounded-md hover:scale-105 transition-transform"
-                type="button" 
+                type="button"
                 onClick={handleClear}
               >
                 Clear
@@ -200,7 +200,46 @@ const SearchHome = () => {
             </div>
           </div>
         </form>
+        
       </div>
+
+
+      <div className="container mx-auto py-8">
+        {searchResults.length === 0 ? (
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-gray-800 mb-4">Browse 0 result</h1>
+            <p className="text-xl text-gray-600">No products found matching your search criteria.</p>
+          </div>
+        ) : (
+          <>
+            <div className="text-left text-gray-800 my-12">
+              <h1 className="text-3xl font-bold mb-4">Browse {searchResults.length} results</h1>
+            </div>
+
+            <div className="grid grid-cols-3 gap-12">
+              {searchResults&&searchResults.map((product) => (
+                
+                <div key={product.P_name} className="bg-white max-w-m rounded-lg overflow-hidden shadow-md">
+                  <img className="w-full h-1/2  object-cover object-center" src={product.Pic} alt="shoe" />
+                  <div className="p-4">
+                    <h5 className="text-xl font-semibold mb-2">{product.P_name}</h5>
+                    <p className="text-lg text-gray-700 mb-2">Category: {product.Category}</p>
+                    <p className="text-lg text-gray-700 mb-2">Size: {product.Size}</p>
+                    <p className="text-lg text-gray-700 mb-4">Price: ${product.Price}</p>
+                    <button className="bg-[#880501] text-white px-4 py-2 rounded-md hover:bg-opacity-75 transition-colors"
+                      onClick={() => handleViewDetails(product.PID)}
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+
     </div>
   );
 };
