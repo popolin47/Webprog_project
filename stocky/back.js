@@ -261,36 +261,37 @@ router.put("/modifyuser/:userId", async (req, res) => {
     const phone = req.body.PhoneNo;
     const email = req.body.Aemail;
     const oldusername = req.body.Modifyadd;
+    const currentmanage = req.body.AIDManage;
     let sql = '';
     let params = '';
     console.log(req.body);
-    
+    let line='';
     if (username) {
         sql = 'UPDATE  Admin SET Username = ? WHERE AID = ?';
         params=username;
-        
+        line += "username";
     } 
     
         if (firstname) {
             sql = 'UPDATE  Admin SET AFname = ? WHERE AID = ?';
             params = firstname;
-            
+            line += "first name";
         }  if (lastname) {
             sql = 'UPDATE  Admin SET ALname = ? WHERE AID = ?';
             params = lastname;
-            
+            line += "last name";
         }  if (phone) {
             sql = 'UPDATE  Admin SET PhoneNo = ? WHERE AID = ?';
             params = phone;
-            
+            line += "Phone No.";
         } if (email) {
             sql = 'UPDATE  Admin SET Aemail = ? WHERE AID = ?';
             params = email;
-            
+            line += "Email";
         } if (Password) {
             sql = 'UPDATE  Admin SET Password = ? WHERE AID = ?';
             params = Password;
-           
+            line += "Password";
         }
         connection.query(sql, [params, userid], (err, result) => {
             if (err) {
@@ -298,6 +299,15 @@ router.put("/modifyuser/:userId", async (req, res) => {
                 res.status(500).send('Error updating data');
                 return;
             }
+            connection.query('insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?)', [currentmanage,oldusername, new Date(), `Modify ${line} of user`], (err, result) => {
+                if (err) {
+                    console.error('Error updating data:', err);
+                    res.status(500).send('Error updating data');
+                    return;
+                }
+                console.log('insert updated successfully');
+                
+            });
             console.log('Data updated successfully');
             res.status(200).send('Data updated successfully');
         });
