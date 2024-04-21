@@ -104,8 +104,8 @@ CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   `T_product` datetime NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
   `Action` TEXT NOT NULL,
-  CONSTRAINT PKmodi__admin PRIMARY KEY (PID, AID),
-  CONSTRAINT FK_PID FOREIGN KEY (PID) REFERENCES Product(PID),
+  CONSTRAINT PKmodi__admin PRIMARY KEY (AID, T_product),
+  -- CONSTRAINT FK_PID FOREIGN KEY (PID) REFERENCES Product(PID),
   CONSTRAINT FK_Aid_pro FOREIGN KEY (AID) REFERENCES Admin(AID)  on delete cascade on update cascade ,
   CONSTRAINT FK_user FOREIGN KEY (Username) REFERENCES Admin(Username)  on delete cascade on update cascade 
 );

@@ -224,18 +224,20 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("Deleting Product...");
     const productID = req.params.productID;
     //console.log("ProductID:", productID);
-    //const AID = req.query.adminID;
-    //const username = req.query.username;
-    //let action = `Delete product `;
+
+    const AID = req.query.adminID;
+    const username = req.query.username;
+    let action = `Delete product `;
 
     let sql = `DELETE FROM Product WHERE PID = ?`;
-    let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
+    //let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
+    let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)`;
 
     try {
         await Promise.all([
             connection.query(sql, productID),
-            connection.query(sql2, productID)
-           
+            //connection.query(sql2, productID)
+            connection.query(sql2, [productID, AID, username, action])
         ]);
 
         console.log("Product deleted successfully from all tables");
