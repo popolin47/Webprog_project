@@ -496,7 +496,7 @@ router.post("/searchHome", (req, res) => {
     if (searchName!=='') {
         sql += ` AND P_name LIKE "%${searchName}%"`;
       }
-
+ 
     if (searchcolor!=='') {
     sql += ` AND brand LIKE "${searchcolor}"`;
     }
