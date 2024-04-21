@@ -484,11 +484,13 @@ router.post("/AddProduct", (req, res) => {
 });
 
 router.post("/searchHome", (req, res) => {
+    console.log("back");
+    console.log(req.body);
     const searchName = req.body.searchName;
     const category = req.body.category;
     const searchBrand =req.body.searchBrand;
     const size = req.body.size;
-    const searchAvailable = res.body.searchAvailable;
+    const searchAvailable = req.body.searchAvailable;
     let sql ='SELECT * FROM Product WHERE 1=1'
 
     if (searchName!=null) {
@@ -513,7 +515,7 @@ router.post("/searchHome", (req, res) => {
     if (category!=='All') {
         sql += ` AND category LIKE "%${category}%"`;
     }
-
+    console.log(sql)
     connection.query( sql, function (error, results) {
         if (error) throw error;
         console.log(`${results.length} rows returned`);
