@@ -123,7 +123,7 @@ const SearchHome = () => {
                   type="text"
                   value={searchcolor}
                   onChange={handleColorChange}
-                  placeholder="| Enter product's color'"
+                  placeholder="| Enter product's color"
                 />
               </div>
 
