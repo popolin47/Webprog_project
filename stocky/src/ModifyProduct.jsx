@@ -25,6 +25,43 @@ const ModifyProduct = () => {
         color:'',
     });
 
+    const adminID = localStorage.getItem('AID');
+    const adminUser = localStorage.getItem('username')
+
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await fetch(`/check_authen`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+                  },
+              });
+  
+              if (!response.ok) {   
+                  throw new Error('Network response was not ok');
+              }
+  
+              const data = await response.json();
+  
+              if (data != false) {
+                  console.log(data);
+              } else {
+                  window.location.href = '/login';
+              }
+          } catch (error) {
+              console.error('Error fetching user data:', error);
+          }
+      };
+  
+      fetchData(); // Call the function immediately after the component mounts
+  
+      // You can optionally add a cleanup function here if needed
+  
+      // If you remove the dependency array, the effect will run every time the component re-renders
+    });
+
     const handleChange = (newData) => {
         let name = newData.target.name;
         setProduct({...product,[name]: newData.target.value})
@@ -36,7 +73,7 @@ const ModifyProduct = () => {
         e.preventDefault();
 
         try{
-            const response = await fetch(`/ModifyProduct/${PID}`, {
+            const response = await fetch(`/ModifyProduct/${PID}?adminID=${adminID}&username=${adminUser}`, {
                 method: 'PUT',
                 headers: {
                   //Accept: 'application/json',
