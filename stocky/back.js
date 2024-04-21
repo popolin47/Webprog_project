@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const router = express.Router();
 const TokenManager = require("./token_manager");
+const { useEffect } = require('react');
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
 app.use(router)
@@ -296,6 +297,7 @@ router.put("/modifyuser/:userId", (req, res) => {
 
 router.put("/ModifyProduct/:productID", (req, res) => {
     console.log("Updating product...");
+
     const productID = req.params.productID;
     const productName = req.body.P_name;
     const Des = req.body.Description;
@@ -307,8 +309,10 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     const Category = req.body.Category;
     const color = req.body.color;
 
-    const AID = '104';//req.body.AID;
-    const username = 'Hoshi';//req.body.username;
+    const AID = req.body.AID;//'104'
+    //console.log(AID)
+    const username = req.body.Username;//'Hoshi';
+    //const { AID, Username } = req.body; 
     let action = ' ';
 
     let sql, params;
@@ -360,10 +364,10 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         res.status(200).send('Product updated successfully');
     });
 
-    sql = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
+    sql2 = 'INSERT INTO `ModifyProduct` (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
     const params2 = [productID, AID, username, action];
 
-    connection.query(sql, params2, (err,result) =>{
+    connection.query(sql2, params2, (err,result) =>{
         if(err){
             console.error('Error insert updating data in database:', err);
         }
