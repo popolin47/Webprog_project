@@ -158,6 +158,9 @@ const ProductMange = (props) => {
     // If you remove the dependency array, the effect will run every time the component re-renders
   });
   //Defie function to handle change to input value
+  const handlepush = ()  => {
+    history.push('/ProductSearchAdmin'); 
+  };
 
   const handleChange2 = (id) => {
     console.log(id)
@@ -232,7 +235,7 @@ const ProductMange = (props) => {
           className="mr-5"
         />
         <button type='submit'className="mr-5" onClick={handleSearchSubmit}>Search</button>
-        <button type='submit'className="mr-5">Advanced Search</button><br/>
+        <button type='submit'className="mr-5" onClick={handlepush}>Advanced Search</button><br/>
       </div>
 
       <div className='Tablebox'>
