@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const catagory = ['All', 'Man', 'Women', 'Kid'];
+const catagory = ['All', 'Man', 'Woman', 'Kid'];
 const defaultOption = catagory[0];
 
 const size = ['All', '4', '4.5', '5', '5.5', '6'];
@@ -37,9 +37,9 @@ const SearchHome = () => {
     setSearchName('');
     setcolor('');
     setSelectedCategory(defaultOption);
-    setIsAvailable(false);
+    setIsAvailable(true);
     setSelectedSize(defaultsize2);
-    setSearchResults(null);
+    setSearchResults('');
   };
 
   const handleSizeChange = (event) => {
@@ -75,6 +75,7 @@ const SearchHome = () => {
       const searchResults = await response.json();
       console.log('Search Results:', searchResults);
       setSearchResults(searchResults);
+
     } catch (error) {
       console.error('Error:', error);
     }
