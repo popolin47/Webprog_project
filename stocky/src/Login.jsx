@@ -97,7 +97,7 @@ const Login = () => {
                     />
                 </div>
                     <div className="form-group flex flex-col ">
-                        <Link to="/ForgotPassword" className="text-gray-500 text-sm mb-4 underline items-right text-right block mb-5">Forgot password</Link>
+                        <div className="text-gray-500 text-sm mb-4 underline items-right text-right block mb-5 invisible">Forgot password</div>
                         <button className='p-3 bg-red-500 text-white rounded-md hover:bg-black items-center' onClick={handleLogin}>Enter</button>
                     </div>
                 </div>
