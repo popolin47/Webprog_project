@@ -11,19 +11,35 @@ const Usermanage = () => {
   const history = useHistory();
   const [value, setValue] = useState('');
   const [query, setQuery] = useState('');
-  const [selectedUserId, setSelectedUserId] = useState('');
+  const [selectedUserId, setSelectedUserId] = useState(
+  '');
 
   let [valuefordel, setvaluefordel]= useState({
+    AID:'',
     firstname: '',
     lastname: '',
     phone: '',
-    email:'',username:'', pass:''  });
-    
+    email:'',username:'', pass:''
+     });
+  
+  
   useEffect(()=>{
      fetch('/usermanage')
     .then((res)=> res.json())
     .then((data)=>{
     if (Array.isArray(data)) {
+      const username = localStorage.getItem('username');
+      const AIDManage=localStorage.getItem('AID');
+      if (username) {
+        setvaluefordel(prevInfo => ({
+          ...prevInfo,
+          Modifyadd: username
+        }));
+        setvaluefordel(prevInfo => ({
+          ...prevInfo,
+          AIDManage: AIDManage
+        }));
+      }
       setValue(data); 
       console.log("match");
     } else {
@@ -38,20 +54,26 @@ const Usermanage = () => {
 
   const handleChange2 = (userID) => {
     console.log(userID);
-    setvaluefordel(userID); // Assuming userID is the unique identifier for the user
+    setSelectedUserId(userID)
   };
 
   const handleDelete = (event) => {
     console.log("deleting start front"); 
     console.log(valuefordel);
-    fetch(`/delete/${valuefordel}`, {
-      method: 'DELETE'
-      })
+    
+    fetch(`/delete/${selectedUserId}`, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(valuefordel)
+    })
       .then(response => {
           if (!response.ok) {
               throw new Error('Failed to delete data');
           }
-          return response.text();
+          console.log("no error")
+          return;
       })
       .then(data => {
         console.log("datasent")

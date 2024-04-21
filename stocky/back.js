@@ -198,14 +198,18 @@ router.delete("/delete/:userID", async (req, res) => {
     console.log("Deleting user...");
     const userID = req.params.userID; 
     console.log("UserID:", userID);
-    
-   
+    console.log(req.body)
+    const AID = req.body.AIDManage;
+    const username = req.body.Modifyadd;
+
     let sql = `DELETE FROM admin WHERE AID = ?`; 
-    
+    let sql1 = 'insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?) '
+
     try {
         await Promise.all([
             
-             connection.query(sql, [userID])
+             connection.query(sql, [userID]),
+             connection.query(sql1, [AID, username, new Date(), `Delete user ${userID}`])
         ]);
 
         console.log("User deleted successfully from all tables");
@@ -423,6 +427,16 @@ router.post("/adduser", (req, res) => {
             res.status(500).send('Error adding data to database');
             return;
         }
+        connection.query('insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?) ', [req.body.AIDManage,req.body.Modifyuser, new Date(), "Add user"], (err, result) => {
+
+            if (err) {
+                console.error('Error adding data to database:', err);
+                res.status(500).send('Error adding data to database');
+                return;
+            }
+            console.log('Data updated to database successfully');
+            
+        });
         console.log('Data added to database successfully');
         res.status(200).sendFile(path.join(`${__dirname}/src/Usermanage.jsx`));
     });
@@ -470,11 +484,13 @@ router.post("/AddProduct", (req, res) => {
 });
 
 router.post("/searchHome", (req, res) => {
+    console.log("back");
+    console.log(req.body);
     const searchName = req.body.searchName;
     const category = req.body.category;
     const searchBrand =req.body.searchBrand;
     const size = req.body.size;
-    const searchAvailable = res.body.searchAvailable;
+    const searchAvailable = req.body.searchAvailable;
     let sql ='SELECT * FROM Product WHERE 1=1'
 
     if (searchName!=null) {
@@ -499,7 +515,7 @@ router.post("/searchHome", (req, res) => {
     if (category!=='All') {
         sql += ` AND category LIKE "%${category}%"`;
     }
-
+    console.log(sql)
     connection.query( sql, function (error, results) {
         if (error) throw error;
         console.log(`${results.length} rows returned`);

@@ -11,12 +11,30 @@ const Adduser = () => {
     firstname: '',
     lastname: '',
     phone: '',
-    email:'',username:'', pass:''  });
+    email:'',username:'', pass:'' , Modifyuser:'',
+    AIDManage:'' });
   const handleChange = (newData) => {
     let name = newData.target.name;
     setUser({...user,[name]: newData.target.value})
   }
-  
+
+  useEffect(() => {
+    // Retrieve the stored data when the component mounts
+    const username = localStorage.getItem('username');
+    const AIDManage=localStorage.getItem('AID');
+    if (username) {
+      
+      
+      setUser(prevInfo => ({
+        ...prevInfo,
+        Modifyuser: username
+      }));
+      setUser(prevInfo => ({
+        ...prevInfo,
+        AIDManage: AIDManage
+      }));
+    }
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("start submit");
