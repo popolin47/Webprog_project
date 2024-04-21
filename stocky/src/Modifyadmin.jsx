@@ -16,24 +16,43 @@ const Modifyuser = () => {
   const history = useHistory();
   // const [name,setName]= useState('')
   const [info, setInfo] = useState({
-
+    
     Password:'',
     Username:'',
     Afname: '',
     Alname: '',
     PhoneNo: '',
-    Aemail:''
+    Aemail:'',
+    Modifyadd:''
   });
   // setInfo({AID: userId})
-  
+  console.log(info)
+  const [storedUsername, setStoredUsername] = useState('');
+  useEffect(() => {
+    // Retrieve the stored data when the component mounts
+    const username = localStorage.getItem('username');
+    if (username) {
+      setStoredUsername(username);
+      
+      setInfo(prevInfo => ({
+        ...prevInfo,
+        Modifyadd: username
+      }));
+    }
+  }, []);
+  console.log("local "+storedUsername)
+  console.log(info)
   // const [name,setName] = useState('');
   const handleChange = (newData) => {
     let name = newData.target.name;
+    // console.log(name)
+    // console.log(newData.target.value)
     setInfo({...info,[name]: newData.target.value})
     setInfo(prevInfo => ({
       ...prevInfo,
       AID: userId
     }));
+    
   }
     const handleSubmit = async (e) => {
       console.log("start change")
@@ -51,12 +70,21 @@ const Modifyuser = () => {
           throw new Error('Failed to update user');
         }
         console.log('User updated successfully');
-        // history.push('/usermanage');
+        setInfo({
+          Password:'',
+          Username:'',
+          Afname: '',
+          Alname: '',
+          PhoneNo: '',
+          Aemail:'',
+        });
+        
       } catch (error) {
         console.error('Error updating user:', error);
         // Handle error
       }
     };
+    
   return (
     <div>
     <div className="p-4 sm:ml-64 shadow-md ">
