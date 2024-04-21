@@ -110,14 +110,7 @@ router.get("/login", (req, res) => {
     });
 });
 
-router.post("/get_user_data",(req,res)=>{
-    let jwtStatus = TokenManager.checkAuthentication(req);
-    if(jwtStatus!=false){
-        res.send(username);
-    }else{
-        res.send(false);
-    }   
-})
+
 
 router.get("/searchadmin", (req, res) => {
     const query = req.query.query;
@@ -237,7 +230,7 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     try {
         await Promise.all([
             connection.query(sql, productID),
-            connection.query(sq2, productID)
+            connection.query(sql2, productID)
            
         ]);
 
