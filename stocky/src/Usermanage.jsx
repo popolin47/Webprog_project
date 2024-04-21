@@ -13,13 +13,13 @@ const Usermanage = () => {
   const [query, setQuery] = useState('');
   const [selectedUserId, setSelectedUserId] = useState(
   '');
-
+  
   let [valuefordel, setvaluefordel]= useState({
     AID:'',
     firstname: '',
     lastname: '',
     phone: '',
-    email:'',username:'', pass:''
+    email:'',username:'', pass:'',Modifyadd:'',AIDManage:''
      });
   
   
@@ -101,7 +101,7 @@ const Usermanage = () => {
     history.push({pathname:`/Modifyuser/${userId}`,  state: userId});
   };
  
-  
+  // console.log(valuefordel.AIDManage)
   
 
   return (
@@ -136,26 +136,40 @@ const Usermanage = () => {
             </thead>
             <tbody>
               {value && value.map((user) => (
-                <tr key={user.AID}>
-                  <td className="p-3">{user.AFname}</td>
-                  <td className="p-3">{user.ALname}</td>
-                  <td className="p-3">{user.Aemail}</td>
-                  <td className="p-3">{user.Username}</td>
-                  <td className="p-3">{user.AID}</td>
-                  <td className="flex">
-                  <div className="pl-5" >
-                    <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
-                    
-                  </div>
-                  <div className="pl-5" >
-                    <form onSubmit={handleDelete} > 
-                      <button  onClick={() => handleChange2(user.AID)}>
-                    <FaTrash  size={"18"}/></button>
-                     </form> 
-                  </div>
-                </td>
-                </tr>
-              ))}
+    user.AID != valuefordel.AIDManage ? (
+      <tr key={user.AID}>
+        <td className="p-3">{user.AFname}</td>
+        <td className="p-3">{user.ALname}</td>
+        <td className="p-3">{user.Aemail}</td>
+        <td className="p-3">{user.Username}</td>
+        <td className="p-3">{user.AID}</td>
+        <td className="flex">
+          <div className="pl-5">
+            <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
+          </div>
+          <div className="pl-5">
+            <form onSubmit={handleDelete}>
+              <button onClick={() => handleChange2(user.AID)}>
+                <FaTrash size={"18"}/>
+              </button>
+            </form>
+          </div>
+        </td>
+      </tr>
+    ) : <tr key={user.AID}>
+    <td className="p-3">{user.AFname}</td>
+    <td className="p-3">{user.ALname}</td>
+    <td className="p-3">{user.Aemail}</td>
+    <td className="p-3">{user.Username}</td>
+    <td className="p-3">{user.AID}</td>
+    <td className="flex">
+      <div className="pl-5">
+        <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
+      </div>
+      
+    </td>
+  </tr>
+  ))}
             </tbody>
           </table>
         </div>
