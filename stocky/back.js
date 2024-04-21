@@ -493,11 +493,11 @@ router.post("/searchHome", (req, res) => {
     const searchAvailable = req.body.searchAvailable;
     let sql ='SELECT * FROM Product WHERE 1=1'
 
-    if (searchName!='') {
+    if (searchName!=='') {
         sql += ` AND P_name LIKE "%${searchName}%"`;
       }
 
-    if (searchcolor!='') {
+    if (searchcolor!=='') {
     sql += ` AND brand LIKE "${searchcolor}"`;
     }
 
