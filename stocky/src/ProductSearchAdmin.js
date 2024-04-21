@@ -162,7 +162,6 @@ const ProductSearchAdmin = () => {
         searchID: searchID || null,
         minPrice: minPrice || null,
         maxPrice: maxPrice || null,
-        selectedSize: selectedSize || null,
         startDateValue: startDateValue || null,
         endDateValue: endDateValue || null,
         category: selectedCategory,

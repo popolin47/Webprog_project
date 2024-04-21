@@ -40,7 +40,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/">
               <Navbarwithsearch/>
-                <ProductList />
+              <ProductList/>
               </Route>
               <Route path="/searchresultadmin">
               <Sidebar/>
@@ -109,10 +109,6 @@ class App extends React.Component {
                 <ForgotPassword/>
               </Route>
 
-              <Route path="/ProductList">
-                <Navbarwithsearch/>
-                <ProductList/>
-              </Route>
 
              
 

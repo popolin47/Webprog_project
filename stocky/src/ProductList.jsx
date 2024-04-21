@@ -78,13 +78,16 @@ const ProductList = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full md:w-full">
               {/* Mapping through recommendedProducts array and displaying products */}
               {recommendedProducts.map((product) => (
-                <div key={product?.PID ? product.PID : null} onClick={() => handleViewDetails(product.PID)} className="w-200 h-200px rounded-lg shadow-md p-5">
+                <button onClick={() => handleViewDetails(product.PID)}>
+                  <div key={product?.PID ? product.PID : null} className="w-200 h-200px rounded-lg shadow-md p-5">
                   <img src={product.Pic} alt="ProductList" className="bg-white max-w-full max-h-full object-cover" />
                   <h3 className="text-gray-600 text-lg font-semibold mt-3">{product?.P_name ? product.P_name : '-'}</h3>
                   <div className="flex justify-between mt-1">
                     <div className="text-black">${product?.Price ? product.Price : '-'}</div>
                   </div>
                 </div>
+                </button>
+                
               ))}
             </div>
           </div>
@@ -99,13 +102,16 @@ const ProductList = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {/* Mapping through Product array and displaying products */}
               {Product.map((product) => (
-                <div key={product.PID} onClick={() => handleViewDetails(product.PID)} className="rounded-lg shadow-md p-5">
+                <button onClick={() => handleViewDetails(product.PID)}>
+                  <div key={product.PID} onClick={() => handleViewDetails(product.PID)} className="rounded-lg shadow-md">
                   <img src={product.Pic} alt="Product" className="bg-white max-w-full max-h-full object-cover" />
                   <h3 className="text-gray-600 text-lg font-semibold mt-3">{product.P_name}</h3>
                   <div className="flex justify-between mt-1">
                     <div className="text-black">${product.Price}</div>
                   </div>
                 </div>
+                </button>
+                
               ))}
             </div>
           </div>
