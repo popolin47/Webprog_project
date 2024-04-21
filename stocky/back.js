@@ -498,10 +498,10 @@ router.post("/searchHome", (req, res) => {
       }
  
     if (searchcolor!=='') {
-    sql += ` AND brand LIKE "${searchcolor}"`;
+    sql += ` AND color LIKE "${searchcolor}"`;
     }
 
-        if (searchAvailable === 'true') {
+        if (searchAvailable === true ) {
             sql += ' AND quantity > 0';
         } 
         else if (searchAvailable === false) {
@@ -509,7 +509,7 @@ router.post("/searchHome", (req, res) => {
         }
 
     if (size!=='All') {
-        sql += ` AND size LIKE "%${size}%"`;
+        sql += ` AND size LIKE "${size}"`;
     }
 
     if (category!=='All') {
