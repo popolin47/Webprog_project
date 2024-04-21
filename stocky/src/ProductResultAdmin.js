@@ -100,7 +100,7 @@ const ProductResultAdmin = () => {
                 <tr key={product.PID}>
                   <td>{product.P_name}</td>
                   <td>{product.Size}</td>
-                  <td>{product.collection}</td>
+                  <td>{product.Category}</td>
                   <td>{product.quantity}</td>
                   <td>{product.PID}</td>
                   <td>

@@ -61,7 +61,7 @@ const ProductSearchAdmin = () => {
         }
     };
     fetchData();
-      fetch('/ProductSearchAdmin')
+      fetch('/ProductSearchAdmin',)
      .then((res)=> res.json())
      .then((data)=>{
      if (Array.isArray(data)) {
@@ -82,8 +82,6 @@ const ProductSearchAdmin = () => {
     const [startYear, setStartYear] = useState('');
     const [endMonth, setEndMonth] = useState('');
     const [endYear, setEndYear] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
     const history = useHistory();
   
     const handleNameChange = (event) => {
@@ -146,27 +144,6 @@ const ProductSearchAdmin = () => {
     
   
     const handleSearchSubmit = async (event) => {
-      // event.preventDefault();
-      // const matchingProducts = Product.filter((product) => {
-      //   const idMatches = !searchID || (typeof searchID === 'string' && product.PID.toString().toLowerCase().includes(searchID.toLowerCase()));
-      //   const nameMatches = !searchName || product.P_name.toLowerCase().includes(searchName.toLowerCase());
-      //   const categoryMatches = selectedCategory === 'All' ? true : product.Catagory.toLowerCase() === selectedCategory.toLowerCase();
-      //   // const categoryMatches = selectedCategory === 'All';
-      //   const sizeMatches = selectedSize === 'All' || parseFloat(product.Size) === parseFloat(selectedSize);
-      //   // const sizeMatches = selectedCategory === 'All' || product.catagory === selectedCategory && product.size === selectedSize;
-      //   const minPriceMatches = !minPrice || (product.Price >= parseFloat(minPrice));
-      //   const maxPriceMatches = !maxPrice || (product.Price <= parseFloat(maxPrice));
-      //   const startDateUTC = new Date(Date.UTC(startYear, startMonth - 1, 1));
-      //   const endDateUTC = new Date(Date.UTC(endYear, endMonth - 1, 1));
-      //   const productReDateUTC = new Date(product.ReDate);
-      //   const releaseDateMatches = (!startYear || !startMonth || !endYear || !endMonth) ||
-      //     (productReDateUTC >= startDateUTC && productReDateUTC <= endDateUTC);
-      //   return idMatches && nameMatches && categoryMatches &&
-      //          sizeMatches && minPriceMatches &&
-      //          maxPriceMatches && releaseDateMatches;
-      // });
-    
-      // history.push('/ProductResultAdmin', { matchingProducts });
       event.preventDefault();
       let startDateValue = null;
       let endDateValue = null;
@@ -177,8 +154,6 @@ const ProductSearchAdmin = () => {
         startDateValue = new Date(Date.UTC(startYear, startMonth - 1, 1));
         endDateValue = new Date(Date.UTC(endYear, endMonth - 1, 1));
       }
-
-      
 
       console.log(startMonth);
       console.log(startYear);

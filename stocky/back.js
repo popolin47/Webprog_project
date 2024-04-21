@@ -526,7 +526,7 @@ router.post("/ProductSearchAdmin", (req, res) => {
     }
 
     if (category !== 'All') {
-        sql += ` AND Catagory = "${category}"`;
+        sql += ` AND Category = "${category}"`;
     }
     console.log(sql);
     connection.query(sql, function (error, results) {
