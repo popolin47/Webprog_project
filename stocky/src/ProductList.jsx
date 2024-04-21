@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link , useLocation } from 'react-router-dom';
-import shoepic from './asset/img/ShoeTest.png';
 import yyy from './asset/img/bandner.png';
 // Replace the following with the actual path to your background image
 const backgroundImage = require('./asset/img/Mingtar.jpg');
@@ -8,6 +7,7 @@ const backgroundImage = require('./asset/img/Mingtar.jpg');
 
 const ProductList = () => {
   const location = useLocation();
+  const history = useHistory();
   const [Product, setProduct] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   
@@ -38,19 +38,12 @@ const ProductList = () => {
   const handleProductClick = (product) => {
     // Add product viewing functionality here
   };
-
-  // Function to get three random products
-  const getRandomProducts = (p) => {
-    const randomProducts = [];
-    const shuffledProducts = p.sort(() => 0.5 - Math.random());
-    for (let i = 0; i < 3; i++) {
-      randomProducts.push(shuffledProducts[i]);
-    }
-    return randomProducts;
+  const handleViewDetails = (productID) => {
+    console.log(productID)
+    history.push({pathname:`/ProductDetail/${productID}`, state: productID });
+    
   };
-
-  // Get three random products
-  // const recommendedProducts = getRandomProducts();
+ 
 
   return (
     <div className="bg-slate-50 bg-cover bg-center min-h-screen font-roboto">
@@ -73,13 +66,16 @@ const ProductList = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full md:w-full">
               {/* Mapping through recommendedProducts array and displaying products */}
               {recommendedProducts.map((product) => (
-                <div key={product?.PID ? product.PID : null} className="w-200 h-200px rounded-lg shadow-md p-5">
-                  <img src={shoepic} alt="ProductList" className="bg-white max-w-full max-h-full object-cover" />
+                <button onClick={() => handleViewDetails(product.PID)}>
+                  <div key={product?.PID ? product.PID : null} className="w-200 h-200px rounded-lg shadow-md p-5">
+                  <img src={product.Pic} alt="ProductList" className="bg-white max-w-full max-h-full object-cover" />
                   <h3 className="text-gray-600 text-lg font-semibold mt-3">{product?.P_name ? product.P_name : '-'}</h3>
                   <div className="flex justify-between mt-1">
                     <div className="text-black">${product?.Price ? product.Price : '-'}</div>
                   </div>
                 </div>
+                </button>
+                
               ))}
             </div>
           </div>
@@ -94,13 +90,16 @@ const ProductList = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {/* Mapping through Product array and displaying products */}
               {Product.map((product) => (
-                <div key={product.PID} className="rounded-lg shadow-md p-5">
-                  <img src={shoepic} alt="Product" className="bg-white max-w-full max-h-full object-cover" />
+                <button onClick={() => handleViewDetails(product.PID)}>
+                  <div key={product.PID} onClick={() => handleViewDetails(product.PID)} className="rounded-lg shadow-md">
+                  <img src={product.Pic} alt="Product" className="bg-white max-w-full max-h-full object-cover" />
                   <h3 className="text-gray-600 text-lg font-semibold mt-3">{product.P_name}</h3>
                   <div className="flex justify-between mt-1">
                     <div className="text-black">${product.Price}</div>
                   </div>
                 </div>
+                </button>
+                
               ))}
             </div>
           </div>

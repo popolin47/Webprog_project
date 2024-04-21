@@ -40,7 +40,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/">
               <Navbarwithsearch/>
-                <ProductList />
+              <ProductList/>
               </Route>
               <Route path="/searchresultadmin">
               <Sidebar/>
@@ -85,7 +85,6 @@ class App extends React.Component {
               <Route path="/ProductManage" render={(props) => <><Sidebar {...props} authed={true} /><ProductManage {...props} authed={true} /></>}/>
               {/* </Route> */}
 
-
               <Route path="/login">
                 <Navbarwithoutsearch/>
                 <Login/>
@@ -110,10 +109,6 @@ class App extends React.Component {
                 <ForgotPassword/>
               </Route>
 
-              <Route path="/ProductList">
-                <Navbarwithsearch/>
-                <ProductList/>
-              </Route>
 
              
 

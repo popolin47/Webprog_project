@@ -18,6 +18,7 @@ const Login = () => {
             headers: { 'Content-Type': 'application/json' },
         };
     
+    
         fetch(`/login?username=${username}&password=${password}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
@@ -48,9 +49,18 @@ const Login = () => {
             })
             .catch(error => {
                 console.error('Error fetching login:', error);
-                // Handle error
             });
     };
+        // .then((res)=> res.json())
+        // .then((data)=>{
+        // if (Array.isArray(data)) {
+        // //   setValue(data);
+        //   console.log("match");
+        // } else {
+        //   console.error("Data received from server is not an array:", data);
+        // }})
+        // .catch((err) => console.log(err));
+    
 
     const handleLogin = () => {
         fetchLogin()
@@ -86,7 +96,7 @@ const Login = () => {
                     />
                 </div>
                     <div className="form-group flex flex-col ">
-                        <Link to="/ForgotPassword" className="text-gray-500 text-sm mb-4 underline items-right text-right block mb-5">Forgot password</Link>
+                        <div className="text-gray-500 text-sm mb-4 underline items-right text-right block mb-5 invisible">Forgot password</div>
                         <button className='p-3 bg-red-500 text-white rounded-md hover:bg-black items-center' onClick={handleLogin}>Enter</button>
                     </div>
                 </div>

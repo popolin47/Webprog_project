@@ -11,6 +11,7 @@ const spaces = '      '.repeat(30);
 
 const ProductResultAdmin = () => {
     const location = useLocation();
+    const history = useHistory();
     const matchingProducts = location.state?.matchingProducts || [];
     console.log(matchingProducts)
 
@@ -20,27 +21,13 @@ const ProductResultAdmin = () => {
     const handleChange = (event) => {
       setValue(event.target.value);
     };
-
+    const handlepush = ()  => {
+      history.push('/ProductSearchAdmin'); 
+    };
     const handleDelete = (productId) => {
         console.log("deleting start front"); 
         console.log(productId);
-        // fetch(`/delete1/${productId}`, {
-        //   method: 'DELETE'
-        //   })
-        //   .then(response => {
-        //       if (!response.ok) {
-        //           throw new Error('Failed to delete data');
-        //       }
-        //       return response.text();
-        //   })
-        //   .then(data => {
-        //     console.log("datasent")
-        //       console.log(productId); 
-        //   })
-        //   .catch(error => {
-        //       console.error('Error:', error); 
-        //   });
-        
+
         fetch(`/delete1/${productId}`, {
             method: 'DELETE',
             headers: {
@@ -50,7 +37,7 @@ const ProductResultAdmin = () => {
         .then(response => {
             if (response.ok) {
                 alert('User deleted successfully');
-                //history.push('/productManage'); 
+                history.push('/ProductSearchAdmin'); 
                 // Optionally, you can remove the deleted user row from the table
             } else {
                 alert('Error deleting user');
@@ -79,7 +66,8 @@ const ProductResultAdmin = () => {
             class=''
             onChange={handleChange}
           />
-          <button type='submit'>Search</button><br/>
+          <button type='submit'>Search</button>
+          <button type='submit' onClick={handlepush} >Advance search</button><br/>
         </div>
   
         <div className='Tablebox'>
@@ -88,7 +76,7 @@ const ProductResultAdmin = () => {
               <tr>
                 <th className='Pn'>{spaces}Product{spaces}</th>
                 <th className='Sz'>{spaces}Size{spaces}</th>
-                <th className='Cat'>{spaces}Catagory{spaces}</th>
+                <th className='Cat'>{spaces}Collection{spaces}</th>
                 <th className='Inst'>{spaces}In Stock{spaces}</th>
                 <th className='Id'>{spaces}ID{spaces}</th>
                 <th className='Modi'></th>
@@ -100,7 +88,7 @@ const ProductResultAdmin = () => {
                 <tr key={product.PID}>
                   <td>{product.P_name}</td>
                   <td>{product.Size}</td>
-                  <td>{product.Catagory}</td>
+                  <td>{product.Category}</td>
                   <td>{product.quantity}</td>
                   <td>{product.PID}</td>
                   <td>
@@ -109,7 +97,10 @@ const ProductResultAdmin = () => {
                     </a>
                   </td>
                   <td>
-                  <img src={RemoveIcon} onClick={() => handleDelete(product.PID)} alt='Remove icon' className='w-7 h-auto'/>
+                    <button>
+                       <img src={RemoveIcon} onClick={() => handleDelete(product.PID)} alt='Remove icon' className='w-7 h-auto'/>
+                    </button>
+                 
                   </td>
                 </tr>
               ))}

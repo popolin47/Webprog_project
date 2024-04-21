@@ -55,15 +55,15 @@ router.get("/ProductSearchAdmin", (req, res) => {
 });
 
 router.get("/ProductList", (req, res) => {
-    console.log("Fetching products...");
-    let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`; // Query to fetch top 3 products
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`; // Assuming 'admin' is the name of your table
     connection.query(sql, (error, results) => {
         if (error) {
-            console.error("Error fetching products:", error);
-            return res.status(500).send("Error fetching products");
+            console.error("Error fetching users:", error);
+            return res.status(500).send("Error fetching users");
         }
         console.log(`${results.length} rows returned`);
-        console.log(results);
+        console.log(results)
         res.send(results);
     });
 });
@@ -79,6 +79,7 @@ router.get("/login", (req, res) => {
             console.error("Error fetching users:", error);
             return res.status(500).json({ status: "0", message: "Error fetching users" });
         }
+        console.log(`${results.length} rows returned`);
         console.log(results);
         if (results.length == 0) {
             // No user found with the provided username and password
@@ -86,8 +87,9 @@ router.get("/login", (req, res) => {
         }
 
         // Generate access token using user's ID or another unique identifier
-        let accessToken = TokenManager.getGenerateAccessToken({"username":username});
-   
+        let accessToken = TokenManager.getGenerateAccessToken({username});
+        console.log(accessToken);
+
         let query_login_history = `SELECT * FROM LogInHistory`;
         connection.query(query_login_history, (error, result_login_history) => {
             if (error) {
@@ -109,7 +111,6 @@ router.get("/login", (req, res) => {
         });
     });
 });
-
 
 
 router.get("/searchadmin", (req, res) => {
@@ -179,7 +180,6 @@ router.post("/advancedsearchadmin", (req, res) => {
             res.send(result);
         });
 });
-
 router.get("/ProductManage", (req, res) => {
     console.log("Fetching products...");
     let sql = `SELECT * FROM Product`;
@@ -240,7 +240,27 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
         console.error("Error deleting product:", error);
         res.status(500).send("Error deleting product");
     }
+});
 
+router.delete("/delete1/:ProductID", async (req, res) => {
+    console.log("Deleting user...");
+    const ProductID= req.params.ProductID; 
+    console.log("UserID:", ProductID);
+    
+    let sql3 = `DELETE FROM Modifyproduct WHERE PID = ?`;
+    let sql =  `DELETE FROM Product WHERE PID = ?`; 
+    
+    try {
+        await Promise.all([
+            connection.query(sql3, [ProductID]),
+            connection.query(sql, [ProductID])
+        ]);
+        console.log("User deleted successfully from all tables");
+        res.status(200).send("User deleted successfully from all tables");
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(401).send("Not Found");
+    }
 });
 
 router.put("/modifyuser/:userId", async (req, res) => {
@@ -305,6 +325,7 @@ router.put("/modifyuser/:userId", async (req, res) => {
         });
     
 });
+
 
 
 
@@ -464,7 +485,7 @@ router.post("/searchHome", (req, res) => {
     sql += ` AND brand LIKE "%${category}%"`;
     }
 
-        if (searchAvailable === true) {
+        if (searchAvailable === 'true') {
             sql += ' AND quantity > 0';
         } 
         else if (searchAvailable === false) {
@@ -520,7 +541,7 @@ router.post("/ProductSearchAdmin", (req, res) => {
     }
 
     if (category !== 'All') {
-        sql += ` AND Catagory = "${category}"`;
+        sql += ` AND Category = "${category}"`;
     }
     console.log(sql);
     connection.query(sql, function (error, results) {
