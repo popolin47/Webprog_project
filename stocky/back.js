@@ -488,17 +488,17 @@ router.post("/searchHome", (req, res) => {
     console.log(req.body);
     const searchName = req.body.searchName;
     const category = req.body.category;
-    const searchBrand =req.body.searchBrand;
+    const searchcolor = req.body.searchcolor
     const size = req.body.size;
     const searchAvailable = req.body.searchAvailable;
     let sql ='SELECT * FROM Product WHERE 1=1'
 
-    if (searchName!=null) {
+    if (searchName!='') {
         sql += ` AND P_name LIKE "%${searchName}%"`;
       }
 
-    if (searchBrand!=null) {
-    sql += ` AND brand LIKE "%${category}%"`;
+    if (searchcolor!='') {
+    sql += ` AND brand LIKE "${searchcolor}"`;
     }
 
         if (searchAvailable === 'true') {
@@ -509,13 +509,13 @@ router.post("/searchHome", (req, res) => {
         }
 
     if (size!=='All') {
-        sql += ` AND size LIKE "%${category}%"`;
+        sql += ` AND size LIKE "%${size}%"`;
     }
 
     if (category!=='All') {
-        sql += ` AND category LIKE "%${category}%"`;
+        sql += ` AND category LIKE "${category}"`;
     }
-    console.log(sql)
+    console.log(sql);
     connection.query( sql, function (error, results) {
         if (error) throw error;
         console.log(`${results.length} rows returned`);

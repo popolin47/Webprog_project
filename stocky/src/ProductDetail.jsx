@@ -13,7 +13,7 @@ const ProductDetail = () => {
       .then(response => response.json())
       .then(data => setProduct(data.data))
       .catch(error => console.error('Error fetching product:', error));
-  }, []);
+  },);
     console.log(id)
     console.log(product)
   if (!product) {
