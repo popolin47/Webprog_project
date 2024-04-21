@@ -27,6 +27,9 @@ const ProductMange = (props) => {
         color:'',
   });
 
+  const adminID = localStorage.getItem('AID');
+  const adminUser = localStorage.getItem('username')
+
   useEffect(() => {
     const fetchData = async () => {
         try {
@@ -35,7 +38,7 @@ const ProductMange = (props) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem("access_token")
-                }
+                },
             });
 
             if (!response.ok) {   
@@ -70,7 +73,7 @@ const ProductMange = (props) => {
   const handleDelete = (event) => {
     console.log("deleting start front"); 
     console.log(valueDel);
-    fetch(`/deleteProduct/${valueDel}`, {
+    fetch(`/deleteProduct/${valueDel}?adminID=${adminID}&username=${adminUser}`, {
       method: 'DELETE'
       })
       .then(response => {
@@ -106,7 +109,7 @@ const ProductMange = (props) => {
   };
 
   useEffect(()=>{
-    fetch('/productManage')
+    fetch('/ProductManage')
     .then((res)=> res.json())
     .then((data)=>{
     if (Array.isArray(data)) {

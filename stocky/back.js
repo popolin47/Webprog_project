@@ -186,6 +186,7 @@ router.post("/advancedsearchadmin", (req, res) => {
             res.send(result);
         });
 });
+
 router.get("/ProductManage", (req, res) => {
     console.log("Fetching products...");
     let sql = `SELECT * FROM Product`;
@@ -229,10 +230,24 @@ router.delete("/delete/:userID", async (req, res) => {
 router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("Deleting Product...");
     const productID = req.params.productID;
+
+    const AID = req.query.adminID;
+    const username = req.query.username;
+    let action = `Delete product `;
+
     console.log("ProductID:", productID);
 
     let sql = `DELETE FROM Product WHERE PID = ?`;
     let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
+    //const sql3 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
+
+    /*connection.query(sql3, [productID, AID, username, action], (err,result) =>{
+        if(err){
+            console.error('Error insert updating data in database:', err);
+        }
+        console.log('Product data inserted successfully');
+        console.log(result);
+    });*/
     
     try {
         await Promise.all([
@@ -246,6 +261,7 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
         console.error("Error deleting product:", error);
         res.status(500).send("Error deleting product");
     }
+
 });
 
 router.put("/modifyuser/:userId", (req, res) => {
@@ -297,6 +313,7 @@ router.put("/modifyuser/:userId", (req, res) => {
 
 router.put("/ModifyProduct/:productID", (req, res) => {
     console.log("Updating product...");
+    console.log(req.query);
 
     const productID = req.params.productID;
     const productName = req.body.P_name;
@@ -309,10 +326,8 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     const Category = req.body.Category;
     const color = req.body.color;
 
-    const AID = req.body.AID;//'104'
-    //console.log(AID)
-    const username = req.body.Username;//'Hoshi';
-    //const { AID, Username } = req.body; 
+    const AID = req.query.adminID;
+    const username = req.query.username;
     let action = ' ';
 
     let sql, params;
@@ -355,19 +370,18 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         action = 'Change color of product'; 
     }
 
+    const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
+
     connection.query(sql, [params, productID], (err, result) => {
         if (err) {
             console.error('Error updating data in database:', err);
             return res.status(500).send('Error updating data to database');
         }
-        console.log('Product updated successfully');
         res.status(200).send('Product updated successfully');
+        console.log('Product updated successfully');
     });
 
-    sql2 = 'INSERT INTO `ModifyProduct` (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
-    const params2 = [productID, AID, username, action];
-
-    connection.query(sql2, params2, (err,result) =>{
+    connection.query(sql2, [productID, AID, username, action], (err,result) =>{
         if(err){
             console.error('Error insert updating data in database:', err);
         }
@@ -409,6 +423,10 @@ router.post("/AddProduct", (req, res) => {
     const Category = req.body.Category;
     const color = req.body.color;
 
+    const AID = req.query.adminID;
+    const username = req.query.username;
+    let action = 'Add product';
+
     const sql = `INSERT INTO Product (P_name, Description, quantity, Price, Pic, Size, ReDate, Category, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     connection.query(sql, [productName, Des, quantity, price, pic, size, Redate, Category, color], (err, result) => {
@@ -419,6 +437,18 @@ router.post("/AddProduct", (req, res) => {
         console.log('New product added successfully');
         res.status(200).send('New product added successfully');
     });
+
+    const productID = req.params.productID;
+    const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
+
+    connection.query(sql2, [productID, AID, username, action], (err,result) =>{
+        if(err){
+            console.error('Error insert updating data in database:', err);
+        }
+        console.log('Product data inserted successfully');
+        console.log(result);
+    });
+
 });
 
 router.post("/searchHome", (req, res) => {
