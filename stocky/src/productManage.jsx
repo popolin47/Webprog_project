@@ -8,98 +8,6 @@ import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 const spaces = '      '.repeat(30)
-const Product = [
-  {
-    productID: 'P001',
-    pro_name: 'shoes1',
-    catagory: 'Man',
-    brand: 'Adibas',
-    collection: 'summer',
-    price: 233,
-    quantity: 3,
-    size: 'US M 4',
-  },
-  {
-    productID: 'P002',
-    pro_name: 'shoes2',
-    catagory: 'Women',
-    brand: 'Nike',
-    collection: 'summer',
-    price: 233,
-    quantity: 0,
-    size: 'US M 5',
-  },
-  {
-    productID: 'P003',
-    pro_name: 'shoes3',
-    catagory: 'Kid',
-    brand: 'Aria',
-    collection: 'winter',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5',
-  },
-  {
-    productID: 'P004',
-    pro_name: 'shoes4',
-    catagory: 'Kid',
-    brand: 'Nike',
-    collection: 'summer',
-    price: 233,
-    quantity: 1,
-    size: 'US M 6',
-  },
-  {
-    productID: 'P005',
-    pro_name: 'shoes5',
-    catagory: 'Man',
-    brand: 'Nike',
-    collection: 'winter',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4.5',
-  },
-  {
-    productID: 'P006',
-    pro_name: 'shoes6',
-    catagory: 'Man',
-    brand: 'Nike',
-    collection: 'winter',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5.5',
-  },
-  {
-    productID: 'P007',
-    pro_name: 'shoes7',
-    catagory: 'Women',
-    brand: 'Nike',
-    collection: 'autuum',
-    price: 233,
-    quantity: 1,
-    size: 'US M 5.5',
-  },
-  {
-    productID: 'P008',
-    pro_name: 'shoes8',
-    catagory: 'Kid',
-    brand: 'Nike',
-    collection: 'autuum',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4.5',
-  },
-  {
-    productID: 'P009',
-    pro_name: 'shoes9',
-    catagory: 'Women',
-    brand: 'Nike',
-    collection: 'winter',
-    price: 233,
-    quantity: 1,
-    size: 'US M 4',
-  },
-];
 
 const ProductMange = (props) => {
 
@@ -151,13 +59,9 @@ const ProductMange = (props) => {
         }
     };
 
-    fetchData(); // Call the function immediately after the component mounts
-
-    // You can optionally add a cleanup function here if needed
-
-    // If you remove the dependency array, the effect will run every time the component re-renders
+    fetchData();
   });
-  //Defie function to handle change to input value
+
   const handlepush = ()  => {
     history.push('/ProductSearchAdmin'); 
   };
