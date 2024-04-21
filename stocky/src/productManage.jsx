@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import ModifyIcon from './asset/img/modify_icon_Ngb.png';
 import RemoveIcon from './asset/img/remove_icon-Nbg.png';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useLocation } from 'react-router-dom';
 
 
 const spaces = '      '.repeat(30)
@@ -59,7 +59,7 @@ const ProductMange = (props) => {
         }
     };
 
-    fetchData();
+    fetchData(); // Call the function immediately after the component mounts
   });
 
   const handlepush = ()  => {
@@ -162,7 +162,7 @@ const ProductMange = (props) => {
                 <td>{product.Size}</td>
                 <td>{product.Category}</td>
                 <td>{product.quantity}</td>
-                <td>{product.productID}</td>
+                <td>{product.PID}</td>
                 <td>
                   <a>
                     <button  onClick={() => handlemodify(product.PID)}>

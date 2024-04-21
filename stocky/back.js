@@ -35,7 +35,7 @@ router.get("/usermanage", (req, res) => {
             return res.status(500).send("Error fetching users");
         }
         console.log(`${results.length} rows returned`);
-        console.log(results)
+        // console.log(results)
         res.send(results);
     });
 });
@@ -191,7 +191,7 @@ router.get("/ProductManage", (req, res) => {
         console.log(`${results.length} rows returned`);
         //console.log(results)
         res.send(results);
-    });
+    }); 
 });
 
 router.delete("/delete/:userID", async (req, res) => {
@@ -201,7 +201,7 @@ router.delete("/delete/:userID", async (req, res) => {
     console.log(req.body)
     const AID = req.body.AIDManage;
     const username = req.body.Modifyadd;
-
+    // console.log(req.body)
     let sql = `DELETE FROM admin WHERE AID = ?`; 
     let sql1 = 'insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?) '
 
