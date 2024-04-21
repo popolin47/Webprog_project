@@ -14,7 +14,7 @@ const SearchHome = () => {
   const [selectedCategory, setSelectedCategory] = useState(defaultOption);
   const [isAvailable, setIsAvailable] = useState(true);
   const [selectedSize, setSelectedSize] = useState(defaultsize2);
-  const [searchResults, setSearchResults] = useState(null);
+  const [searchResults, setSearchResults] = useState('');
 
   const handleNameChange = (event) => {
     setSearchName(event.target.value);
@@ -217,7 +217,7 @@ const SearchHome = () => {
             </div>
 
             <div className="grid grid-cols-3 gap-12">
-              {searchResults.map((product) => (
+              {searchResults&&searchResults.map((product) => (
                 
                 <div key={product.P_name} className="bg-white max-w-m rounded-lg overflow-hidden shadow-md">
                   <img className="w-full h-1/2  object-cover object-center" src={product.Pic} alt="shoe" />
