@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link , useLocation } from 'react-router-dom';
-import shoepic from './asset/img/ShoeTest.png';
 import yyy from './asset/img/bandner.png';
 // Replace the following with the actual path to your background image
 const backgroundImage = require('./asset/img/Mingtar.jpg');
@@ -44,18 +43,7 @@ const ProductList = () => {
     history.push({pathname:`/ProductDetail/${productID}`, state: productID });
     
   };
-  // Function to get three random products
-  const getRandomProducts = (p) => {
-    const randomProducts = [];
-    const shuffledProducts = p.sort(() => 0.5 - Math.random());
-    for (let i = 0; i < 3; i++) {
-      randomProducts.push(shuffledProducts[i]);
-    }
-    return randomProducts;
-  };
-
-  // Get three random products
-  // const recommendedProducts = getRandomProducts();
+ 
 
   return (
     <div className="bg-slate-50 bg-cover bg-center min-h-screen font-roboto">

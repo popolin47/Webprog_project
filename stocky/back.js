@@ -54,6 +54,20 @@ router.get("/ProductSearchAdmin", (req, res) => {
     });
 });
 
+router.get("/ProductList", (req, res) => {
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`; // Assuming 'admin' is the name of your table
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching users:", error);
+            return res.status(500).send("Error fetching users");
+        }
+        console.log(`${results.length} rows returned`);
+        console.log(results)
+        res.send(results);
+    });
+});
+
 router.get("/login", (req, res) => {
     console.log(req.query);
     const { username, password } = req.query;
