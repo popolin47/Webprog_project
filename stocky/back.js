@@ -94,7 +94,7 @@ router.get("/login", (req, res) => {
                 console.error("Error fetching login history:", error);
                 return res.status(500).json({ status: "0", message: "Error fetching login history" });
             }
-
+            console.log(result_login_history)
             let logID = result_login_history.length === 0 ? 'LOG001' : `LOG${('000' + (Number(result_login_history[result_login_history.length - 1].LogID.slice(-3)) + 1)).slice(-3)}`;
 
             const insert_login_history = `INSERT INTO LogInHistory (AID, LogID, LogDate, Username) VALUES (?, ?, ?, ?)`;
@@ -103,7 +103,7 @@ router.get("/login", (req, res) => {
                     console.error("Error inserting login history:", error);
                     return res.status(500).json({ status: "0", message: "Error inserting login history" });
                 }
-
+                console.log(results)
                 return res.json({ status: "1", results, access_token: accessToken });
             });
         });
@@ -206,17 +206,13 @@ router.delete("/delete/:userID", async (req, res) => {
     const userID = req.params.userID; 
     console.log("UserID:", userID);
     
-    let sql2 = `DELETE FROM Modifyadmin WHERE AID = ?`;
-    let sql3 = `DELETE FROM Modifyproduct WHERE AID = ?`;
-    let sql4 = `DELETE FROM LogInHistory WHERE AID = ?`;
+   
     let sql = `DELETE FROM admin WHERE AID = ?`; 
     
     try {
         await Promise.all([
             
-            connection.query(sql2, [userID]),
-            connection.query(sql3, [userID]),
-            connection.query(sql4, [userID]), connection.query(sql, [userID])
+             connection.query(sql, [userID])
         ]);
 
         console.log("User deleted successfully from all tables");
@@ -238,21 +234,12 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("ProductID:", productID);
 
     let sql = `DELETE FROM Product WHERE PID = ?`;
-    let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
-    //const sql3 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
-
-    /*connection.query(sql3, [productID, AID, username, action], (err,result) =>{
-        if(err){
-            console.error('Error insert updating data in database:', err);
-        }
-        console.log('Product data inserted successfully');
-        console.log(result);
-    });*/
+  
     
     try {
         await Promise.all([
             connection.query(sql, productID),
-            connection.query(sql2, productID)
+           
         ]);
 
         console.log("Product deleted successfully from all tables");
@@ -264,52 +251,60 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
 
 });
 
-router.put("/modifyuser/:userId", (req, res) => {
+router.put("/modifyuser/:userId", async (req, res) => {
     console.log("start back");
-    //let { firstname, lastname, phone, email, username, pass } = req.body;
-    //console.log(firstname);
-    const userid = req.body.AID;
+    const userid = req.params.userId; // Use params instead of body for the user ID
     const Password = req.body.Password;
     const username = req.body.Username;
     const firstname = req.body.Afname;
-    const lastname= req.body.Alname;
-    const phone= req.body.PhoneNo;
-    const email= req.body.Aemail;
-    let sql='';
+    const lastname = req.body.Alname;
+    const phone = req.body.PhoneNo;
+    const email = req.body.Aemail;
+    const oldusername = req.body.Modifyadd;
+    let sql = '';
     let params = '';
-    console.log(req.body)
-     if (username) {
-        sql = 'UPDATE  admin set Username = ? WHERE AID = ?';
-        params = username;
-        let sql1= '';
-    }else if(firstname){
-        sql = 'UPDATE  admin set AFname = ? WHERE AID = ?';
-        params = firstname;
-    }else if(lastname){
-        sql = 'UPDATE  admin set ALname = ? WHERE AID = ?';
-        params = lastname;
-    }else if(phone){
-        sql = 'UPDATE  admin set PhoneNo = ? WHERE AID = ?';
-        params = phone;
-    }else if(email){
-        sql = 'UPDATE  admin set Aemail = ? WHERE AID = ?';
-        params = email;
-    }else if(Password){
-        sql = 'UPDATE  admin set Password = ? WHERE AID = ?';
-        params = Password;
-    }
-    // const sql = `UPDATE  Admin (AID, Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    // let id = `select AID from admin`
-    connection.query(sql, [params, userid], (err, result) => {
-        if (err) {
-            console.error('Error adding data to database:', err);
-            res.status(500).send('Error adding data to database');
-            return;
+    console.log(req.body);
+    
+    if (username) {
+        sql = 'UPDATE  Admin SET Username = ? WHERE AID = ?';
+        params=username;
+        
+    } 
+    
+        if (firstname) {
+            sql = 'UPDATE  Admin SET AFname = ? WHERE AID = ?';
+            params = firstname;
+            
+        }  if (lastname) {
+            sql = 'UPDATE  Admin SET ALname = ? WHERE AID = ?';
+            params = lastname;
+            
+        }  if (phone) {
+            sql = 'UPDATE  Admin SET PhoneNo = ? WHERE AID = ?';
+            params = phone;
+            
+        } if (email) {
+            sql = 'UPDATE  Admin SET Aemail = ? WHERE AID = ?';
+            params = email;
+            
+        } if (Password) {
+            sql = 'UPDATE  Admin SET Password = ? WHERE AID = ?';
+            params = Password;
+           
         }
-        console.log('Data added to database successfully');
-        res.status(200).send('Data added to database successfully');
-    });
+        connection.query(sql, [params, userid], (err, result) => {
+            if (err) {
+                console.error('Error updating data:', err);
+                res.status(500).send('Error updating data');
+                return;
+            }
+            console.log('Data updated successfully');
+            res.status(200).send('Data updated successfully');
+        });
+    
 });
+
+
 
 router.put("/ModifyProduct/:productID", (req, res) => {
     console.log("Updating product...");

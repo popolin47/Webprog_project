@@ -14,10 +14,10 @@ const Navbarwithsearch = () => {
     
     
     <div className="links" >
-        <Link className="button" to="/aboutus" style={{
+        <Link className="button rounded" to="/aboutus" style={{
             color: "white", backgroundColor: "red"
         }}>About us</Link>
-        <Link className="button" to="/login" style={{
+        <Link className="button rounded" to="/login" style={{
             color: "white", backgroundColor: "red"
         }}>Login</Link>
        

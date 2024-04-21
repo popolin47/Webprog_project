@@ -125,7 +125,7 @@ const ProductMange = (props) => {
     <div class="p-8 sm:ml-64 overflow-x-auto shadow-md">
 
       <div>
-        <h1 class='text-xl'>Product</h1>
+        <h1 class='text-xl mb-5'>Product</h1>
       </div>
       
       <div className='searchBar'>
@@ -135,10 +135,10 @@ const ProductMange = (props) => {
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Enter product name"
-          class=''
+          className="mr-5"
         />
-        <button type='submit' onClick={handleSearchSubmit}>Search</button>
-        <button type='submit'>Advanced Search</button><br/>
+        <button type='submit'className="mr-5" onClick={handleSearchSubmit}>Search</button>
+        <button type='submit'className="mr-5">Advanced Search</button><br/>
       </div>
 
       <div className='Tablebox'>

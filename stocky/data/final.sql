@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS `LogInHistory` (
   `LogID` CHAR(6) NOT NULL,
   `LogDate` datetime NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
-  CONSTRAINT PK_login PRIMARY KEY (LogID),
-  CONSTRAINT FK_AID_LogInHistory FOREIGN KEY (AID) REFERENCES Admin(AID),
-  CONSTRAINT FK_Username_LogInHistory FOREIGN KEY (Username) REFERENCES Admin(Username)
+  CONSTRAINT PK_login PRIMARY KEY (LogID,AID,Username),
+  CONSTRAINT FK_AID_LogInHistory FOREIGN KEY (AID) REFERENCES Admin(AID) ON DELETE CASCADE on update cascade ,
+  CONSTRAINT FK_Username_LogInHistory FOREIGN KEY (Username) REFERENCES Admin(Username) ON DELETE CASCADE on update cascade 
 );
 
 ALTER TABLE admin AUTO_INCREMENT=100;
@@ -39,7 +39,8 @@ INSERT INTO `Admin` (`Username`, `Aemail`, `Password`, `AFname`, `ALname`, `Phon
 ('The8', 'the8@gmail.com', 'password10', 'Xu', 'Minghao', '0920123456'),
 ('Seungkwan', 'seungkwan@gmail.com', 'password11', 'Boo', 'Seung-kwan', '0921234567'),
 ('Vernon', 'vernon@gmail.com', 'password12', 'Hansol', 'Chwe', '0922345678'),
-('Dino', 'dino@gmail.com', 'password13', 'Lee', 'Chan', '0923456789');
+('Dino', 'dino@gmail.com', 'password13', 'Lee', 'Chan', '0923456789'),
+('user', 's_coups@gmail.com', '123', 'Choi', 'Seung-cheol', '0921234567');
 
 
 INSERT INTO `LogInHistory` (`AID`, `LogID`, `LogDate`, `Username`) VALUES
@@ -103,10 +104,10 @@ CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   `T_product` datetime NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
   `Action` TEXT NOT NULL,
-  CONSTRAINT PKmodi__product PRIMARY KEY (PID, AID, T_product),
+  CONSTRAINT PKmodi__admin PRIMARY KEY (PID, AID),
   CONSTRAINT FK_PID FOREIGN KEY (PID) REFERENCES Product(PID),
-  CONSTRAINT FK_Aid_pro FOREIGN KEY (AID) REFERENCES Admin(AID),
-  CONSTRAINT FK_user FOREIGN KEY (Username) REFERENCES Admin(Username)
+  CONSTRAINT FK_Aid_pro FOREIGN KEY (AID) REFERENCES Admin(AID)  on update cascade ,
+  CONSTRAINT FK_user FOREIGN KEY (Username) REFERENCES Admin(Username)  on update cascade 
 );
 
 INSERT INTO `ModifyProduct` (`PID`, `AID`,`T_product`, `Username`,  `Action`) VALUES
@@ -126,9 +127,9 @@ CREATE TABLE IF NOT EXISTS `ModifyAdmin` (
   `Username` VARCHAR(100) NOT NULL,
    `T_admin` datetime NOT NULL,
   `Action` TEXT NOT NULL,
-  CONSTRAINT PKmodi__admin PRIMARY KEY (AID, Username,T_admin),
-  CONSTRAINT FK_Aid_ad FOREIGN KEY (AID) REFERENCES Admin(AID),
-  CONSTRAINT FK_user_ad FOREIGN KEY (Username) REFERENCES Admin(Username)
+  CONSTRAINT PKmodi__admin PRIMARY KEY (AID, T_admin),
+  CONSTRAINT FK_Aid_ad FOREIGN KEY (AID) REFERENCES Admin(AID) on update cascade ,
+  CONSTRAINT FK_user_ad FOREIGN KEY (Username) REFERENCES Admin(Username) on update cascade  
 );
 
 INSERT INTO `ModifyAdmin` (`AID`, `Username`,`T_admin`, `Action`) VALUES
@@ -142,3 +143,4 @@ INSERT INTO `ModifyAdmin` (`AID`, `Username`,`T_admin`, `Action`) VALUES
 (108, 'DK', '2024-04-18', 'Granted administrative privileges'),
 (109, 'Mingyu', '2024-04-18', 'Revoked administrative privileges'),
 (110, 'The8', '2024-04-18', 'Added new admin user');
+
