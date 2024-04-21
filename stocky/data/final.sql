@@ -106,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   `Action` TEXT NOT NULL,
   CONSTRAINT PKmodi__admin PRIMARY KEY (PID, AID),
   CONSTRAINT FK_PID FOREIGN KEY (PID) REFERENCES Product(PID),
-  CONSTRAINT FK_Aid_pro FOREIGN KEY (AID) REFERENCES Admin(AID)  on update cascade ,
-  CONSTRAINT FK_user FOREIGN KEY (Username) REFERENCES Admin(Username)  on update cascade 
+  CONSTRAINT FK_Aid_pro FOREIGN KEY (AID) REFERENCES Admin(AID)  on delete cascade on update cascade ,
+  CONSTRAINT FK_user FOREIGN KEY (Username) REFERENCES Admin(Username)  on delete cascade on update cascade 
 );
 
 INSERT INTO `ModifyProduct` (`PID`, `AID`,`T_product`, `Username`,  `Action`) VALUES
@@ -128,8 +128,8 @@ CREATE TABLE IF NOT EXISTS `ModifyAdmin` (
    `T_admin` datetime NOT NULL,
   `Action` TEXT NOT NULL,
   CONSTRAINT PKmodi__admin PRIMARY KEY (AID, T_admin),
-  CONSTRAINT FK_Aid_ad FOREIGN KEY (AID) REFERENCES Admin(AID) on update cascade ,
-  CONSTRAINT FK_user_ad FOREIGN KEY (Username) REFERENCES Admin(Username) on update cascade  
+  CONSTRAINT FK_Aid_ad FOREIGN KEY (AID) REFERENCES Admin(AID) on delete cascade on update cascade ,
+  CONSTRAINT FK_user_ad FOREIGN KEY (Username) REFERENCES Admin(Username) on delete cascade on update cascade  
 );
 
 INSERT INTO `ModifyAdmin` (`AID`, `Username`,`T_admin`, `Action`) VALUES

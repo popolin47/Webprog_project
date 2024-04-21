@@ -24,6 +24,7 @@ const Modifyuser = () => {
     PhoneNo: '',
     Aemail:'',
     Modifyadd:''
+    , AIDmanage:''
   });
   // setInfo({AID: userId})
   console.log(info)
@@ -31,12 +32,17 @@ const Modifyuser = () => {
   useEffect(() => {
     // Retrieve the stored data when the component mounts
     const username = localStorage.getItem('username');
+    const AIDManage=localStorage.getItem('AID');
     if (username) {
       setStoredUsername(username);
       
       setInfo(prevInfo => ({
         ...prevInfo,
         Modifyadd: username
+      }));
+      setInfo(prevInfo => ({
+        ...prevInfo,
+        AIDManage: AIDManage
       }));
     }
   }, []);
