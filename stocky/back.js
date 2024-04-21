@@ -226,19 +226,18 @@ router.delete("/delete/:userID", async (req, res) => {
 router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("Deleting Product...");
     const productID = req.params.productID;
-
-    const AID = req.query.adminID;
-    const username = req.query.username;
-    let action = `Delete product `;
-
-    console.log("ProductID:", productID);
+    //console.log("ProductID:", productID);
+    //const AID = req.query.adminID;
+    //const username = req.query.username;
+    //let action = `Delete product `;
 
     let sql = `DELETE FROM Product WHERE PID = ?`;
-  
-    
+    let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
+
     try {
         await Promise.all([
             connection.query(sql, productID),
+            connection.query(sq2, productID)
            
         ]);
 
@@ -433,16 +432,16 @@ router.post("/AddProduct", (req, res) => {
         res.status(200).send('New product added successfully');
     });
 
-    const productID = req.params.productID;
+    const sqlPID = 'SELECT PID FROM Product limit 1 DESC';
     const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
 
-    connection.query(sql2, [productID, AID, username, action], (err,result) =>{
+    /*connection.query(sql2, [productID, AID, username, action], (err,result) =>{
         if(err){
             console.error('Error insert updating data in database:', err);
         }
         console.log('Product data inserted successfully');
         console.log(result);
-    });
+    });*/
 
 });
 
