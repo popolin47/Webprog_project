@@ -49,7 +49,6 @@ const Login = () => {
             })
             .catch(error => {
                 console.error('Error fetching login:', error);
-                // Handle error
             });
     };
         // .then((res)=> res.json())
