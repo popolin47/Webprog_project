@@ -69,6 +69,7 @@ class App extends React.Component {
               <Route path="/Searchhome">
                 <Navbarwithoutsearch/>
                 <SearchHome />
+                
               </Route>
 
               <Route path="/result_product">
