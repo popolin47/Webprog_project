@@ -1,11 +1,9 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './App.css';
-import Searchresultadmin from './Searchresultadmin';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import Navbarwithsearch from './Navbarwithsearch';
 import SearchHome from './SearchHome';
-import SearchResultPage from './result_product';
 import Aboutus from './Aboutus';
 import ProductDetail from './ProductDetail';
 import Sidebar from './Sidebar';
@@ -20,7 +18,6 @@ import ProductList from './ProductList';
 import Adduser from './Adduser';
 import Modifyuser from './Modifyadmin';
 import ProductSearchAdmin from './ProductSearchAdmin';
-import ProductResultAdmin from './ProductResultAdmin';
 
 class App extends React.Component {
   render() {
@@ -34,10 +31,6 @@ class App extends React.Component {
               <Route exact path="/">
               <Navbarwithsearch/>
               <ProductList/>
-              </Route>
-              <Route path="/searchresultadmin">
-              <Sidebar/>
-                <Searchresultadmin />
               </Route>
               <Route path="/usermanage">
               <Sidebar/>
@@ -62,13 +55,8 @@ class App extends React.Component {
               <Route path="/Searchhome">
                 <Navbarwithoutsearch/>
                 <SearchHome />
-                
               </Route>
 
-              <Route path="/result_product">
-                <Navbarwithoutsearch/>
-                <SearchResultPage/>
-              </Route>
 
               <Route path="/aboutus">
                 <Navbarwithsearch/>
@@ -91,27 +79,17 @@ class App extends React.Component {
                 <ModifyProduct/>
               </Route>
               
-              <Route path="/result_product">
-                <SearchResultPage/>
-              </Route>
 
               <Route path="/ForgotPassword">
                 <Navbarwithsearch/>
                 <ForgotPassword/>
               </Route>
 
-
-             
-
               <Route path="/ProductSearchAdmin">
                 <Sidebar/>
                 <ProductSearchAdmin/>
               </Route>
 
-              <Route path="/ProductResultAdmin">
-                <Sidebar/>
-                <ProductResultAdmin/>
-              </Route>
 
             </Switch>
           </div>

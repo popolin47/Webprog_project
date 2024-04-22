@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import ModifyIcon from './asset/img/modify_icon_Ngb.png';
-import RemoveIcon from './asset/img/remove_icon-Nbg.png';
-
-  const spaces = '      '.repeat(30);
   
   const catagory = ['All','Man', 'Woman', 'Kid'];
   const defaultOption = catagory[0];
@@ -34,10 +29,6 @@ import RemoveIcon from './asset/img/remove_icon-Nbg.png';
   ];
 
 const ProductSearchAdmin = () => {
-    const [value, setValue] = useState('');
-    const [Product, setProduct] = useState([]);
-    const adminID = localStorage.getItem('AID');
-    const adminUser = localStorage.getItem('username')
     useEffect(()=>{
       const fetchData = async () => {
         try {
@@ -87,34 +78,6 @@ const ProductSearchAdmin = () => {
     const [endMonth, setEndMonth] = useState('');
     const [endYear, setEndYear] = useState('');
     const [matchingProducts, setmatchingProducts] = useState('');
-    const history = useHistory();
-
-    const handleDelete = (productId) => {
-      console.log("deleting start front"); 
-      console.log(productId);
-
-      fetch(`/deleteProduct/${productId}?adminID=${adminID}&username=${adminUser}`, {
-          method: 'DELETE',
-      })
-      .then(response => {
-          if (response.ok) {
-              alert('User deleted successfully');
-              history.push('/productManage'); 
-              // Optionally, you can remove the deleted user row from the table
-          } else {
-              alert('Error deleting user');
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          alert('Error deleting user');
-      });  
-    };
-  
-    const handleNameChange = (event) => {
-      setSearchName(event.target.value);
-    };
-  
   
     const handleCategoryChange = (event) => {
       const selectedValue = event.target.value;
@@ -123,7 +86,6 @@ const ProductSearchAdmin = () => {
   
   
     const handleClear = () => {
-     
       window.location.reload(); 
     };
 
@@ -159,9 +121,9 @@ const ProductSearchAdmin = () => {
     const handleMaxPriceChange = (event) => {
       setMaxPrice(event.target.value);
     };
-
-    const handlemodify  = (ProductId) =>{
-      history.push({pathname:`/ModifyProduct/${ProductId}`,  state: ProductId});
+    
+    const handleNameChange = (event) => {
+      setSearchName(event.target.value);
     };
   
   
@@ -170,9 +132,7 @@ const ProductSearchAdmin = () => {
       let startDateValue = null;
       let endDateValue = null;
 
-      // Check if both startMonth, startYear, endMonth, and endYear are selected
       if (startYear !== '' && startMonth !== '' && endYear !== '' && endMonth !== '') {
-        // If all are selected, set the startDateValue and endDateValue accordingly
         startDateValue = new Date(Date.UTC(startYear, startMonth - 1, 1));
         endDateValue = new Date(Date.UTC(endYear, endMonth - 1, 1));
       }
@@ -380,13 +340,11 @@ const ProductSearchAdmin = () => {
           <table>
             <thead>
               <tr>
-              <th className='Pn'>{spaces}Product{spaces}</th>
-              <th className='Sz'>{spaces}Size{spaces}</th>
-              <th className='Cat'>{spaces}Category{spaces}</th>
-              <th className='Inst'>{spaces}In Stock{spaces}</th>
-              <th className='Id'>{spaces}ID{spaces}</th>
-              <th className='Modi'></th>
-              <th className='Del'></th>
+              <th className='Pn'>Product</th>
+              <th className='Sz'>Size</th>
+              <th className='Cat'>Category</th>
+              <th className='Inst'>In Stock</th>
+              <th className='Id'>ID</th>
               </tr>
             </thead>
             <tbody>
@@ -397,7 +355,6 @@ const ProductSearchAdmin = () => {
                     <td>{product.Category}</td>
                     <td>{product.quantity}</td>
                     <td>{product.PID}</td>
-                
                 </tr>
               ))}
             </tbody>

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, Link , useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import yyy from './asset/img/bandner.png';
-// Replace the following with the actual path to your background image
-const backgroundImage = require('./asset/img/Mingtar.jpg');
+
 
 
 const ProductList = () => {
@@ -35,9 +34,6 @@ const ProductList = () => {
       .catch((err) => console.log(err));
     
   },[]);
-  const handleProductClick = (product) => {
-    // Add product viewing functionality here
-  };
   const handleViewDetails = (productID) => {
     console.log(productID)
     history.push({pathname:`/ProductDetail/${productID}`, state: productID });
@@ -85,7 +81,6 @@ const ProductList = () => {
         <div className="flex flex-col md:flex-row justify-between">
           
         <div className="grid grid-cols-3 gap-12">
-          {/* Mapping through Product array and displaying products */}
           {Product.map((product) => (
             <button key={product.PID} onClick={() => handleViewDetails(product.PID)}>
               <div className="bg-white max-w-m h-full rounded-lg overflow-hidden shadow-md">
