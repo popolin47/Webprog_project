@@ -486,14 +486,11 @@ router.post("/AddProduct", (req, res) => {
 });
 
 router.post("/searchHome", (req, res) => {
-    console.log("back");
-    console.log(req.body);
     const searchName = req.body.searchName;
     const category = req.body.category;
     const searchcolor = req.body.searchcolor
     const size = req.body.size;
     const searchAvailable = req.body.isAvailable;
-    console.log(category)
     let sql ='SELECT * FROM Product WHERE 1=1'
 
     if (searchName!=='') {
