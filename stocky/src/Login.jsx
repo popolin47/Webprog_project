@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-//import backgroundImage from './asset/img/Background.jpg';
 import shoepic from './asset/img/ฺBG.jpg';
-//import './Login.css';
+
 
 
 
@@ -44,34 +43,20 @@ const Login = () => {
                     }
                 } else {
                     console.error('No user found');
-                    // Handle case where no user is found
                 }
             })
             .catch(error => {
                 console.error('Error fetching login:', error);
             });
     };
-        // .then((res)=> res.json())
-        // .then((data)=>{
-        // if (Array.isArray(data)) {
-        // //   setValue(data);
-        //   console.log("match");
-        // } else {
-        //   console.error("Data received from server is not an array:", data);
-        // }})
-        // .catch((err) => console.log(err));
-    
 
     const handleLogin = () => {
         fetchLogin()
-        // history.push('/usermanage');
     };
 
     return (
-        //className="bg-cover bg-center min-h-screen font-roboto" style={{ backgroundImage: `url(${shoepic})` }}
         <div>
             <div className="bg-cover bg-center min-h-screen font-roboto " style={{ backgroundImage: `url(${shoepic})` }}>
-            {/* แก้บัค */}
             <h2 className='text-5xl font-bold mb-8 text-center invisible'>ffd</h2>
                 <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-5 mx-auto my-32">
                 <h2 className='text-5xl font-bold mb-8 text-center'>Log In</h2>

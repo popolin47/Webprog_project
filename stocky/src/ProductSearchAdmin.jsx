@@ -99,8 +99,7 @@ const ProductSearchAdmin = () => {
       .then(response => {
           if (response.ok) {
               alert('User deleted successfully');
-              history.push('/productManage'); 
-              // Optionally, you can remove the deleted user row from the table
+              history.push('/productManage');
           } else {
               alert('Error deleting user');
           }
@@ -178,9 +177,7 @@ const ProductSearchAdmin = () => {
       let startDateValue = null;
       let endDateValue = null;
 
-      // Check if both startMonth, startYear, endMonth, and endYear are selected
       if (startYear !== '' && startMonth !== '' && endYear !== '' && endMonth !== '') {
-        // If all are selected, set the startDateValue and endDateValue accordingly
         startDateValue = new Date(Date.UTC(startYear, startMonth - 1, 1));
         endDateValue = new Date(Date.UTC(endYear, endMonth - 1, 1));
       }
