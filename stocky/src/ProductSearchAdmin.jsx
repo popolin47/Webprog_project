@@ -86,7 +86,6 @@ const ProductSearchAdmin = () => {
   
   
     const handleClear = () => {
-     
       window.location.reload(); 
     };
 
