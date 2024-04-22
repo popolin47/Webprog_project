@@ -8,8 +8,10 @@ import { FaTrash } from "react-icons/fa";
 import { LiaEdit } from "react-icons/lia";
 
 const Searchuser = () => {
-    const history= useHistory();
-  const [value,setValue] = useState({
+const history= useHistory();
+const [data,setdata]=  useState('')
+const [selectedUserId, setSelectedUserId] = useState('');
+const [value,setValue] = useState({
     userID:'',
     username:'',
     firstname: '',
@@ -22,6 +24,18 @@ const Searchuser = () => {
     console.log(newData.target.value)
     setValue({...value,[name]: newData.target.value})
   }
+
+  const handlemodify  = (userId) =>{
+    history.push({pathname:`/Modifyuser/${userId}`,  state: userId});
+  };
+
+  const handleChange2 = (userID) => {
+    console.log(userID);
+    setSelectedUserId(userID)
+  };
+
+
+  
   const handleSearch = async (event) => {
     event.preventDefault(); 
     const queryString = new URLSearchParams(value).toString();
@@ -42,11 +56,11 @@ const Searchuser = () => {
         }
 
         const searchResults = await response.json();
+        setdata(searchResults);
         console.log("Search Results:", searchResults);
 
         // Assuming you want to navigate to the search result page with the received data
         // Adjust this based on your application's routing logic
-        history.push({pathname:'/Searchresultadmin',  results: searchResults });
         
     } catch (error) {
         console.error('Error:', error);
@@ -131,6 +145,35 @@ const Searchuser = () => {
           </button></Link></div>
     
 </form>
+        <div className="Tablebox ">
+                    <table>
+                    <thead>
+                        <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data && data.map((user) => (
+                        <tr key={user.AID}>
+                            <td className="p-3">{user.AFname}</td>
+                            <td className="p-3">{user.ALname}</td>
+                            <td className="p-3">{user.Aemail}</td>
+                            <td className="p-3">{user.Username}</td>
+                            <td className="p-3">{user.AID}</td>
+                            <td className="flex">
+                            <div className="pl-5" >
+                                <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
+                            </div>
+                            </td>
+                        </tr>
+                        ))}
+                    </tbody>
+                    </table>
+                </div>
 
       
     </div>)}

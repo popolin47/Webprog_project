@@ -143,4 +143,3 @@ INSERT INTO `ModifyAdmin` (`AID`, `Username`,`T_admin`, `Action`) VALUES
 (108, 'DK', '2024-04-18', 'Granted administrative privileges'),
 (109, 'Mingyu', '2024-04-18', 'Revoked administrative privileges'),
 (110, 'The8', '2024-04-18', 'Added new admin user');
-

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import ModifyIcon from './asset/img/modify_icon_Ngb.png';
+import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 
+  const spaces = '      '.repeat(30);
   
-  
-  const catagory = ['All','Man', 'Women', 'Kid'];
+  const catagory = ['All','Man', 'Woman', 'Kid'];
   const defaultOption = catagory[0];
   
   const size = ['All','4','4.5','5','5.5','6'];
@@ -34,6 +36,8 @@ import { useHistory } from 'react-router-dom';
 const ProductSearchAdmin = () => {
     const [value, setValue] = useState('');
     const [Product, setProduct] = useState([]);
+    const adminID = localStorage.getItem('AID');
+    const adminUser = localStorage.getItem('username')
     useEffect(()=>{
       const fetchData = async () => {
         try {
@@ -82,7 +86,30 @@ const ProductSearchAdmin = () => {
     const [startYear, setStartYear] = useState('');
     const [endMonth, setEndMonth] = useState('');
     const [endYear, setEndYear] = useState('');
+    const [matchingProducts, setmatchingProducts] = useState('');
     const history = useHistory();
+
+    const handleDelete = (productId) => {
+      console.log("deleting start front"); 
+      console.log(productId);
+
+      fetch(`/deleteProduct/${productId}?adminID=${adminID}&username=${adminUser}`, {
+          method: 'DELETE',
+      })
+      .then(response => {
+          if (response.ok) {
+              alert('User deleted successfully');
+              history.push('/productManage'); 
+              // Optionally, you can remove the deleted user row from the table
+          } else {
+              alert('Error deleting user');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error deleting user');
+      });  
+    };
   
     const handleNameChange = (event) => {
       setSearchName(event.target.value);
@@ -141,7 +168,10 @@ const ProductSearchAdmin = () => {
       setMaxPrice(event.target.value);
     };
 
-    
+    const handlemodify  = (ProductId) =>{
+      history.push({pathname:`/ModifyProduct/${ProductId}`,  state: ProductId});
+    };
+  
   
     const handleSearchSubmit = async (event) => {
       event.preventDefault();
@@ -186,7 +216,7 @@ const ProductSearchAdmin = () => {
         const matchingProducts = await response.json();
         console.log('Search Results:', matchingProducts);
 
-        history.push('/ProductResultAdmin', { matchingProducts });
+        setmatchingProducts(matchingProducts);
       } 
       catch (error) {
         console.error('Error:', error);
@@ -354,6 +384,46 @@ const ProductSearchAdmin = () => {
               </div>
             </div>
           </form>
+          <div className="Tablebox ">
+          <table>
+            <thead>
+              <tr>
+              <th className='Pn'>{spaces}Product{spaces}</th>
+              <th className='Sz'>{spaces}Size{spaces}</th>
+              <th className='Cat'>{spaces}Category{spaces}</th>
+              <th className='Inst'>{spaces}In Stock{spaces}</th>
+              <th className='Id'>{spaces}ID{spaces}</th>
+              <th className='Modi'></th>
+              <th className='Del'></th>
+              </tr>
+            </thead>
+            <tbody>
+              {matchingProducts && matchingProducts.map((product) => (
+                  <tr key={product.PID}>
+                    <td>{product.P_name}</td>
+                    <td>{product.Size}</td>
+                    <td>{product.Category}</td>
+                    <td>{product.quantity}</td>
+                    <td>{product.PID}</td>
+                  <td className="flex">
+                    <div className="pl-5" >
+                      <a>
+                        <button  onClick={() => handlemodify(product.PID)}>
+                          <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
+                        </button>
+                      </a> 
+                    </div>
+                    <div className="pl-5" >
+                    <button>
+                       <img src={RemoveIcon} onClick={() => handleDelete(product.PID)} alt='Remove icon' className='w-7 h-auto'/>
+                    </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         </div>
       </div>
     );
