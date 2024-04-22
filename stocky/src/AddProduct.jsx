@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 
 const AddProduct = () => {
 
-    //const [selectedColor, setSelectedColor] = useState(color[0]);
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const [product, setProduct] = useState({
@@ -51,11 +50,7 @@ const AddProduct = () => {
           }
       };
   
-      fetchData(); // Call the function immediately after the component mounts
-  
-      // You can optionally add a cleanup function here if needed
-  
-      // If you remove the dependency array, the effect will run every time the component re-renders
+      fetchData();
     });  
 
   const handleInsery = (newData) => {

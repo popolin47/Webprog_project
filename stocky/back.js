@@ -189,7 +189,6 @@ router.get("/ProductManage", (req, res) => {
             return res.status(500).send("Error fetching products");
         }
         console.log(`${results.length} rows returned`);
-        //console.log(results)
         res.send(results);
     }); 
 });
@@ -223,20 +222,17 @@ router.delete("/delete/:userID", async (req, res) => {
 router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("Deleting Product...");
     const productID = req.params.productID;
-    //console.log("ProductID:", productID);
 
     const AID = req.query.adminID;
     const username = req.query.username;
     let action = `Delete product `;
 
     let sql = `DELETE FROM Product WHERE PID = ?`;
-    //let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
     let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)`;
 
     try {
         await Promise.all([
             connection.query(sql, productID),
-            //connection.query(sql2, productID)
             connection.query(sql2, [productID, AID, username, action])
         ]);
 
@@ -251,7 +247,7 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
 
 router.put("/modifyuser/:userId", async (req, res) => {
     console.log("start back");
-    const userid = req.params.userId; // Use params instead of body for the user ID
+    const userid = req.params.userId; 
     const Password = req.body.Password;
     const username = req.body.Username;
     const firstname = req.body.Afname;
@@ -398,8 +394,6 @@ router.put("/ModifyProduct/:productID", (req, res) => {
 
 router.post("/adduser", (req, res) => {
     console.log("start back");
-    //let { firstname, lastname, phone, email, username, pass } = req.body;
-    //console.log(firstname);
     const sql = `INSERT INTO Admin ( Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES ( ?, ?, ?, ?, ?, ?)`;
     let id = `select AID from admin`
     connection.query(sql, [req.body.username,req.body.email, req.body.pass, req.body.firstname, req.body.lastname, req.body.phone], (err, result) => {
