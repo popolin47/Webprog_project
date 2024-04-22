@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import ModifyIcon from './asset/img/modify_icon_Ngb.png';
 import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 
-  const spaces = '      '.repeat(30);
   
   const catagory = ['All','Man', 'Woman', 'Kid'];
   const defaultOption = catagory[0];
@@ -34,8 +33,6 @@ import RemoveIcon from './asset/img/remove_icon-Nbg.png';
   ];
 
 const ProductSearchAdmin = () => {
-    const [value, setValue] = useState('');
-    const [Product, setProduct] = useState([]);
     const adminID = localStorage.getItem('AID');
     const adminUser = localStorage.getItem('username')
     useEffect(()=>{
@@ -385,11 +382,11 @@ const ProductSearchAdmin = () => {
           <table>
             <thead>
               <tr>
-              <th className='Pn'>{spaces}Product{spaces}</th>
-              <th className='Sz'>{spaces}Size{spaces}</th>
-              <th className='Cat'>{spaces}Category{spaces}</th>
-              <th className='Inst'>{spaces}In Stock{spaces}</th>
-              <th className='Id'>{spaces}ID{spaces}</th>
+              <th className='Pn'>Product</th>
+              <th className='Sz'>Size</th>
+              <th className='Cat'>Category</th>
+              <th className='Inst'>In Stock</th>
+              <th className='Id'>ID</th>
               <th className='Modi'></th>
               <th className='Del'></th>
               </tr>

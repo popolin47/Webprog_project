@@ -7,7 +7,6 @@ import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 
-const spaces = ''.repeat(30)
 
 const ProductMange = (props) => {
 
