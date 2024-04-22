@@ -1,10 +1,9 @@
 import React , { useState,useEffect } from 'react';
 import './productManage.css'
 import { useHistory } from 'react-router-dom';
-import Sidebar from './Sidebar';
 import ModifyIcon from './asset/img/modify_icon_Ngb.png';
 import RemoveIcon from './asset/img/remove_icon-Nbg.png';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 
 

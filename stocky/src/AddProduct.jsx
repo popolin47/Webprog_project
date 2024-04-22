@@ -51,6 +51,36 @@ const AddProduct = () => {
       };
   
       fetchData();
+    });
+
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await fetch(`/check_authen`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+                  },
+              });
+  
+              if (!response.ok) {   
+                  throw new Error('Network response was not ok');
+              }
+  
+              const data = await response.json();
+  
+              if (data != false) {
+                  console.log(data);
+              } else {
+                  window.location.href = '/login';
+              }
+          } catch (error) {
+              console.error('Error fetching user data:', error);
+          }
+      };
+  
+      fetchData();
     });  
 
   const handleInsery = (newData) => {

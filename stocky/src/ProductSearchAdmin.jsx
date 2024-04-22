@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import ModifyIcon from './asset/img/modify_icon_Ngb.png';
-import RemoveIcon from './asset/img/remove_icon-Nbg.png';
-
   
   const catagory = ['All','Man', 'Woman', 'Kid'];
   const defaultOption = catagory[0];
@@ -33,8 +29,6 @@ import RemoveIcon from './asset/img/remove_icon-Nbg.png';
   ];
 
 const ProductSearchAdmin = () => {
-    const adminID = localStorage.getItem('AID');
-    const adminUser = localStorage.getItem('username')
     useEffect(()=>{
       const fetchData = async () => {
         try {
@@ -84,33 +78,6 @@ const ProductSearchAdmin = () => {
     const [endMonth, setEndMonth] = useState('');
     const [endYear, setEndYear] = useState('');
     const [matchingProducts, setmatchingProducts] = useState('');
-    const history = useHistory();
-
-    const handleDelete = (productId) => {
-      console.log("deleting start front"); 
-      console.log(productId);
-
-      fetch(`/deleteProduct/${productId}?adminID=${adminID}&username=${adminUser}`, {
-          method: 'DELETE',
-      })
-      .then(response => {
-          if (response.ok) {
-              alert('User deleted successfully');
-              history.push('/productManage');
-          } else {
-              alert('Error deleting user');
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          alert('Error deleting user');
-      });  
-    };
-  
-    const handleNameChange = (event) => {
-      setSearchName(event.target.value);
-    };
-  
   
     const handleCategoryChange = (event) => {
       const selectedValue = event.target.value;
@@ -155,9 +122,9 @@ const ProductSearchAdmin = () => {
     const handleMaxPriceChange = (event) => {
       setMaxPrice(event.target.value);
     };
-
-    const handlemodify  = (ProductId) =>{
-      history.push({pathname:`/ModifyProduct/${ProductId}`,  state: ProductId});
+    
+    const handleNameChange = (event) => {
+      setSearchName(event.target.value);
     };
   
   
@@ -379,8 +346,6 @@ const ProductSearchAdmin = () => {
               <th className='Cat'>Category</th>
               <th className='Inst'>In Stock</th>
               <th className='Id'>ID</th>
-              <th className='Modi'></th>
-              <th className='Del'></th>
               </tr>
             </thead>
             <tbody>
@@ -391,7 +356,6 @@ const ProductSearchAdmin = () => {
                     <td>{product.Category}</td>
                     <td>{product.quantity}</td>
                     <td>{product.PID}</td>
-                
                 </tr>
               ))}
             </tbody>
