@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const connection = require('./src/db'); // Importing the database connection
+const connection = require('./src/db');
 const path = require('path');
 const express = require("express");
 const jwt = require("jsonwebtoken");
@@ -42,7 +42,7 @@ router.get("/usermanage", (req, res) => {
 
 router.get("/ProductSearchAdmin", (req, res) => {
     console.log("Fetching users...");
-    let sql = `SELECT * FROM Product`; // Assuming 'admin' is the name of your table
+    let sql = `SELECT * FROM Product`;
     connection.query(sql, (error, results) => {
         if (error) {
             console.error("Error fetching users:", error);
@@ -56,7 +56,7 @@ router.get("/ProductSearchAdmin", (req, res) => {
 
 router.get("/ProductList", (req, res) => {
     console.log("Fetching users...");
-    let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`; // Assuming 'admin' is the name of your table
+    let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`;
     connection.query(sql, (error, results) => {
         if (error) {
             console.error("Error fetching users:", error);
@@ -73,7 +73,7 @@ router.get("/login", (req, res) => {
     const { username, password } = req.query;
     console.log("Fetching users...");
 
-    let sql = `SELECT * FROM admin WHERE Username="${username}" and Password="${password}"`; // Using parameterized query
+    let sql = `SELECT * FROM admin WHERE Username="${username}" and Password="${password}"`;
     connection.query(sql, [username, password], (error, results) => {
         if (error) {
             console.error("Error fetching users:", error);
@@ -82,11 +82,9 @@ router.get("/login", (req, res) => {
         console.log(`${results.length} rows returned`);
         console.log(results);
         if (results.length == 0) {
-            // No user found with the provided username and password
             return res.status(401).json({ status: "0", message: "Invalid username or password" });
         }
 
-        // Generate access token using user's ID or another unique identifier
         let accessToken = TokenManager.getGenerateAccessToken({username});
         console.log(accessToken);
 
@@ -189,7 +187,6 @@ router.get("/ProductManage", (req, res) => {
             return res.status(500).send("Error fetching products");
         }
         console.log(`${results.length} rows returned`);
-        //console.log(results)
         res.send(results);
     }); 
 });
@@ -223,20 +220,17 @@ router.delete("/delete/:userID", async (req, res) => {
 router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("Deleting Product...");
     const productID = req.params.productID;
-    //console.log("ProductID:", productID);
 
     const AID = req.query.adminID;
     const username = req.query.username;
     let action = `Delete product `;
 
     let sql = `DELETE FROM Product WHERE PID = ?`;
-    //let sql2 = `DELETE FROM ModifyProduct WHERE PID = ?`;
     let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)`;
 
     try {
         await Promise.all([
             connection.query(sql, productID),
-            //connection.query(sql2, productID)
             connection.query(sql2, [productID, AID, username, action])
         ]);
 
