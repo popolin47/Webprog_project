@@ -201,7 +201,7 @@ router.delete("/delete/:userID", async (req, res) => {
     console.log(req.body)
     const AID = req.body.AIDManage;
     const username = req.body.Modifyadd;
-    // console.log(req.body)
+
     let sql = `DELETE FROM admin WHERE AID = ?`; 
     let sql1 = 'insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?) '
 
@@ -248,39 +248,6 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     }
 });
 
-router.delete("/delete1/:ProductID", async (req, res) => {
-    console.log("Deleting user...");
-    const ProductID= req.params.ProductID; 
-    console.log("UserID:", ProductID);
-  
-    const AID = req.query.adminID;
-    const username = req.query.username;
-
-    let sql =  `DELETE FROM Product WHERE PID = ?`; 
-    let action = 'Delete product';
-    connection.query(sql, [ProductID], (err, result) => {
-        if (err) {
-            console.error('Error adding data to database:', err);
-            return res.status(500).send('Error adding data to database');
-        }
-        
-        console.log('Delete product added successfully');
-        
-    
-
-        const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES (?, ?, ?, NOW(), ?)';
-        connection.query(sql2, [ProductID, AID, username, action], (err, result) => {
-            if (err) {
-                console.error('Error inserting data into ModifyProduct table:', err);
-                return res.status(500).send('Error inserting data into ModifyProduct table');
-            }
-            console.log('Product data inserted successfully');
-            console.log(result);
-            res.status(200).send('Delete product added successfully');
-        });
-    
-    });
-});
 
 router.put("/modifyuser/:userId", async (req, res) => {
     console.log("start back");

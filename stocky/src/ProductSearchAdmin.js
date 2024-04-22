@@ -93,11 +93,8 @@ const ProductSearchAdmin = () => {
       console.log("deleting start front"); 
       console.log(productId);
 
-      fetch(`/delete1/${productId}?adminID=${adminID}&username=${adminUser}`, {
+      fetch(`/deleteProduct/${productId}?adminID=${adminID}&username=${adminUser}`, {
           method: 'DELETE',
-          headers: {
-              'Content-Type': 'application/json'
-          }
       })
       .then(response => {
           if (response.ok) {
