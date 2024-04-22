@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './App.css';
 import Searchresultadmin from './Searchresultadmin';
-import Home from './Home';
 import Navbarwithoutsearch from './Navbarwithoutsearch';
 import Navbarwithsearch from './Navbarwithsearch';
 import SearchHome from './SearchHome';
