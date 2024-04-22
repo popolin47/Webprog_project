@@ -27,6 +27,7 @@ const SearchHome = () => {
   const handleCategoryChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedCategory(selectedValue === 'All' ? '' : selectedValue);
+    console.log(selectedCategory)
   };
 
   const handleAvailableChange = (event) => {
