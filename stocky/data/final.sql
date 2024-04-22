@@ -40,7 +40,7 @@ INSERT INTO `Admin` (`Username`, `Aemail`, `Password`, `AFname`, `ALname`, `Phon
 ('Seungkwan', 'seungkwan@gmail.com', 'password11', 'Boo', 'Seung-kwan', '0921234567'),
 ('Vernon', 'vernon@gmail.com', 'password12', 'Hansol', 'Chwe', '0922345678'),
 ('Dino', 'dino@gmail.com', 'password13', 'Lee', 'Chan', '0923456789'),
-('user', 's_coups@gmail.com', '123', 'Choi', 'Seung-cheol', '0921234567');
+('soup', 'ssoup@gmail.com', 'souplnwza007', 'Choi-Lee', 'Chanyeon', '0921244589');
 
 
 INSERT INTO `LogInHistory` (`AID`, `LogID`, `LogDate`, `Username`) VALUES
@@ -96,8 +96,7 @@ insert into `Product` (`P_name`, `Description`,`quantity`, `Price`, `Pic`, `Size
 ('adidas Campus 00s Grey Gum ', 'The adidas Campus 00s Grey Gum (GS) was designed particularly for grade schoolers and comes in a Grey Three and Cloud White colorway.',
 13 , 80.00, 'https://lh3.googleusercontent.com/drive-viewer/AKGpihZVQgDnK7YTha1f1o7gtZeXl6YfMa3FDtciJ6mK1Bu9vmvljv6quJz7qGVTZeD_uZti5fTlZ-V_c79niszyDQjLIzknS1fSuLg=s1600-rw-v1', 5, '2024-02-18', 'Kid', 'grey')
 ;
-
-
+--  CONSTRAINT FK_PID FOREIGN KEY (PID) REFERENCES Product(PID),
 
 CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   `PID` int NOT NULL,
@@ -105,8 +104,8 @@ CREATE TABLE IF NOT EXISTS `ModifyProduct` (
   `T_product` datetime NOT NULL,
   `Username` VARCHAR(100) NOT NULL,
   `Action` TEXT NOT NULL,
-  CONSTRAINT PKmodi__admin PRIMARY KEY (AID, T_product),
-  -- CONSTRAINT FK_PID FOREIGN KEY (PID) REFERENCES Product(PID),
+  CONSTRAINT PKmodi__admin PRIMARY KEY (T_product, AID),
+
   CONSTRAINT FK_Aid_pro FOREIGN KEY (AID) REFERENCES Admin(AID)  on delete cascade on update cascade ,
   CONSTRAINT FK_user FOREIGN KEY (Username) REFERENCES Admin(Username)  on delete cascade on update cascade 
 );
@@ -139,7 +138,7 @@ INSERT INTO `ModifyAdmin` (`AID`, `Username`,`T_admin`, `Action`) VALUES
 (103, 'Joshua', '2024-04-18', 'Reset password'),
 (104, 'Jun', '2024-04-18', 'Updated last name'),
 (105, 'Hoshi', '2024-04-18', 'Updated first name'),
-(106, 'Wonwoo', '2024-04-18', 'Disabled account'),
+(106, 'Wonwoo', '2024-04-18', 'Delete user'),
 (107, 'Woozi', '2024-04-18', 'Enabled two-factor authentication'),
 (108, 'DK', '2024-04-18', 'Granted administrative privileges'),
 (109, 'Mingyu', '2024-04-18', 'Revoked administrative privileges'),
