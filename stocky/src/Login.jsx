@@ -10,15 +10,11 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
-
-
     const fetchLogin = () => {
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         };
-    
-    
         fetch(`/login?username=${username}&password=${password}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
@@ -44,34 +40,22 @@ const Login = () => {
                     }
                 } else {
                     console.error('No user found');
-                    // Handle case where no user is found
+                    // Handle error cannot find user
                 }
             })
             .catch(error => {
                 console.error('Error fetching login:', error);
             });
     };
-        // .then((res)=> res.json())
-        // .then((data)=>{
-        // if (Array.isArray(data)) {
-        // //   setValue(data);
-        //   console.log("match");
-        // } else {
-        //   console.error("Data received from server is not an array:", data);
-        // }})
-        // .catch((err) => console.log(err));
-    
 
     const handleLogin = () => {
         fetchLogin()
-        // history.push('/usermanage');
     };
 
     return (
-        //className="bg-cover bg-center min-h-screen font-roboto" style={{ backgroundImage: `url(${shoepic})` }}
+       
         <div>
             <div className="bg-cover bg-center min-h-screen font-roboto " style={{ backgroundImage: `url(${shoepic})` }}>
-            {/* แก้บัค */}
             <h2 className='text-5xl font-bold mb-8 text-center invisible'>ffd</h2>
                 <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-5 mx-auto my-32">
                 <h2 className='text-5xl font-bold mb-8 text-center'>Log In</h2>
@@ -100,10 +84,8 @@ const Login = () => {
                         <button className='p-3 bg-red-500 text-white rounded-md hover:bg-black items-center' onClick={handleLogin}>Enter</button>
                     </div>
                 </div>
-            </div>
-            
+            </div>  
         </div>
-        
     );
 };
 

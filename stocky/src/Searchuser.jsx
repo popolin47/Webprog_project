@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Sidebar from './Sidebar';
+import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
-//import Trash from './asset/img/Trash.svg';
-import { TbEdit } from "react-icons/tb";
-import { FaTrash } from "react-icons/fa";
-import { LiaEdit } from "react-icons/lia";
 
 const Searchuser = () => {
-const history= useHistory();
 const [data,setdata]=  useState('')
-const [selectedUserId, setSelectedUserId] = useState('');
 const [value,setValue] = useState({
     userID:'',
     username:'',
@@ -24,18 +16,6 @@ const [value,setValue] = useState({
     console.log(newData.target.value)
     setValue({...value,[name]: newData.target.value})
   }
-
-  const handlemodify  = (userId) =>{
-    history.push({pathname:`/Modifyuser/${userId}`,  state: userId});
-  };
-
-  const handleChange2 = (userID) => {
-    console.log(userID);
-    setSelectedUserId(userID)
-  };
-
-
-  
   const handleSearch = async (event) => {
     event.preventDefault(); 
     const queryString = new URLSearchParams(value).toString();
@@ -54,22 +34,25 @@ const [value,setValue] = useState({
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-
+        //get results
         const searchResults = await response.json();
         setdata(searchResults);
         console.log("Search Results:", searchResults);
 
-        // Assuming you want to navigate to the search result page with the received data
-        // Adjust this based on your application's routing logic
-        
     } catch (error) {
         console.error('Error:', error);
-        // Handle error appropriately, e.g., display a message to the user
+        // Handle error 
     }
 };
 
+const handleClear = () => {
+    //to clean existing data
+    window.location.reload(); 
+  };
+
+
   return (
-    <div>
+    <div className="p-4">
     <div className="p-4 sm:ml-64 shadow-md ">
      
         <div className="px-8">
@@ -135,18 +118,18 @@ const [value,setValue] = useState({
         </tbody>
         
         
-    </table><div className="flex justify-center mt-4">
+    </table><div className="flex justify-center mt-4 p-4">
         <button  type="submit" value="Submit" className="justify-end mt-4   bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded items-right ">
           Search
           </button>
           <Link to="/usermanage">
-          <button    className="justify-end mt-4  ml-5 bg-slate-950 hover:bg-slate-700 text-white py-2 px-4 rounded items-right ">
-          Back
+          <button  onClick={handleClear}  className="justify-end mt-4  ml-5 bg-slate-950 hover:bg-slate-700 text-white py-2 px-4 rounded items-right ">
+          Clear
           </button></Link></div>
     
 </form>
-        <div className="Tablebox ">
-                    <table>
+        <div className="Tablebox ml-12 ">
+                    <table className="ml-60">
                     <thead>
                         <tr>
                         <th>First name</th>
@@ -156,7 +139,7 @@ const [value,setValue] = useState({
                         <th>ID</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="ml-24 ">
                         {data && data.map((user) => (
                         <tr key={user.AID}>
                             <td className="p-3">{user.AFname}</td>
@@ -165,9 +148,7 @@ const [value,setValue] = useState({
                             <td className="p-3">{user.Username}</td>
                             <td className="p-3">{user.AID}</td>
                             <td className="flex">
-                            <div className="pl-5" >
-                                <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
-                            </div>
+                           
                             </td>
                         </tr>
                         ))}

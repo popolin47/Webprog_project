@@ -8,7 +8,7 @@ const Navbarwithsearch = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const handleLogout = () => {
         localStorage.clear();
-       
+        window.location.reload();
     };
     useEffect(() => {
         const userID = localStorage.getItem("AID");
@@ -32,6 +32,11 @@ const Navbarwithsearch = () => {
         </div>
     </div></Link>
     <div className="links">
+    {((location.pathname === "/" || location.pathname === "/aboutus" ) && loggedIn) ? (
+                    <Link className="button rounded "  to="/usermanage"  style={{ color: "white", backgroundColor: "red" }}>Manage</Link>
+                ) : (
+                    null
+                )}
                 <Link className="button rounded" to="/aboutus" style={{ color: "white", backgroundColor: "red" }}>About us</Link>
                 {((location.pathname === "/" || location.pathname === "/aboutus" ) && loggedIn) ? (
                     <Link className="button rounded " onClick={handleLogout} to="/"  style={{ color: "white", backgroundColor: "red" }}>Logout</Link>

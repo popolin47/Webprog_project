@@ -123,16 +123,8 @@ const ProductSearchAdmin = () => {
   
   
     const handleClear = () => {
-      setSearchName('');
-      setSelectedCategory(defaultOption);
-      setStartMonth('');
-      setStartYear('');
-      setEndMonth('');
-      setEndYear('');
-      setSelectedSize(defaultsize2);
-      setMinPrice('');
-      setMaxPrice('');
-      setSearchID('');
+     
+      window.location.reload(); 
     };
 
     const handleStartMonthChange = (event) => {
@@ -405,20 +397,7 @@ const ProductSearchAdmin = () => {
                     <td>{product.Category}</td>
                     <td>{product.quantity}</td>
                     <td>{product.PID}</td>
-                  <td className="flex">
-                    <div className="pl-5" >
-                      <a>
-                        <button  onClick={() => handlemodify(product.PID)}>
-                          <img src={ModifyIcon} alt='Modify icon' className='w-8 h-auto'/>
-                        </button>
-                      </a> 
-                    </div>
-                    <div className="pl-5" >
-                    <button>
-                       <img src={RemoveIcon} onClick={() => handleDelete(product.PID)} alt='Remove icon' className='w-7 h-auto'/>
-                    </button>
-                    </div>
-                  </td>
+                
                 </tr>
               ))}
             </tbody>

@@ -21,9 +21,37 @@ const Usermanage = () => {
     phone: '',
     email:'',username:'', pass:''
      });
+     
+     
   
   
   useEffect(()=>{
+    const fetchData = async () => {
+      try {
+          const response = await fetch(`/check_authen`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+              }
+          });
+
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+
+          const data = await response.json();
+
+          if (data != false) {
+              console.log(data);
+          } else {
+              window.location.href = '/login';
+          }
+      } catch (error) {
+          console.error('Error fetching user data:', error);
+      }
+  };
+  fetchData();
      fetch('/usermanage')
     .then((res)=> res.json())
     .then((data)=>{
@@ -136,6 +164,7 @@ const Usermanage = () => {
             </thead>
             <tbody>
               {value && value.map((user) => (
+              user.AID != valuefordel.AIDManage ? (
                 <tr key={user.AID}>
                   <td className="p-3">{user.AFname}</td>
                   <td className="p-3">{user.ALname}</td>
@@ -143,18 +172,31 @@ const Usermanage = () => {
                   <td className="p-3">{user.Username}</td>
                   <td className="p-3">{user.AID}</td>
                   <td className="flex">
-                  <div className="pl-5" >
-                    <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
-                    
-                  </div>
-                  <div className="pl-5" >
-                    <form onSubmit={handleDelete} > 
-                      <button  onClick={() => handleChange2(user.AID)}>
-                    <FaTrash  size={"18"}/></button>
-                     </form> 
-                  </div>
-                </td>
+                    <div className="pl-5">
+                      <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
+                    </div>
+                    <div className="pl-5">
+                      <form onSubmit={handleDelete}>
+                        <button onClick={() => handleChange2(user.AID)}>
+                          <FaTrash size={"18"}/>
+                        </button>
+                      </form>
+                    </div>
+                  </td>
                 </tr>
+              ) : <tr key={user.AID}>
+              <td className="p-3">{user.AFname}</td>
+              <td className="p-3">{user.ALname}</td>
+              <td className="p-3">{user.Aemail}</td>
+              <td className="p-3">{user.Username}</td>
+              <td className="p-3">{user.AID}</td>
+              <td className="flex">
+                <div className="pl-5">
+                  <TbEdit onClick={() => handlemodify(user.AID)} size={"22"}/>
+                </div>
+          
+              </td>
+            </tr>
               ))}
             </tbody>
           </table>

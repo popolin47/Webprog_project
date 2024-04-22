@@ -7,10 +7,17 @@ const app = express();
 const router = express.Router();
 const TokenManager = require("./token_manager");
 const { useEffect } = require('react');
+// const cors = require('cors');
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
 app.use(router)
-
+// const corsOptions = {
+//     origin: 'http://localhost:3000/',
+//     methods: 'GET,POST,PUT,DELETE'
+//   };
+  
+// router.use(cors(corsOptions));
+// router.use(cors())
 const secret = "mysecret";
 
 router.get('/', (req, res) => {
@@ -147,28 +154,27 @@ router.post("/advancedsearchadmin", (req, res) => {
     console.log("Request body:", req.body);
     const { userID, username, firstname, lastname, phone, email } = req.body;
     console.log("UserID:", userID);
-    let sql = '';
-    let params;
+    let sql = ' Select * FROM admin WHERE 1=1 ';
     if (userID) {
-        sql = 'Select * FROM admin WHERE AID = ?';
-        params = userID;
-    } else if (username) {
-        sql = 'Select * FROM admin WHERE Username = ?';
-        params = username;
-    }else if(firstname){
-        sql = 'Select * FROM admin WHERE AFname = ?';
-        params = firstname;
-    }else if(lastname){
-        sql = 'Select * FROM admin WHERE ALname = ?';
-        params = lastname;
-    }else if(phone){
-        sql = 'Select * FROM admin WHERE PhoneNo = ?';
-        params = phone;
-    }else if(email){
-        sql = 'Select * FROM admin WHERE Aemail = ?';
-        params = email;
+        sql += `AND AID = ${userID}`;
+    } if (username) {
+        sql += `AND Username LIKE "%${username}%"`;
+       
+    } if(firstname){
+        sql += `AND  AFname  LIKE "%${firstname}%"`;
+       
+    } if(lastname){
+        sql += `AND  ALname LIKE "%${lastname}%"`;
+       
+    } if(phone){
+        sql += `AND  PhoneNo = "${phone}"`;
+      
+    } if(email){
+        sql += `AND   Aemail = "${email}"`;
+       
     }
-        connection.query(sql, [params], (err, result) => {
+    console.log(sql)
+        connection.query(sql, (err, result) => {
 
             if (err) {
                 console.error('Error adding data to database:', err);

@@ -10,13 +10,6 @@ const Aboutus = () =>{
     const [significantDays, setSignificantDays] = useState({});
     const [selectedDate, setSelectedDate] = useState(new Date());
     let rooturl = `https://calendarific.com/api/v2/holidays?&api_key=NaDWnnvoH75FggStSBydTrKYSFTqfYsF&country=TH&year=2023`;
-    
-
-    const cdate = new Date();
-    const d = cdate.getDate();
-    const m = cdate.getMonth();
-    const y = cdate.getFullYear(); // Use getFullYear() to get the full year
-    
     useEffect(() => {
         fetch(rooturl)
             .then((res) => {
@@ -25,6 +18,7 @@ const Aboutus = () =>{
                 }
                 return res.json();
             })
+            //fetch data from the public web service
             .then((data1) => {
                 const days = {};
                 const holiday = data1.response.holidays;
@@ -39,7 +33,7 @@ const Aboutus = () =>{
             .catch(error => console.error('Error fetching data:', error));
     }, []); 
     const tileContent = ({ date }) => {
-        // console.log( date.getFullYear())
+       //get name of the day
         const dateStr = `${date.getFullYear()-1}-${date.getMonth() + 1}-${date.getDate()}`;
         if (significantDays[dateStr]) {
             return <p >{significantDays[dateStr]}</p>;
@@ -80,7 +74,6 @@ We sell all categories of sneakers, including cross training, walking, and runni
                 />
             </div>
         </div>)
-      
 }
  
 export default Aboutus;
