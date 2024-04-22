@@ -52,32 +52,29 @@ const ProductList = () => {
         <h1 className="text-3xl text-white">Man</h1>
         <h1 className="text-3xl text-white">Woman</h1>
         <h1 className="text-3xl text-white">Kid</h1>
+
       </div>
-
-      <img src={yyy} className="flex justify-center bg-[#880501] w-full h-80 gap-16 object-cover" />
-
-      <div className="container max-w-6xl mx-auto">
+      
+      <div className="container max-w-6xl mx-auto"><img src={yyy} className='w-full h-1/4 items-center'/>
         <div className="text-4xl font-bold mb-8 text-start">
           <br />
           Recommended For You
         </div>
         <div className="flex flex-col md:flex-row justify-between">
-          <div className="w-full md:w-3/5 md:pr-10">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full md:w-full">
-              {/* Mapping through recommendedProducts array and displaying products */}
-              {recommendedProducts.map((product) => (
-                <button onClick={() => handleViewDetails(product.PID)}>
-                  <div key={product?.PID ? product.PID : null} className="w-200 h-200px rounded-lg shadow-md p-5">
-                  <img src={product.Pic} alt="ProductList" className="bg-white max-w-full max-h-full object-cover" />
-                  <h3 className="text-gray-600 text-lg font-semibold mt-3">{product?.P_name ? product.P_name : '-'}</h3>
-                  <div className="flex justify-between mt-1">
-                    <div className="text-black">${product?.Price ? product.Price : '-'}</div>
+          <div className="grid grid-cols-3 gap-12">
+            {recommendedProducts.map((product) => (
+              <button key={product.PID} onClick={() => handleViewDetails(product.PID)}>
+                <div className="bg-white max-w-m h-full rounded-lg overflow-hidden shadow-md">
+                  <img className="w-auto h-auto object-cover object-center" src={product.Pic} alt="shoe" />
+                  <div className="p-4 text-left">
+                    <h5 className="text-xl font-semibold mb-2">{product.P_name}</h5>
+                    <p className="text-lg text-gray-700 mb-2">Category: {product.Category}</p>
+                    <p className="text-lg text-gray-700 mb-2">Size: {product.Size}</p>
+                    <p className="text-lg text-gray-700 mb-4">Price: ${product.Price}</p>
                   </div>
                 </div>
-                </button>
-                
-              ))}
-            </div>
+              </button>
+            ))}
           </div>
         </div>
 
@@ -86,23 +83,24 @@ const ProductList = () => {
           Product
         </div>
         <div className="flex flex-col md:flex-row justify-between">
-          <div className="w-full md:w-3/5 md:pr-10">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {/* Mapping through Product array and displaying products */}
-              {Product.map((product) => (
-                <button onClick={() => handleViewDetails(product.PID)}>
-                  <div key={product.PID} onClick={() => handleViewDetails(product.PID)} className="rounded-lg shadow-md">
-                  <img src={product.Pic} alt="Product" className="bg-white max-w-full max-h-full object-cover" />
-                  <h3 className="text-gray-600 text-lg font-semibold mt-3">{product.P_name}</h3>
-                  <div className="flex justify-between mt-1">
-                    <div className="text-black">${product.Price}</div>
-                  </div>
+          
+        <div className="grid grid-cols-3 gap-12">
+          {/* Mapping through Product array and displaying products */}
+          {Product.map((product) => (
+            <button key={product.PID} onClick={() => handleViewDetails(product.PID)}>
+              <div className="bg-white max-w-m h-full rounded-lg overflow-hidden shadow-md">
+                <img className="w-auto h-auto object-cover object-center" src={product.Pic} alt="shoe" />
+                <div className="p-4 text-left">
+                  <h5 className="text-xl font-semibold mb-2">{product.P_name}</h5>
+                  <p className="text-lg text-gray-700 mb-2">Category: {product.Category}</p>
+                  <p className="text-lg text-gray-700 mb-2">Size: {product.Size}</p>
+                  <p className="text-lg text-gray-700 mb-4">Price: ${product.Price}</p>
                 </div>
-                </button>
-                
-              ))}
-            </div>
-          </div>
+              </div>
+            </button>
+          ))}
+        </div>
+          
         </div>
       </div>
     </div>
