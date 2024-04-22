@@ -10,7 +10,6 @@ const Navbarwithsearch = () => {
     const history = useHistory();
     const handleLogout = () => {
         localStorage.clear();
-        
     };
     useEffect(() => {
         const userID = localStorage.getItem("AID");

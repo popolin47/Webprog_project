@@ -24,12 +24,6 @@ import ProductResultAdmin from './ProductResultAdmin';
 
 class App extends React.Component {
   render() {
-    const title = "Welcome to login blog";
-    const like = 4;
-    const person = {name: 'jin', age: 12};
-    
-
-  
     console.log(this.state)
     
     return (
@@ -82,8 +76,6 @@ class App extends React.Component {
               </Route>
               
               <Route path="/ProductManage" render={(props) => <><Sidebar {...props} authed={true} /><ProductManage {...props} authed={true} /></>}/>
-              {/* </Route> */}
-
               <Route path="/login">
                 <Navbarwithoutsearch/>
                 <Login/>

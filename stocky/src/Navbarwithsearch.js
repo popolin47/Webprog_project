@@ -8,7 +8,7 @@ const Navbarwithsearch = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const handleLogout = () => {
         localStorage.clear();
-       
+        window.location.reload();
     };
     useEffect(() => {
         const userID = localStorage.getItem("AID");

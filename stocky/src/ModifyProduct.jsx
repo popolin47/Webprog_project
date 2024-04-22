@@ -4,13 +4,8 @@ import { Link } from 'react-router-dom';
 
 const ModifyProduct = () => {
     const catagory = ['All','Man', 'Women', 'Kid'];
-    const defaultOption = catagory[0];
-    const history = useHistory();
     const location = useLocation();
     const PID = location.state;
-    console.log(PID);
-
-    const [selectedCategory, setSelectedCategory] = useState(defaultOption);
     const [product, setProduct] = useState({
         P_name: '',
         Description: '',
@@ -53,7 +48,7 @@ const ModifyProduct = () => {
           }
       };
   
-      fetchData();
+      fetchData(); 
     });
 
     const handleChange = (newData) => {
@@ -70,6 +65,7 @@ const ModifyProduct = () => {
             const response = await fetch(`/ModifyProduct/${PID}?adminID=${adminID}&username=${adminUser}`, {
                 method: 'PUT',
                 headers: {
+                 
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(product),

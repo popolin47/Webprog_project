@@ -1,20 +1,13 @@
-import { Sidebar } from "react-pro-sidebar";
 
 import React, { useEffect, useState } from 'react';
-import { useHistory,useLocation  } from 'react-router-dom';
-
+import { useLocation  } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import { TbEdit } from "react-icons/tb";
-import { FaTrash } from "react-icons/fa";
-import { LiaEdit } from "react-icons/lia";
 
 const Modifyuser = () => {
   const location = useLocation();
     const userId = location.state;
-    console.log(userId);
-  const history = useHistory();
-  // const [name,setName]= useState('')
+ 
   const [info, setInfo] = useState({
     
     Password:'',
@@ -26,11 +19,11 @@ const Modifyuser = () => {
     Modifyadd:''
     , AIDmanage:''
   });
-  // setInfo({AID: userId})
+
   console.log(info)
   const [storedUsername, setStoredUsername] = useState('');
   useEffect(() => {
-    // Retrieve the stored data when the component mounts
+
     const username = localStorage.getItem('username');
     const AIDManage=localStorage.getItem('AID');
     if (username) {
@@ -46,13 +39,10 @@ const Modifyuser = () => {
       }));
     }
   }, []);
-  console.log("local "+storedUsername)
-  console.log(info)
-  // const [name,setName] = useState('');
+
   const handleChange = (newData) => {
     let name = newData.target.name;
-    // console.log(name)
-    // console.log(newData.target.value)
+
     setInfo({...info,[name]: newData.target.value})
     setInfo(prevInfo => ({
       ...prevInfo,
@@ -94,12 +84,9 @@ const Modifyuser = () => {
   return (
     <div>
     <div className="p-4 sm:ml-64 shadow-md ">
-     
         <div className="px-8">
           <h1 className="text-3xl pt-12 ">Modify Admin</h1>
           </div>
-          
-      
     </div>
     <div className="p-72 sm:ml-64 pt-12 items-center"action="/form-useradd" method="GET"> 
    
@@ -164,12 +151,8 @@ const Modifyuser = () => {
           confirm
           </button>
         </Link>
-        
-          
-      
       </div>
       </div>
-      
     </div>
   )
   };
