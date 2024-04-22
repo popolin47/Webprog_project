@@ -11,8 +11,6 @@ const ModifyProduct = () => {
     console.log(PID);
 
     const [selectedCategory, setSelectedCategory] = useState(defaultOption);
-    //const [showModal, setShowModal] = useState(false);
-    //const [value, setValue] = useState('');
     const [product, setProduct] = useState({
         P_name: '',
         Description: '',
@@ -55,11 +53,7 @@ const ModifyProduct = () => {
           }
       };
   
-      fetchData(); // Call the function immediately after the component mounts
-  
-      // You can optionally add a cleanup function here if needed
-  
-      // If you remove the dependency array, the effect will run every time the component re-renders
+      fetchData();
     });
 
     const handleChange = (newData) => {
@@ -76,8 +70,7 @@ const ModifyProduct = () => {
             const response = await fetch(`/ModifyProduct/${PID}?adminID=${adminID}&username=${adminUser}`, {
                 method: 'PUT',
                 headers: {
-                  //Accept: 'application/json',
-                  'Content-Type': 'application/json'//,
+                  'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(product),
             })

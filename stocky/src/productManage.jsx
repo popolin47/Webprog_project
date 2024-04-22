@@ -7,11 +7,10 @@ import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 
-const spaces = '      '.repeat(30)
+const spaces = ''.repeat(30)
 
 const ProductMange = (props) => {
 
-  // declare state to hold input value
   const {location} = props
   console.log(location.state)
   const history = useHistory();
@@ -146,11 +145,11 @@ const ProductMange = (props) => {
         <table>
           <thead>
             <tr>
-              <th className='Pn'>{spaces}Product{spaces}</th>
-              <th className='Sz'>{spaces}Size{spaces}</th>
-              <th className='Cat'>{spaces}Category{spaces}</th>
-              <th className='Inst'>{spaces}In Stock{spaces}</th>
-              <th className='Id'>{spaces}ID{spaces}</th>
+              <th className='Pn'>Product</th>
+              <th className='Sz'>Size</th>
+              <th className='Cat'>Category</th>
+              <th className='Inst'>In Stock</th>
+              <th className='Id'>ID</th>
               <th className='Modi'></th>
               <th className='Del'></th>
             </tr>
