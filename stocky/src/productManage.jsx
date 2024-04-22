@@ -6,7 +6,6 @@ import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 
 
 
-
 const ProductMange = (props) => {
 
   const {location} = props
