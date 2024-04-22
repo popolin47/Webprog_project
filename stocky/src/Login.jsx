@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-//import backgroundImage from './asset/img/Background.jpg';
 import shoepic from './asset/img/ฺBG.jpg';
-//import './Login.css';
+
 
 
 
@@ -40,7 +39,6 @@ const Login = () => {
                     }
                 } else {
                     console.error('No user found');
-                    // Handle error cannot find user
                 }
             })
             .catch(error => {
@@ -53,7 +51,6 @@ const Login = () => {
     };
 
     return (
-       
         <div>
             <div className="bg-cover bg-center min-h-screen font-roboto " style={{ backgroundImage: `url(${shoepic})` }}>
             <h2 className='text-5xl font-bold mb-8 text-center invisible'>ffd</h2>
