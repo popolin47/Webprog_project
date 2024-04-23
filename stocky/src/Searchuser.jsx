@@ -98,10 +98,10 @@ const handleClear = () => {
         <tbody>
             <tr class="border-b border-gray-200 dark:border-gray-700">
                 <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                    User ID
+                    Admin ID
                 </th>
                 <td class="px-12 py-4">
-                <input id="chat" rows="1"  name="userID" onChange={handleChange} class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="User ID"></input>
+                <input id="chat" rows="1"  name="userID" onChange={handleChange} class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Admin ID"></input>
                 </td>
               
             </tr>

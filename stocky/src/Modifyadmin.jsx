@@ -1,13 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
-import { useLocation  } from 'react-router-dom';
+import { useLocation,useHistory  } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 
 const Modifyuser = () => {
   const location = useLocation();
-    const userId = location.state;
- 
+  const userId = location.state;
+  const history = useHistory();
+  const [authen,setauthen] = useState({})
   const [info, setInfo] = useState({
     
     Password:'',
@@ -23,19 +24,49 @@ const Modifyuser = () => {
   console.log(info)
   const [storedUsername, setStoredUsername] = useState('');
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+          const response = await fetch(`/check_authen`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+              }, 
+          });
 
+          if (!response.ok) {   
+              throw new Error('Network response was not ok');
+          }
+
+          const data = await response.json();
+
+          if (data != false) {
+              console.log(data);
+          } else {
+              window.location.href = '/login';
+          }
+      } catch (error) {
+          console.error('Error fetching user data:', error);
+      }
+  };
+
+  fetchData();
     const username = localStorage.getItem('username');
     const AIDManage=localStorage.getItem('AID');
     if (username) {
       setStoredUsername(username);
       
-      setInfo(prevInfo => ({
+      setauthen(prevInfo => ({
         ...prevInfo,
-        Modifyadd: username
+        Modifyuser: username
       }));
-      setInfo(prevInfo => ({
+      setauthen(prevInfo => ({
         ...prevInfo,
         AIDManage: AIDManage
+      }));
+      setauthen(prevInfo => ({
+        ...prevInfo,
+        quote: "Modify user"
       }));
     }
   }, []);
@@ -79,6 +110,27 @@ const Modifyuser = () => {
         console.error('Error updating user:', error);
         // Handle error
       }
+      fetch('/insertmodifyadmin', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(authen),
+      })
+        .then((response) => {
+          console.log(response)
+          if (response.status !== 200) {
+            console.log("bad");
+            throw new Error(response.statusText);
+          }
+          history.push('/usermanage');
+          return response.json();
+        })
+        .catch((err) => {
+          console.log(err.toString());
+          console.log('error');
+        });
     };
     
   return (

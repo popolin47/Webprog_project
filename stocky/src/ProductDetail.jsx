@@ -5,8 +5,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const location = useLocation();
   const id = location.state;
-  console.log("id")
-  console.log(id)
+
   useEffect(() => {
     
     fetch(`/productdetail/${id}`)
@@ -14,8 +13,7 @@ const ProductDetail = () => {
       .then(data => setProduct(data.data))
       .catch(error => console.error('Error fetching product:', error));
   },);
-    console.log(id)
-    console.log(product)
+   
   if (!product) {
     return <div>Loading...</div>;
   }

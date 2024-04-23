@@ -5,14 +5,12 @@ import ModifyIcon from './asset/img/modify_icon_Ngb.png';
 import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 
 
+const ProductManage = (props) => {
 
-const ProductMange = (props) => {
-
-  const {location} = props
-  console.log(location.state)
   const history = useHistory();
   const [value, setValue] = useState('');
   const [search, setSearch] = useState('');
+  const [authen,setauthen] = useState({})
   const [valueDel,setValueDel] = useState({
         P_name: '',
         Description: '',
@@ -30,33 +28,59 @@ const ProductMange = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await fetch(`/check_authen`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem("access_token")
-                },
-            });
+      try {
+        const response = await fetch('/check_authen', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+          },
+        });
 
-            if (!response.ok) {   
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-
-            if (data != false) {
-                console.log(data);
-            } else {
-                window.location.href = '/login';
-            }
-        } catch (error) {
-            console.error('Error fetching user data:', error);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
+
+        const data = await response.json();
+
+        if (!data) {
+          history.push('/login');
+        } else {
+          console.log(data);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     };
 
     fetchData();
-  });
+
+    const username = localStorage.getItem('username');
+    const AIDManage = localStorage.getItem('AID');
+
+    if (username) {
+      setauthen(prevAuthen => ({
+        ...prevAuthen,
+        Modifyuser: username,
+        AIDManage: AIDManage,
+        quote: "Delete Product"
+      }));
+    
+
+    }
+
+    fetch('/ProductManage')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setValue(data);
+        } else {
+          console.error("Data received from server is not an array:", data);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
 
   const handlepush = ()  => {
     history.push('/ProductSearchAdmin'); 
@@ -65,11 +89,15 @@ const ProductMange = (props) => {
   const handleChange2 = (id) => {
     console.log(id)
     setValueDel(id)
+    setauthen(prevAuthen => ({
+      ...prevAuthen,
+     productid: id
+    }))
   };
 
   const handleDelete = (event) => {
-    console.log("deleting start front"); 
-    console.log(valueDel);
+   
+ 
     fetch(`/deleteProduct/${valueDel}?adminID=${adminID}&username=${adminUser}`, {
       method: 'DELETE'
       })
@@ -77,7 +105,7 @@ const ProductMange = (props) => {
           if (!response.ok) {
               throw new Error('Failed to delete data');
           }
-          return response.text();
+          
       })
       .then(data => {
         console.log("datasent")
@@ -86,6 +114,27 @@ const ProductMange = (props) => {
       .catch(error => {
           console.error('Error:', error); 
       });
+      fetch('/insertmodifyproduct', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(authen),
+      })
+        .then((response) => {
+        
+          if (response.status !== 200) {
+            console.log("bad");
+            throw new Error(response.statusText);
+          }
+          // history.push('/usermanage');
+          return response.json();
+        })
+        .catch((err) => {
+          console.log(err.toString());
+          console.log('error');
+        });
     }
 
   const handleSearchSubmit = async () => {
@@ -105,18 +154,6 @@ const ProductMange = (props) => {
     history.push({pathname:`/ModifyProduct/${ProductId}`,  state: ProductId});
   };
 
-  useEffect(()=>{
-    fetch('/ProductManage')
-    .then((res)=> res.json())
-    .then((data)=>{
-    if (Array.isArray(data)) {
-      setValue(data);
-      console.log("match");
-    } else {
-      console.error("Data received from server is not an array:", data);
-    }})
-    .catch((err) => console.log(err));
-  },[]);
 
   return (
     <div class="p-8 sm:ml-64 overflow-x-auto shadow-md">
@@ -189,4 +226,4 @@ const ProductMange = (props) => {
   )
 };
 
-export default ProductMange;
+export default ProductManage;
