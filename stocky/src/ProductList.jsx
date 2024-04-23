@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import yyy from './asset/img/bandner.png';
 
 
 
 const ProductList = () => {
-  const location = useLocation();
   const history = useHistory();
   const [Product, setProduct] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   
   React.useEffect(()=>{
-    fetch('/ProductSearchAdmin')
+    fetch('/getproduct')
       .then((res)=> res.json())
       .then((data)=>{
       if (Array.isArray(data)) {
@@ -22,7 +21,7 @@ const ProductList = () => {
       }})
       .catch((err) => console.log(err));
     
-      fetch('/ProductList')
+      fetch('/recommendproduct')
       .then((res)=> res.json())
       .then((data)=>{
       if (Array.isArray(data)) {

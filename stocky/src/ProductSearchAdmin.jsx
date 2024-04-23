@@ -56,17 +56,8 @@ const ProductSearchAdmin = () => {
         }
     };
     fetchData();
-      fetch('/ProductSearchAdmin',)
-     .then((res)=> res.json())
-     .then((data)=>{
-     if (Array.isArray(data)) {
-      setProduct(data); 
-       console.log("match");
-     } else {
-       console.error("Data received from server is not an array:", data);
-     }})
-     .catch((err) => console.log(err));
     },[]);
+    
     const [searchName, setSearchName] = useState('');
     const [searchID, setSearchID] = useState('');
     const [minPrice, setMinPrice] = useState('');

@@ -47,7 +47,7 @@ router.get("/usermanage", (req, res) => {
     });
 });
 
-router.get("/ProductSearchAdmin", (req, res) => {
+router.get("/getproduct", (req, res) => {
     console.log("Fetching users...");
     let sql = `SELECT * FROM Product`;
     connection.query(sql, (error, results) => {
@@ -61,7 +61,7 @@ router.get("/ProductSearchAdmin", (req, res) => {
     });
 });
 
-router.get("/ProductList", (req, res) => {
+router.get("/recommendproduct", (req, res) => {
     console.log("Fetching users...");
     let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`;
     connection.query(sql, (error, results) => {
@@ -448,9 +448,10 @@ router.post("/AddProduct", (req, res) => {
         }
         
         console.log('New product added successfully');
-        
+        console.log(result);
         const productID = result.insertId;
 
+        
         const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES (?, ?, ?, NOW(), ?)';
         connection.query(sql2, [productID, AID, username, action], (err, result) => {
             if (err) {
