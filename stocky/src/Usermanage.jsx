@@ -51,6 +51,7 @@ const Usermanage = () => {
           console.error('Error fetching user data:', error);
       }
   };
+  
   fetchData();
      fetch('/usermanage')
     .then((res)=> res.json())

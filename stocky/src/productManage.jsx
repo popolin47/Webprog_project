@@ -6,7 +6,7 @@ import RemoveIcon from './asset/img/remove_icon-Nbg.png';
 
 
 
-const ProductMange = (props) => {
+const ProductManage = (props) => {
 
   const {location} = props
   console.log(location.state)
@@ -26,7 +26,8 @@ const ProductMange = (props) => {
   });
 
   const adminID = localStorage.getItem('AID');
-  const adminUser = localStorage.getItem('username')
+  const adminUser = localStorage.getItem('username');
+  let actionRecord = 'Modify product';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,6 +57,18 @@ const ProductMange = (props) => {
     };
 
     fetchData();
+
+    fetch('/ProductManage')
+    .then((res)=> res.json())
+    .then((data)=>{
+    if (Array.isArray(data)) {
+      setValue(data);
+      console.log("match");
+    } else {
+      console.error("Data received from server is not an array:", data);
+    }})
+    .catch((err) => console.log(err));
+
   });
 
   const handlepush = ()  => {
@@ -69,7 +82,7 @@ const ProductMange = (props) => {
 
   const handleDelete = (event) => {
     console.log("deleting start front"); 
-    console.log(valueDel);
+    console.log(valueDel); //PID
     fetch(`/deleteProduct/${valueDel}?adminID=${adminID}&username=${adminUser}`, {
       method: 'DELETE'
       })
@@ -87,6 +100,27 @@ const ProductMange = (props) => {
           console.error('Error:', error); 
       });
     }
+    /*fetch(`/ModifyProductRecord/?adminID=${adminID}&username=${adminUser}&productID=${valueDel}&action=${actionRecord}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(valueDel)
+      })
+      .then(responseModify => {
+        if (!responseModify.ok) {
+            throw new Error('Failed to record action');
+        }
+        return responseModify.text();
+      })
+      .then(data => {
+        console.log("Action Record insert successfully")
+      })
+      .catch(error => {
+        console.error('Error:', error); 
+      });*/
+    //}
 
   const handleSearchSubmit = async () => {
     try {
@@ -104,19 +138,6 @@ const ProductMange = (props) => {
   const handlemodify  = (ProductId) =>{
     history.push({pathname:`/ModifyProduct/${ProductId}`,  state: ProductId});
   };
-
-  useEffect(()=>{
-    fetch('/ProductManage')
-    .then((res)=> res.json())
-    .then((data)=>{
-    if (Array.isArray(data)) {
-      setValue(data);
-      console.log("match");
-    } else {
-      console.error("Data received from server is not an array:", data);
-    }})
-    .catch((err) => console.log(err));
-  },[]);
 
   return (
     <div class="p-8 sm:ml-64 overflow-x-auto shadow-md">
@@ -190,4 +211,4 @@ const ProductMange = (props) => {
 };
 
 
-export default ProductMange;
+export default ProductManage;

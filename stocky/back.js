@@ -146,7 +146,36 @@ router.get("/searchproduct", (req, res) => {
   });
 });
 
+router.post("/ModifyProductRecord" , (req,res) => {
+    const AID = req.query.adminID;
+    const username = req.query.username;
+    const action = req.query.action;
+    const PID = null;
 
+    console.log(req.query);
+
+    if(acrion == 'Add product'){
+        const sqlPID = 'SELECT  PID  FROM product ORDER BY PID DESC LIMIT 1';
+        const PID = connection.query(sqlPID);
+        console.log(PID);
+    }else{
+        const PID = req.query.productID;
+        console.log(PID);
+    }
+    
+    let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)`;
+
+    connection.query(sql2, [PID, AID, username, action], (err,result) =>{
+        if(err){
+            console.error('Error insert record data in database:', err);
+            return res.status(500).send('Error adding data record to database');
+        }
+        console.log('Product data inserted successfully');
+        console.log(result);
+        res.status(200).send('New product added successfully');
+    });
+
+});
 
 router.post("/advancedsearchadmin", (req, res) => {
     console.log("Request body:", req.body);
@@ -184,6 +213,7 @@ router.post("/advancedsearchadmin", (req, res) => {
             res.send(result);
         });
 });
+
 router.get("/ProductManage", (req, res) => {
     console.log("Fetching products...");
     let sql = `SELECT * FROM Product`;
@@ -227,17 +257,11 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("Deleting Product...");
     const productID = req.params.productID;
 
-    const AID = req.query.adminID;
-    const username = req.query.username;
-    let action = `Delete product `;
-
     let sql = `DELETE FROM Product WHERE PID = ?`;
-    let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)`;
 
     try {
         await Promise.all([
-            connection.query(sql, productID),
-            connection.query(sql2, [productID, AID, username, action])
+            connection.query(sql, productID)
         ]);
 
         console.log("Product deleted successfully from all tables");
@@ -314,10 +338,8 @@ router.put("/modifyuser/:userId", async (req, res) => {
 
 
 
-
 router.put("/ModifyProduct/:productID", (req, res) => {
     console.log("Updating product...");
-    console.log(req.query);
 
     const productID = req.params.productID;
     const productName = req.body.P_name;
@@ -330,51 +352,36 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     const Category = req.body.Category;
     const color = req.body.color;
 
-    const AID = req.query.adminID;
-    const username = req.query.username;
-    let action = ' ';
-
     let sql, params;
 
     if (productName) {
         sql = 'UPDATE product set P_name = ? WHERE PID = ?';
         params = productName;
-        action = 'Change name of product'; 
     }else if(Des){
         sql = 'UPDATE Product set Description = ? WHERE PID = ?';
         params = Des;
-        action = 'Change description of product'; 
     }else if(quantity){
         sql = 'UPDATE Product set quantity = ? WHERE PID = ?';
-        params = quantity;
-        action = 'Change quantity of product in stock'; 
+        params = quantity; 
     }else if(price){
         sql = 'UPDATE Product set Price = ? WHERE PID = ?';
         params = price;
-        action = 'Change price of product'; 
     }else if(pic){
         sql = 'UPDATE Product set pic = ? WHERE PID = ?';
         params = pic;
-        action = 'Change picture of product'; 
     }else if(size){
         sql = 'UPDATE Product set Size = ? WHERE PID = ?';
         params = size;
-        action = 'Change size of product'; 
     }else if(Redate){
         sql = 'UPDATE Product set ReDate = ? WHERE PID = ?';
         params = Redate;
-        action = 'Change release date of product'; 
     }else if(Category){
         sql = 'UPDATE Product set Category = ? WHERE PID = ?';
         params = Category;
-        action = 'Change Category of product'; 
     }else if(color){
         sql = 'UPDATE Product set color = ? WHERE PID = ?';
         params = color;
-        action = 'Change color of product'; 
     }
-
-    const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
 
     connection.query(sql, [params, productID], (err, result) => {
         if (err) {
@@ -383,14 +390,6 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         }
         res.status(200).send('Product updated successfully');
         console.log('Product updated successfully');
-    });
-
-    connection.query(sql2, [productID, AID, username, action], (err,result) =>{
-        if(err){
-            console.error('Error insert updating data in database:', err);
-        }
-        console.log('Product data inserted successfully');
-        console.log(result);
     });
 
 });
@@ -435,10 +434,6 @@ router.post("/AddProduct", (req, res) => {
     const Category = req.body.Category;
     const color = req.body.color;
 
-    const AID = req.query.adminID;
-    const username = req.query.username;
-    let action = 'Add product';
-
     const sql = `INSERT INTO Product (P_name, Description, quantity, Price, Pic, Size, ReDate, Category, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     
     connection.query(sql, [productName, Des, quantity, price, pic, size, Redate, Category, color], (err, result) => {
@@ -449,19 +444,6 @@ router.post("/AddProduct", (req, res) => {
         
         console.log('New product added successfully');
         console.log(result);
-        const productID = result.insertId;
-
-        
-        const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES (?, ?, ?, NOW(), ?)';
-        connection.query(sql2, [productID, AID, username, action], (err, result) => {
-            if (err) {
-                console.error('Error inserting data into ModifyProduct table:', err);
-                return res.status(500).send('Error inserting data into ModifyProduct table');
-            }
-            console.log('Product data inserted successfully');
-            console.log(result);
-            res.status(200).send('New product added successfully');
-        });
     
     });
 

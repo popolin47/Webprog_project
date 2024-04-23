@@ -1,3 +1,4 @@
+import { Types } from 'mysql';
 import React, { useState, useEffect } from 'react';
 import { useHistory,useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -19,7 +20,8 @@ const ModifyProduct = () => {
     });
 
     const adminID = localStorage.getItem('AID');
-    const adminUser = localStorage.getItem('username')
+    const adminUser = localStorage.getItem('username');
+    let actionRecord = 'Modify product';
 
     useEffect(() => {
       const fetchData = async () => {
@@ -56,24 +58,36 @@ const ModifyProduct = () => {
         setProduct({...product,[name]: newData.target.value})
     }
 
-      const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         console.log("start change");
         console.log(product)
         e.preventDefault();
-
         try{
             const response = await fetch(`/ModifyProduct/${PID}?adminID=${adminID}&username=${adminUser}`, {
                 method: 'PUT',
                 headers: {
-                 
                   'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(product),
+                body: JSON.stringify(product)
             })
             if (!response.ok) {
                 throw new Error('Failed to update user');
               }
               console.log('User updated successfully');
+            
+            /*const responseModify = await fetch(`/ModifyProductRecord/?adminID=${adminID}&username=${adminUser}&productID=${PID}&action=${actionRecord}`, {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(product)
+            })
+            if (!responseModify.ok) {
+              throw new Error('Failed to record action');
+            }
+            console.log('Action Record insert successfully');*/
+            
         }catch(error){
             console.error('Error updating product:', error);
         }

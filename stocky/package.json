@@ -12,6 +12,7 @@
     "crypto": "^1.0.1",
     "express": "^4.19.2",
     "flowbite-datepicker": "^1.2.6",
+    "i": "^0.3.7",
     "init": "^0.1.2",
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",

@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 const AddProduct = () => {
 
     const history = useHistory();
-    const [showModal, setShowModal] = useState(false);
     const [product, setProduct] = useState({
         P_name: '',
         Description: '',
@@ -21,7 +20,8 @@ const AddProduct = () => {
     });
 
     const adminID = localStorage.getItem('AID');
-    const adminUser = localStorage.getItem('username')
+    const adminUser = localStorage.getItem('username');
+    let actionRecord = 'Add product';
 
     useEffect(() => {
       const fetchData = async () => {
@@ -92,6 +92,7 @@ const AddProduct = () => {
     e.preventDefault();
     console.log("start submit");
     console.log(product);
+
     fetch(`/AddProduct/?adminID=${adminID}&username=${adminUser}`, {
       method: 'POST',
       headers: {
@@ -106,18 +107,37 @@ const AddProduct = () => {
           console.log("bad");
           throw new Error(response.statusText);
         }
-        setShowModal(true);
         history.push('/productmanage');
         return response.json();
       })
       .then(() => {
-        
         console.log('success');
         history.push('/productmanage');
       })
       .catch((err) => {
         console.log(err.toString());
         console.log('error front');
+      });
+
+    fetch(`/ModifyProductRecord/?adminID=${adminID}&username=${adminUser}&action=${actionRecord}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product),
+      })
+      .then(responseModify => {
+        if (!responseModify.ok) {
+            throw new Error('Failed to record action');
+        }
+        return responseModify.text();
+      })
+      .then(data => {
+        console.log("Action Record insert successfully")
+      })
+      .catch(error => {
+        console.error('Error:', error); 
       });
   };
     return(
