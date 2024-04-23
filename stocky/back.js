@@ -1,23 +1,15 @@
-const mysql = require('mysql');
-const connection = require('./src/db');
+const connection = require('./db'); // Importing the database connection
 const path = require('path');
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const app = express();
 const router = express.Router();
 const TokenManager = require("./token_manager");
-const { useEffect } = require('react');
-// const cors = require('cors');
+
 router.use(express.json());
 router.use(express.urlencoded({extend:true}));
 app.use(router)
-// const corsOptions = {
-//     origin: 'http://localhost:3000/',
-//     methods: 'GET,POST,PUT,DELETE'
-//   };
-  
-// router.use(cors(corsOptions));
-// router.use(cors())
+
 const secret = "mysecret";
 
 router.get('/', (req, res) => {
@@ -27,29 +19,40 @@ router.get('/', (req, res) => {
 router.post("/check_authen",(req,res)=>{
     let jwtStatus = TokenManager.checkAuthentication(req);
     if(jwtStatus!=false){
-        res.send(jwtStatus);
+        res.send('Log in success');
     }else{
-        res.send(false);
+        res.send('Log in not success');
     }
-});
+}); 
 
-router.get("/usermanage", (req, res) => {
+router.get("/adminlist", (req, res) => {
     console.log("Fetching users...");
-    let sql = `SELECT * FROM admin`; // Assuming 'admin' is the name of your table
+    let sql = `SELECT * FROM admin`; 
     connection.query(sql, (error, results) => {
         if (error) {
             console.error("Error fetching users:", error);
             return res.status(500).send("Error fetching users");
         }
         console.log(`${results.length} rows returned`);
-        // console.log(results)
         res.send(results);
     });
+});
+router.get("/ProductManage", (req, res) => {
+    console.log("Fetching products...");
+    let sql = `SELECT * FROM Product`;
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching products:", error);
+            return res.status(500).send("Error fetching products");
+        }
+        console.log(`${results.length} rows returned`);
+        res.send(results);
+    }); 
 });
 
 router.get("/getproduct", (req, res) => {
     console.log("Fetching users...");
-    let sql = `SELECT * FROM Product`;
+    let sql = `SELECT * FROM Product`; 
     connection.query(sql, (error, results) => {
         if (error) {
             console.error("Error fetching users:", error);
@@ -92,6 +95,7 @@ router.get("/login", (req, res) => {
             return res.status(401).json({ status: "0", message: "Invalid username or password" });
         }
 
+        // Generate access token using username
         let accessToken = TokenManager.getGenerateAccessToken({username});
         console.log(accessToken);
 
@@ -110,119 +114,108 @@ router.get("/login", (req, res) => {
                     console.error("Error inserting login history:", error);
                     return res.status(500).json({ status: "0", message: "Error inserting login history" });
                 }
-                console.log(results)
+                 console.log(results)
                 return res.json({ status: "1", results, access_token: accessToken });
             });
         });
     });
 });
 
-
-router.get("/searchadmin", (req, res) => {
-    const query = req.query.query;
-  const sql = `SELECT * from admin WHERE CONCAT(Afname,Alname) LIKE "%${query}%"`;
-
-  connection.query(sql, (err, results) => {
-    if (err) {
-      console.error('Error searching in MySQL:', err);
-      res.status(500).json({ error: 'An error occurred' });
-      return;
+//detail of product
+router.get("/productdetail/:id", (req, res) => {
+    const ProductID = req.params.id;
+    // console.log(ProductID);
+    if (!ProductID) {
+        return res.status(400).send({ error: true, message: 'Please provide a valid product id.' });
     }
-    res.json(results);
-  });
-});
-
-router.get("/searchproduct", (req, res) => {
-    const query = req.query.query;
-  const sql = `SELECT * from Product WHERE P_name LIKE "%${query}%"`;
-
-  connection.query(sql, (err, results) => {
-    if (err) {
-      console.error('Error searching in MySQL:', err);
-      res.status(500).json({ error: 'An error occurred' });
-      return;
-    }
-    res.json(results);
-  });
+    connection.query('SELECT * FROM Product WHERE PID = ?', ProductID, function (error, results) {
+        if (error) {
+            throw error;
+        }
+        return res.send({ error: false, data: results[0], message: '' });
+    });
 });
 
 
 
-router.post("/advancedsearchadmin", (req, res) => {
-    console.log("Request body:", req.body);
-    const { userID, username, firstname, lastname, phone, email } = req.body;
-    console.log("UserID:", userID);
-    let sql = ' Select * FROM admin WHERE 1=1 ';
-    if (userID) {
-        sql += `AND AID = ${userID}`;
-    } if (username) {
-        sql += `AND Username LIKE "%${username}%"`;
-       
-    } if(firstname){
-        sql += `AND  AFname  LIKE "%${firstname}%"`;
-       
-    } if(lastname){
-        sql += `AND  ALname LIKE "%${lastname}%"`;
-       
-    } if(phone){
-        sql += `AND  PhoneNo = "${phone}"`;
-      
-    } if(email){
-        sql += `AND   Aemail = "${email}"`;
-       
-    }
-    console.log(sql)
-        connection.query(sql, (err, result) => {
 
+router.delete("/deleteadmin/:userID", async (req, res) => {
+    const userID = req.params.userID; 
+    let sql = `DELETE FROM admin WHERE AID = ?`; 
+        connection.query(sql, [userID ], (err, result) => {
             if (err) {
-                console.error('Error adding data to database:', err);
-                res.status(500).send('Error adding data to database');
-                return;
+                return res.status(500).send('Error inserting data in Modifytable');
             }
-            console.log('Find success');
-            console.log(result)
-            res.send(result);
+            res.status(200).send('Inserting data in Modifytable successfully');
         });
 });
-router.get("/ProductManage", (req, res) => {
-    console.log("Fetching products...");
-    let sql = `SELECT * FROM Product`;
-    connection.query(sql, (error, results) => {
-        if (error) {
-            console.error("Error fetching products:", error);
-            return res.status(500).send("Error fetching products");
-        }
-        console.log(`${results.length} rows returned`);
-        res.send(results);
-    }); 
-});
 
-router.delete("/delete/:userID", async (req, res) => {
-    console.log("Deleting user...");
-    const userID = req.params.userID; 
-    console.log("UserID:", userID);
-    console.log(req.body)
+
+//Insert in Modify table 
+router.post("/insertmodifyadmin", async (req, res) => {
+    console.log("start insert")
     const AID = req.body.AIDManage;
-    const username = req.body.Modifyadd;
+    const username = req.body.Modifyuser;
+    const quote = req.body.quote;
+    console.log(req.body)
+    let sql = 'insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?) '
+    
+    connection.query(sql, [AID, username, new Date(),quote ], (err, result) => {
+        if (err) {
+            console.error('Error inserting data in Modifytable', err);
+            return res.status(500).send('Error inserting data in Modifytable');
+        }
+        res.status(200).send('Inserting data in Modifytable successfully');
+        console.log('Inserting data in Modifytable successfully');
+    });
+});
+router.post("/insertmodifyproduct", async (req, res) => {
+    console.log("start insert")
+    const AID = req.body.AIDManage;
+    const username = req.body.Modifyuser;
+    const action = req.body.quote;
+    let PID='';
 
-    let sql = `DELETE FROM admin WHERE AID = ?`; 
-    let sql1 = 'insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?) '
-
-    try {
-        await Promise.all([
+    if(action === "Add Product"){
+        const sqlPID = 'SELECT PID FROM product ORDER BY PID DESC LIMIT 1';
+        
+        connection.query(sqlPID, (err, result) =>{
+            if(err){
+                console.error('Error querying PID from database:', err);
+                return res.status(500).send('Error querying PID from database');
+            }
+            PID = result[0].PID;
+            console.log(PID);
             
-             connection.query(sql, [userID]),
-             connection.query(sql1, [AID, username, new Date(), `Delete user ${userID}`])
-        ]);
-
-        console.log("User deleted successfully from all tables");
-        res.status(200).send("User deleted successfully from all tables");
-    } catch (error) {
-        console.error("Error deleting user:", error);
-        res.status(500).send("Error deleting user");
+            let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES (?, ?, ?, ?, ?)`;
+            
+            connection.query(sql2, [PID, AID, username, new Date(), action], (err, result) =>{
+                if(err){
+                    console.error('Error inserting record data in database:', err);
+                    return res.status(500).send('Error adding data record to database');
+                }
+                console.log('Finished inserting record data in database');
+                res.status(200).send('Finished inserting record data in database');
+            });
+        });
+    } else {
+        PID = req.body.productid;
+        console.log(PID);
+        
+        let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES (?, ?, ?, ?, ?)`;
+        
+        connection.query(sql2, [PID, AID, username, new Date(), action], (err, result) =>{
+            if(err){
+                console.error('Error inserting record data in database:', err);
+                return res.status(500).send('Error adding data record to database');
+            }
+            console.log('Finished inserting record data in database');
+            res.status(200).send('Finished inserting record data in database');
+        });
     }
 });
 
+//delete
 router.delete("/deleteProduct/:productID", async (req, res) => {
     console.log("Deleting Product...");
     const productID = req.params.productID;
@@ -232,12 +225,12 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     let action = `Delete product `;
 
     let sql = `DELETE FROM Product WHERE PID = ?`;
-    let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)`;
+    // let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)`;
 
     try {
         await Promise.all([
             connection.query(sql, productID),
-            connection.query(sql2, [productID, AID, username, action])
+            // connection.query(sql2, [productID, AID, username, action])
         ]);
 
         console.log("Product deleted successfully from all tables");
@@ -248,7 +241,7 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     }
 });
 
-
+//to modify
 router.put("/modifyuser/:userId", async (req, res) => {
     console.log("start back");
     const userid = req.params.userId; 
@@ -269,7 +262,6 @@ router.put("/modifyuser/:userId", async (req, res) => {
         params=username;
         line += "username";
     } 
-    
         if (firstname) {
             sql = 'UPDATE  Admin SET AFname = ? WHERE AID = ?';
             params = firstname;
@@ -297,24 +289,12 @@ router.put("/modifyuser/:userId", async (req, res) => {
                 res.status(500).send('Error updating data');
                 return;
             }
-            connection.query('insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?)', [currentmanage,oldusername, new Date(), `Modify ${line} of user`], (err, result) => {
-                if (err) {
-                    console.error('Error updating data:', err);
-                    res.status(500).send('Error updating data');
-                    return;
-                }
-                console.log('insert updated successfully');
-                
-            });
+            
             console.log('Data updated successfully');
             res.status(200).send('Data updated successfully');
         });
     
 });
-
-
-
-
 router.put("/ModifyProduct/:productID", (req, res) => {
     console.log("Updating product...");
     console.log(req.query);
@@ -329,7 +309,6 @@ router.put("/ModifyProduct/:productID", (req, res) => {
     const Redate = req.body.ReDate;
     const Category = req.body.Category;
     const color = req.body.color;
-
     const AID = req.query.adminID;
     const username = req.query.username;
     let action = ' ';
@@ -373,9 +352,6 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         params = color;
         action = 'Change color of product'; 
     }
-
-    const sql2 = 'INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)';
-
     connection.query(sql, [params, productID], (err, result) => {
         if (err) {
             console.error('Error updating data in database:', err);
@@ -384,45 +360,22 @@ router.put("/ModifyProduct/:productID", (req, res) => {
         res.status(200).send('Product updated successfully');
         console.log('Product updated successfully');
     });
-
-    connection.query(sql2, [productID, AID, username, action], (err,result) =>{
-        if(err){
-            console.error('Error insert updating data in database:', err);
-        }
-        console.log('Product data inserted successfully');
-        console.log(result);
-    });
-
 });
 
-
+//ADD
 router.post("/adduser", (req, res) => {
-    console.log("start back");
-    const sql = `INSERT INTO Admin ( Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES ( ?, ?, ?, ?, ?, ?)`;
-    let id = `select AID from admin`
-    connection.query(sql, [req.body.username,req.body.email, req.body.pass, req.body.firstname, req.body.lastname, req.body.phone], (err, result) => {
-
+    console.log("add")
+    const sql = `INSERT INTO Admin (Username, Aemail, Password, AFname, ALname, PhoneNo) VALUES (?, ?, ?, ?, ?, ?)`;
+    let id = `SELECT AID FROM admin`;
+    console.log(req.body)
+    connection.query(sql, [req.body.username, req.body.email, req.body.pass, req.body.firstname, req.body.lastname, req.body.phone], (err, result) => {
         if (err) {
-            console.error('Error adding data to database:', err);
-            res.status(500).send('Error adding data to database');
-            return;
+            console.error("Error adding user:", err);
+            return res.status(500).send("error add modify");
         }
-        connection.query('insert into Modifyadmin (AID,Username,T_admin, Action) VALUES ( ?, ?, ?, ?) ', [req.body.AIDManage,req.body.Modifyuser, new Date(), "Add user"], (err, result) => {
 
-            if (err) {
-                console.error('Error adding data to database:', err);
-                res.status(500).send('Error adding data to database');
-                return;
-            }
-            console.log('Data updated to database successfully');
-            
-        });
-        console.log('Data added to database successfully');
-        res.status(200).sendFile(path.join(`${__dirname}/src/Usermanage.jsx`));
     });
 });
-
-
 router.post("/AddProduct", (req, res) => {
     console.log("Adding new product...");
     const productName = req.body.P_name;
@@ -467,6 +420,7 @@ router.post("/AddProduct", (req, res) => {
 
 });
 
+//SearchHome
 router.post("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
     const category = req.body.category;
@@ -506,6 +460,7 @@ router.post("/searchHome", (req, res) => {
     });
 });
 
+//Search admin manage
 router.post("/ProductSearchAdmin", (req, res) => {
     const searchName = req.body.searchName;
     const category = req.body.category;
@@ -549,18 +504,64 @@ router.post("/ProductSearchAdmin", (req, res) => {
     });
 });
 
-router.get("/productdetail/:id", (req, res) => {
-    const ProductID = req.params.id;
-    console.log(ProductID);
-    if (!ProductID) {
-        return res.status(400).send({ error: true, message: 'Please provide a valid product id.' });
+router.get("/searchadmin", (req, res) => {
+    const query = req.query.query;
+  const sql = `SELECT * from admin WHERE CONCAT(Afname,Alname) LIKE "%${query}%"`;
+
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error searching in MySQL:', err);
+      res.status(500).json({ error: 'An error occurred' });
+      return;
     }
-    connection.query('SELECT * FROM Product WHERE PID = ?', ProductID, function (error, results) {
-        if (error) {
-            throw error;
-        }
-        return res.send({ error: false, data: results[0], message: '' });
-    });
+    res.json(results);
+  });
+});
+
+router.get("/searchproduct", (req, res) => {
+    const query = req.query.query;
+  const sql = `SELECT * from Product WHERE P_name LIKE "%${query}%"`;
+
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error searching in MySQL:', err);
+      res.status(500).json({ error: 'An error occurred' });
+      return;
+    }
+    res.json(results);
+  });
+});
+
+router.post("/advancedsearchadmin", (req, res) => {
+    const { userID, username, firstname, lastname, phone, email } = req.body;
+    let sql = ' Select * FROM admin WHERE 1=1 ';
+    if (userID) {
+        sql += `AND AID = ${userID}`;
+    } if (username) {
+        sql += `AND Username LIKE "%${username}%"`;
+       
+    } if(firstname){
+        sql += `AND  AFname  LIKE "%${firstname}%"`;
+       
+    } if(lastname){
+        sql += `AND  ALname LIKE "%${lastname}%"`;
+       
+    } if(phone){
+        sql += `AND  PhoneNo = "${phone}"`;
+      
+    } if(email){
+        sql += `AND  Aemail = "${email}"`;
+       
+    }
+    console.log(sql)
+        connection.query(sql, (err, result) => {
+            if (err) {
+                console.error('Error adding data to database:', err);
+                res.status(500).send('Error adding data to database');
+                return;
+            }
+            res.send(result);
+        });
 });
 
 

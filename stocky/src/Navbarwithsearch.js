@@ -10,6 +10,7 @@ const Navbarwithsearch = () => {
         localStorage.clear();
         window.location.reload();
     };
+    console.log(location.pathname)
     useEffect(() => {
         const userID = localStorage.getItem("AID");
         if (userID !== null) {
@@ -20,7 +21,7 @@ const Navbarwithsearch = () => {
     }, []);
 
     return ( 
-        <div className="navbar"><Link to="/">
+        <nav className="navbar"><Link to="/">
         <img style={{ width: 80, height: 80 }} src={logo} alt="logo"/>
     </Link>
     <Link to="/searchHome">
@@ -38,14 +39,14 @@ const Navbarwithsearch = () => {
                     null
                 )}
                 <Link className="button rounded" to="/aboutus" style={{ color: "white", backgroundColor: "red" }}>About us</Link>
-                {((location.pathname === "/" || location.pathname === "/aboutus" ) && loggedIn) ? (
+                {((location.pathname === "/" || location.pathname === "/aboutus" || location.pathname === "/productdetail/${}") && loggedIn) ? (
                     <Link className="button rounded " onClick={handleLogout} to="/"  style={{ color: "white", backgroundColor: "red" }}>Logout</Link>
                 ) : (
                     <Link className="button rounded" to="/login" style={{ color: "white", backgroundColor: "red" }}>Login</Link>
                 )}
             </div>
        
- </div>
+ </nav>
 
      );
 }

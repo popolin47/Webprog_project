@@ -1,18 +1,19 @@
 
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { Link } from 'react-router-dom';
 
 const Adduser = () => {
   const history = useHistory(); 
-  const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState({
     firstname: '',
     lastname: '',
     phone: '',
-    email:'',username:'', pass:'' , Modifyuser:'',
-    AIDManage:'' });
+    email:'',
+    username:'', 
+    pass:'' , 
+     });
+  const [authen, setauthen] = useState({})
   const handleChange = (newData) => {
     let name = newData.target.name;
     setUser({...user,[name]: newData.target.value})
@@ -20,55 +21,52 @@ const Adduser = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await fetch(`/check_authen`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem("access_token")
-                },
-            });
+      try {
+          const response = await fetch(`/check_authen`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+              }, 
+          });
 
-            if (!response.ok) {   
-                throw new Error('Network response was not ok');
-            }
+          if (!response.ok) {   
+              throw new Error('Network response was not ok');
+          }
 
-            const data = await response.json();
+          const data = await response.json();
 
-            if (data != false) {
-                console.log(data);
-            } else {
-                window.location.href = '/login';
-            }
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    };
+          if (data != false) {
+              console.log(data);
+          } else {
+              window.location.href = '/login';
+          }
+      } catch (error) {
+          console.error('Error fetching user data:', error);
+      }
+  };
 
-    fetchData();
-  });
-
-  useEffect(() => {
+  fetchData();
     // Retrieve the stored data when the component mounts
     const username = localStorage.getItem('username');
     const AIDManage=localStorage.getItem('AID');
     if (username) {
-      
-      
-      setUser(prevInfo => ({
+      setauthen(prevInfo => ({
         ...prevInfo,
         Modifyuser: username
       }));
-      setUser(prevInfo => ({
+      setauthen(prevInfo => ({
         ...prevInfo,
         AIDManage: AIDManage
+      }));
+      setauthen(prevInfo => ({
+        ...prevInfo,
+        quote: "Add user"
       }));
     }
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("start submit");
-    console.log(user);
     fetch('/adduser', {
       method: 'POST',
       headers: {
@@ -83,19 +81,33 @@ const Adduser = () => {
           console.log("bad");
           throw new Error(response.statusText);
         }
-        setShowModal(true);
-        history.push('/usermanage');
-        return response.json();
-      })
-      .then(() => {
-        
-        console.log('success');
-        history.push('/usermanage');
       })
       .catch((err) => {
         console.log(err.toString());
         console.log('error front');
       });
+      console.log("finish add")
+      fetch('/insertmodifyadmin', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(authen),
+      })
+        .then((response) => {
+          console.log(response)
+          if (response.status !== 200) {
+            console.log("bad");
+            throw new Error(response.statusText);
+          }
+          history.push('/usermanage');
+          return response.json();
+        })
+        .catch((err) => {
+          console.log(err.toString());
+          console.log('error');
+        });
   };
  
   return (
@@ -140,7 +152,7 @@ const Adduser = () => {
         
         
         <Link to="/usermanage">
-          <button   value="Submit" className="bg-slate-950 ml-5 hover:bg-red-700 text-white py-2 px-4 rounded mt-5" >
+          <button   value="Submit" className="bg-slate-950 hover:bg-red-700 text-white py-2 px-4 rounded mt-5 mr-5" >
             back
           </button>
         </Link>
@@ -149,16 +161,6 @@ const Adduser = () => {
           confirm
         </button>
         
-        {/* <div className="flex justify-end mt-4   pb-8">
-        <Link to="/usermanage"className="flex justify-end mt-4  pr-4 pb-8">
-          <button className="bg-black hover:bg-brown text-white py-2 px-4 rounded">
-            back
-          </button>
-        </Link>
-      <Link to="/usermanage"className="flex justify-end mt-4   pb-8">
-          
-        </Link>
-      </div> */}
       </form>
 
     </div>

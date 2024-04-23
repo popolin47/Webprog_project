@@ -3,9 +3,11 @@ import { useHistory,useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const ModifyProduct = () => {
+  const history = useHistory();
     const catagory = ['All','Man', 'Women', 'Kid'];
     const location = useLocation();
     const PID = location.state;
+    const [authen,setauthen] = useState({});
     const [product, setProduct] = useState({
         P_name: '',
         Description: '',
@@ -18,38 +20,50 @@ const ModifyProduct = () => {
         color:'',
     });
 
-    const adminID = localStorage.getItem('AID');
-    const adminUser = localStorage.getItem('username')
-
+    let adminID='';
+    let adminUser='';
+    
     useEffect(() => {
       const fetchData = async () => {
-          try {
-              const response = await fetch(`/check_authen`, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem("access_token")
-                  },
-              });
+        try {
+          const response = await fetch(`/check_authen`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+            },
+          });
   
-              if (!response.ok) {   
-                  throw new Error('Network response was not ok');
-              }
-  
-              const data = await response.json();
-  
-              if (data != false) {
-                  console.log(data);
-              } else {
-                  window.location.href = '/login';
-              }
-          } catch (error) {
-              console.error('Error fetching user data:', error);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
           }
+  
+          const data = await response.json();
+  
+          if (data !== false) {
+            console.log(data);
+          } else {
+            window.location.href = '/login';
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
       };
   
-      fetchData(); 
-    });
+      fetchData();
+      adminID = localStorage.getItem('AID');
+      adminUser = localStorage.getItem('username');
+      if (adminUser) {
+        setauthen((prevInfo) => ({
+          ...prevInfo,
+          Modifyuser: adminUser,
+          AIDManage: adminID,
+          quote: 'Modify user',
+          productid:PID
+        }));
+      }
+    }, []);
+  
 
     const handleChange = (newData) => {
         let name = newData.target.name;
@@ -60,7 +74,10 @@ const ModifyProduct = () => {
         console.log("start change");
         console.log(product)
         e.preventDefault();
-
+        setauthen(prevInfo => ({
+          ...prevInfo,
+          PID: PID
+        }));
         try{
             const response = await fetch(`/ModifyProduct/${PID}?adminID=${adminID}&username=${adminUser}`, {
                 method: 'PUT',
@@ -74,6 +91,27 @@ const ModifyProduct = () => {
                 throw new Error('Failed to update user');
               }
               console.log('User updated successfully');
+            fetch('/insertmodifyproduct', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(authen),
+              })
+                .then((response) => {
+                  console.log(response)
+                  if (response.status !== 200) {
+                    console.log("bad");
+                    throw new Error(response.statusText);
+                  }
+                  // history.push('/productmanage');
+                  return response.json();
+                })
+                .catch((err) => {
+                  console.log(err.toString());
+                  console.log('error');
+                });
         }catch(error){
             console.error('Error updating product:', error);
         }

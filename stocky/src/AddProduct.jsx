@@ -19,69 +19,53 @@ const AddProduct = () => {
         Category:'',
         color:'',
     });
-
+    const [authen,setauthen] = useState({});
     const adminID = localStorage.getItem('AID');
     const adminUser = localStorage.getItem('username')
 
     useEffect(() => {
       const fetchData = async () => {
-          try {
-              const response = await fetch(`/check_authen`, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem("access_token")
-                  },
-              });
-  
-              if (!response.ok) {   
-                  throw new Error('Network response was not ok');
-              }
-  
-              const data = await response.json();
-  
-              if (data != false) {
-                  console.log(data);
-              } else {
-                  window.location.href = '/login';
-              }
-          } catch (error) {
-              console.error('Error fetching user data:', error);
+        try {
+          const response = await fetch(`/check_authen`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+            },
+          });
+    
+          if (!response.ok) {   
+            throw new Error('Network response was not ok');
           }
-      };
-  
-      fetchData();
-    });
-
-    useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const response = await fetch(`/check_authen`, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem("access_token")
-                  },
-              });
-  
-              if (!response.ok) {   
-                  throw new Error('Network response was not ok');
-              }
-  
-              const data = await response.json();
-  
-              if (data != false) {
-                  console.log(data);
-              } else {
-                  window.location.href = '/login';
-              }
-          } catch (error) {
-              console.error('Error fetching user data:', error);
+    
+          const data = await response.json();
+    
+          if (data !== false) {
+            console.log(data);
+          } else {
+            window.location.href = '/login';
           }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
       };
-  
+    
       fetchData();
-    });  
+    
+      const username = localStorage.getItem('username');
+      const AIDManage = localStorage.getItem('AID');
+    
+      if (username) {
+        setauthen(prevInfo => ({
+          ...prevInfo,
+          Modifyuser: username,
+          AIDManage: AIDManage,
+          quote: "Add Product"
+          
+        }));
+      }
+    }, []);
+    
 
   const handleInsery = (newData) => {
     let name = newData.target.name;
@@ -113,12 +97,33 @@ const AddProduct = () => {
       .then(() => {
         
         console.log('success');
-        history.push('/productmanage');
+        // history.push('/productmanage');
       })
       .catch((err) => {
         console.log(err.toString());
         console.log('error front');
       });
+      fetch('/insertmodifyproduct', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(authen),
+      })
+        .then((response) => {
+          console.log(response)
+          if (response.status !== 200) {
+            console.log("bad");
+            throw new Error(response.statusText);
+          }
+          // history.push('/usermanage');
+          return response.json();
+        })
+        .catch((err) => {
+          console.log(err.toString());
+          console.log('error');
+        });
   };
     return(
         <div>
