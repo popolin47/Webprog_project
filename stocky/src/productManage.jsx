@@ -69,7 +69,7 @@ const ProductManage = (props) => {
 
     }
 
-    fetch('/Productlist')
+    fetch('/ProductManage')
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
