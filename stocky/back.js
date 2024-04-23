@@ -25,31 +25,9 @@ router.post("/check_authen",(req,res)=>{
     }
 }); 
 
-router.get("/adminlist", (req, res) => {
-    console.log("Fetching users...");
-    let sql = `SELECT * FROM admin`; 
-    connection.query(sql, (error, results) => {
-        if (error) {
-            console.error("Error fetching users:", error);
-            return res.status(500).send("Error fetching users");
-        }
-        console.log(`${results.length} rows returned`);
-        res.send(results);
-    });
-});
-router.get("/ProductManage", (req, res) => {
-    console.log("Fetching products...");
-    let sql = `SELECT * FROM Product`;
-    connection.query(sql, (error, results) => {
-        if (error) {
-            console.error("Error fetching products:", error);
-            return res.status(500).send("Error fetching products");
-        }
-        console.log(`${results.length} rows returned`);
-        res.send(results);
-    }); 
-});
 
+
+//get all product in home page
 router.get("/getproduct", (req, res) => {
     console.log("Fetching users...");
     let sql = `SELECT * FROM Product`; 
@@ -64,6 +42,7 @@ router.get("/getproduct", (req, res) => {
     });
 });
 
+//Home recommend
 router.get("/recommendproduct", (req, res) => {
     console.log("Fetching users...");
     let sql = `SELECT * FROM Product ORDER BY quantity DESC LIMIT 3`;
@@ -136,20 +115,31 @@ router.get("/productdetail/:id", (req, res) => {
     });
 });
 
-
-
-
-router.delete("/deleteadmin/:userID", async (req, res) => {
-    const userID = req.params.userID; 
-    let sql = `DELETE FROM admin WHERE AID = ?`; 
-        connection.query(sql, [userID ], (err, result) => {
-            if (err) {
-                return res.status(500).send('Error inserting data in Modifytable');
-            }
-            res.status(200).send('Inserting data in Modifytable successfully');
-        });
+//list of product
+router.get("/adminlist", (req, res) => {
+    console.log("Fetching users...");
+    let sql = `SELECT * FROM admin`; 
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching users:", error);
+            return res.status(500).send("Error fetching users");
+        }
+        console.log(`${results.length} rows returned`);
+        res.send(results);
+    });
 });
-
+router.get("/ProductManage", (req, res) => {
+    console.log("Fetching products...");
+    let sql = `SELECT * FROM Product`;
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error("Error fetching products:", error);
+            return res.status(500).send("Error fetching products");
+        }
+        console.log(`${results.length} rows returned`);
+        res.send(results);
+    }); 
+});
 
 //Insert in Modify table 
 router.post("/insertmodifyadmin", async (req, res) => {
@@ -225,12 +215,10 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
     let action = `Delete product `;
 
     let sql = `DELETE FROM Product WHERE PID = ?`;
-    // let sql2 = `INSERT INTO ModifyProduct (PID, AID, Username, T_product, Action) VALUES ( ?, ?, ?, NOW(), ?)`;
-
+    
     try {
         await Promise.all([
-            connection.query(sql, productID),
-            // connection.query(sql2, [productID, AID, username, action])
+            connection.query(sql, productID)
         ]);
 
         console.log("Product deleted successfully from all tables");
@@ -239,6 +227,17 @@ router.delete("/deleteProduct/:productID", async (req, res) => {
         console.error("Error deleting product:", error);
         res.status(500).send("Error deleting product");
     }
+});
+
+router.delete("/deleteadmin/:userID", async (req, res) => {
+    const userID = req.params.userID; 
+    let sql = `DELETE FROM admin WHERE AID = ?`; 
+        connection.query(sql, [userID ], (err, result) => {
+            if (err) {
+                return res.status(500).send('Error inserting data in Modifytable');
+            }
+            res.status(200).send('Inserting data in Modifytable successfully');
+        });
 });
 
 //to modify
@@ -289,7 +288,6 @@ router.put("/modifyuser/:userId", async (req, res) => {
                 res.status(500).send('Error updating data');
                 return;
             }
-            
             console.log('Data updated successfully');
             res.status(200).send('Data updated successfully');
         });
