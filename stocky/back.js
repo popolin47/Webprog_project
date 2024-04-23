@@ -422,39 +422,54 @@ router.post("/AddProduct", (req, res) => {
 router.post("/searchHome", (req, res) => {
     const searchName = req.body.searchName;
     const category = req.body.category;
-    const searchcolor = req.body.searchcolor
+    const searchcolor = req.body.searchcolor;
     const size = req.body.size;
     const searchAvailable = req.body.isAvailable;
-    let sql ='SELECT * FROM Product WHERE 1=1'
 
-    if (searchName!=='') {
-        sql += ` AND P_name LIKE "%${searchName}%"`;
-      }
- 
-    if (searchcolor!=='') {
-    sql += ` AND color LIKE "${searchcolor}"`;
+    let sql ='SELECT * FROM Product WHERE 1=1';
+
+    const params = [];
+
+    if (searchName !== '') {
+        sql += ` AND P_name LIKE ?`;
+        params.push(`%${searchName}%`);
     }
 
-        if (searchAvailable === true ) {
-            sql += ' AND quantity > 0';
-        } 
-        else if (searchAvailable === false) {
-            sql += ' AND quantity = 0';
+    if (searchcolor !== '') {
+        sql += ` AND color LIKE ?`;
+        params.push(searchcolor);
+    }
+
+    if (searchAvailable === true) {
+        sql += ' AND quantity > 0';
+    } else if (searchAvailable === false) {
+        sql += ' AND quantity = 0';
+    }
+
+    if (size !== 'All') {
+        sql += ` AND size LIKE ?`;
+        params.push(size);
+    }
+
+    if (category !== 'All') {
+        sql += ` AND category LIKE ?`;
+        params.push(category);
+    }
+
+    console.log(sql);
+    
+    connection.query(sql, params, function (error, results) {
+        if (error) {
+            console.error("Error executing SQL query:", error);
+            return res.status(500).send('Internal Server Error');
         }
 
-    if (size!=='All') {
-        sql += ` AND size LIKE "${size}"`;
-    }
+        if (results.length === 0) {
+            return res.send('No results found');
+        }
 
-    if (category!=='All') {
-        sql += ` AND category LIKE "${category}"`;
-    }
-    console.log(sql);
-    connection.query( sql, function (error, results) {
-        if (error) throw error;
         console.log(`${results.length} rows returned`);
         return res.send(results);
-        
     });
 });
 
